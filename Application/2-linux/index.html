@@ -1,0 +1,2988 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="DevFrank Wiki是一个知识库整合站点">
+      
+      
+        <meta name="author" content="DevFrank">
+      
+      
+        <link rel="canonical" href="https://frankwang98.github.io/wiki/Application/2-linux/">
+      
+      
+        <link rel="prev" href="../1-qt/">
+      
+      
+        <link rel="next" href="../3-ros/">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
+    
+    
+      
+        <title>Shell - DevFrank Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linuxshell" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="DevFrank Wiki" class="md-header__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevFrank Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Shell
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/frankwang98/fankwang98_wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  简介
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Econtrol/1-stm32/" class="md-tabs__link">
+          
+  
+  语言基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1-qt/" class="md-tabs__link">
+          
+  
+  库和框架
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../AI/1-vision.md" class="md-tabs__link">
+          
+  
+  数据结构与算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Other/toolbox/" class="md-tabs__link">
+          
+  
+  工具
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  关于
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DevFrank Wiki" class="md-nav__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    DevFrank Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/frankwang98/fankwang98_wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    语言基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            语言基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Econtrol/1-stm32/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STM32
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Econtrol/2-cpp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C/CPP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Econtrol/3-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    库和框架
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            库和框架
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-qt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Shell
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Shell
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux那些事儿
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux那些事儿">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、什么是Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、Linux-Ubuntu系统安装
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、Linux-Ubuntu系统安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装说明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      国内镜像网站
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、Linux系统启动过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、Linux文件系统结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、Linux常用命令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、Linux常用软件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、Linux常用软件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      编辑器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用配置文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器人及自动驾驶开发环境
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux常见问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      远程登陆
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      nano编辑器快速配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dpkg" class="md-nav__link">
+    <span class="md-ellipsis">
+      无法获得dpkg前端锁的解决方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速关机
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快速关机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过设置默认停止超时时间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top" class="md-nav__link">
+    <span class="md-ellipsis">
+      top查看和关闭进程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      一种类似迅雷的下载器安装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境及显卡配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linuxvim" class="md-nav__link">
+    <span class="md-ellipsis">
+      【Linux】Vim的安装与环境配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux安装微信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux安装钉钉
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell脚本编程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell脚本编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、什么是shell脚本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、第一个shell脚本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、shell常用语法实践
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、shell常用语法实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell字符串
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell数组
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell注释
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell传递参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell基本运算符
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell基本运算符">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell算术运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell关系运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell布尔运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell逻辑运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell字符串运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell文件测试运算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-printf" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell printf输出
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell test测试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell流程控制
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell流程控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if_else" class="md-nav__link">
+    <span class="md-ellipsis">
+      if_else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for" class="md-nav__link">
+    <span class="md-ellipsis">
+      for
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      while
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#until" class="md-nav__link">
+    <span class="md-ellipsis">
+      until
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-easc" class="md-nav__link">
+    <span class="md-ellipsis">
+      case-easc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#break" class="md-nav__link">
+    <span class="md-ellipsis">
+      break
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell输入/输出重定向
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell文件包含/生效环境变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell应用案例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell应用案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    <span class="md-ellipsis">
+      判断是否为root用户
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      读取键盘消息
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      多窗口启动
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell参考手册
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-ros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    数据结构与算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            数据结构与算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/1-vision.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vision
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/2-pointcloud.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PointCloud
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AI/3-fusion.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fusion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    工具
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            工具
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Other/toolbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Other/study/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    资源
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关于
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux那些事儿
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux那些事儿">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、什么是Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、Linux-Ubuntu系统安装
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、Linux-Ubuntu系统安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装说明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      国内镜像网站
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、Linux系统启动过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、Linux文件系统结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、Linux常用命令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、Linux常用软件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、Linux常用软件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      编辑器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用配置文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器人及自动驾驶开发环境
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux常见问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      远程登陆
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      nano编辑器快速配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dpkg" class="md-nav__link">
+    <span class="md-ellipsis">
+      无法获得dpkg前端锁的解决方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速关机
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快速关机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过设置默认停止超时时间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top" class="md-nav__link">
+    <span class="md-ellipsis">
+      top查看和关闭进程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      一种类似迅雷的下载器安装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境及显卡配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linuxvim" class="md-nav__link">
+    <span class="md-ellipsis">
+      【Linux】Vim的安装与环境配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux安装微信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux安装钉钉
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell脚本编程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell脚本编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、什么是shell脚本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、第一个shell脚本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、shell常用语法实践
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、shell常用语法实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell字符串
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell数组
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell注释
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell传递参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell基本运算符
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell基本运算符">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell算术运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell关系运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell布尔运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell逻辑运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell字符串运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell文件测试运算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-printf" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell printf输出
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell test测试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell流程控制
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell流程控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if_else" class="md-nav__link">
+    <span class="md-ellipsis">
+      if_else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for" class="md-nav__link">
+    <span class="md-ellipsis">
+      for
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      while
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#until" class="md-nav__link">
+    <span class="md-ellipsis">
+      until
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-easc" class="md-nav__link">
+    <span class="md-ellipsis">
+      case-easc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#break" class="md-nav__link">
+    <span class="md-ellipsis">
+      break
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell输入/输出重定向
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell文件包含/生效环境变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell应用案例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell应用案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    <span class="md-ellipsis">
+      判断是否为root用户
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      读取键盘消息
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      多窗口启动
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell参考手册
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/frankwang98/fankwang98_wiki/edit/master/docs/Application/2-linux.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="linuxshell">Linux系统及Shell脚本精通</h1>
+<h2 id="linux">Linux那些事儿</h2>
+<p>Q：为什么要学习Linux？<br />
+A：IT互联网企业无论是开发还是运维都要求精通Linux，因为服务器都是跑在Linux/类Linux系统上的。<br />
+   物联网行业（包括自动驾驶）所用的开发系统也渐渐向Linux转移，因为开源、高效，最重要的是兼容性好。  </p>
+<h3 id="linux_1">一、什么是Linux</h3>
+<p>Linux 内核最初只是由芬兰人林纳斯·托瓦兹（Linus Torvalds）在赫尔辛基大学上学时出于个人爱好而编写的。<br />
+Linux 是一套免费使用和自由传播的类 Unix 操作系统，是一个基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多 CPU 的操作系统。<br />
+Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它支持 32 位和 64 位硬件，也能在 嵌入式设备（如树莓派、Jetson nano） 上安装。Linux 继承了 Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。  </p>
+<p>详细介绍参<a href="https://www.runoob.com/linux/linux-intro.html">菜鸟教程-Linux介绍</a></p>
+<h3 id="linux-ubuntu">二、Linux-Ubuntu系统安装</h3>
+<p>Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打包。  </p>
+<p>声明：后文用的是Ubuntu发行版。   </p>
+<h4 id="_1">安装说明</h4>
+<ul>
+<li>
+<p>关于虚拟机与双系统的选择问题作简要说明：</p>
+<ol>
+<li>需要多系统协同工作环境，请选择虚拟机，如做网络安全与渗透测试需要搭建的eNSP和Kali Linux+靶机</li>
+<li>需要纯净和性能较好的车辆机器人开发环境，请选择双系统，如运行Apollo/Autoware自动驾驶工具或进行GPU神经网络和深度学习等</li>
+</ol>
+</li>
+<li>
+<p>Linux（Ubuntu）安装问题</p>
+<ol>
+<li>系统的安装过程可能会有各种bug出现，提供以下推荐安装标准，其他bug请自行/讨论解决</li>
+<li>对于个人/团队开发者而言，一种最简单的安装方法如下：<ul>
+<li>下载Linux镜像文件（如Ubuntu 18.04.06LTS.iso）,使用软碟通制作镜像盘，然后电脑开机按F8进入U盘启动，进行安装流程</li>
+<li>推荐的分区方法：两个分区u即可【1./efi（系统启动分区，1-10G） 2./（其余空间都给它）】</li>
+</ul>
+</li>
+<li>安装完成后电脑重启会自动进入引导程序，选择ubuntu启动，已经预装了包括浏览器等软件，这时我们先检查一下系统情况<ul>
+<li>首先更新软件源，在软件和更新中选择清华源/中科大源</li>
+<li>安装systemback系统备份恢复工具（/README），将当前系统备份（备份的好处不多说了）</li>
+<li>可选择安装图形化软件管理工具Synaptic Package Manager</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="_2">国内镜像网站</h4>
+<ul>
+<li><a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/">tsinghua</a></li>
+<li><a href="http://mirrors.ustc.edu.cn/ubuntu-releases/">ustc</a></li>
+<li><a href="http://mirrors.zju.edu.cn/ubuntu-releases/">zju</a></li>
+<li><a href="http://mirrors.aliyun.com/ubuntu-releases/">aliyun</a></li>
+</ul>
+<h3 id="linux_2">三、Linux系统启动过程</h3>
+<p>linux启动时我们会看到许多启动信息。</p>
+<p>Linux系统的启动过程并不是大家想象中的那么复杂，其过程可以分为<strong>5个阶段</strong>：</p>
+<p>1.内核的引导
+首先电脑主板中的BIOS开机会自检硬盘中的启动设备。  </p>
+<p>操作系统接管硬件后，首先读取<code>/boot</code>目录下的内核文件。</p>
+<p>2.运行init
+init进程时系统所有进程的起点，读取的是配置文件/etc/inittab。</p>
+<p>许多程序需要开机启动。它们在Windows叫做&rdquo;服务&rdquo;（service），在Linux就叫做&rdquo;守护进程&rdquo;（daemon）。</p>
+<p>Linux允许为不同的场合，分配不同的开机启动程序，这就叫做&rdquo;运行级别&rdquo;（runlevel）。也就是说，启动时根据&rdquo;运行级别&rdquo;，确定要运行哪些程序。</p>
+<p>3.系统初始化
+在init的配置文件中有这么一行： <code>si::sysinit:/etc/rc.d/rc.sysinit</code>　</p>
+<p>它调用执行了<code>/etc/rc.d/rc.sysinit</code>，而<code>rc.sysinit</code>是一个bash shell的脚本，它主要是完成一些系统初始化的工作，rc.sysinit是每一个运行级别都要首先运行的重要脚本。</p>
+<p>它主要完成的工作有：激活交换分区，检查磁盘，加载硬件模块以及其它一些需要优先执行的任务。</p>
+<p>4.建立终端
+rc执行完毕后，返回init。这时基本系统环境已经设置好了，各种守护进程也已经启动了。</p>
+<p>init接下来会打开6个终端，以便用户登录系统。在inittab中的以下6行就是定义了6个终端：</p>
+<pre class="codehilite"><code>1:2345:respawn:/sbin/mingetty tty1
+2:2345:respawn:/sbin/mingetty tty2
+3:2345:respawn:/sbin/mingetty tty3
+4:2345:respawn:/sbin/mingetty tty4
+5:2345:respawn:/sbin/mingetty tty5
+6:2345:respawn:/sbin/mingetty tty6
+</code></pre>
+
+<p>从上面可以看出在2、3、4、5的运行级别中都将以respawn方式运行mingetty程序，mingetty程序能打开终端、设置模式。</p>
+<p>同时它会显示一个文本登录界面，这个界面就是我们经常看到的登录界面，在这个登录界面中会提示用户输入用户名，而用户输入的用户将作为参数传给login程序来验证用户的身份。</p>
+<p>5.用户登录系统
+一般来说，用户登陆方式有 3 种：
+* 命令行登录
+* ssh登录
+* 图形界面登录
+一般我们装的Ubuntu系统都是可以图形界面登录，输入安装时设置的账号密码。</p>
+<p>最后，个人PC上的Linux每天要关机，除了图形界面的关机按钮外，命令行关机有以下：
+正确的关机流程为：<code>sync &gt; shutdown / reboot / halt</code></p>
+<pre class="codehilite"><code>sync：将数据由内存同步到硬盘中，防止数据丢失（有教训）。
+
+shutdown 关机指令，你可以man shutdown 来看一下帮助文档。例如你可以运行如下命令关机：
+
+shutdown –h 10 ‘This server will shutdown after 10 mins’ 这个命令告诉大家，计算机将在10分钟后关机，并且会显示在登陆用户的当前屏幕中。
+
+shutdown –h now 立马关机
+
+shutdown –h 20:25 系统会在今天20:25关机
+
+shutdown –h +10 十分钟后关机
+
+shutdown –r now 系统立马重启
+
+shutdown –r +10 系统十分钟后重启
+
+reboot 就是重启，等同于 shutdown –r now
+
+halt 关闭系统，等同于shutdown –h now 和 poweroff
+</code></pre>
+
+<h3 id="linux_3">四、Linux文件系统结构</h3>
+<pre class="codehilite"><code>/bin：
+bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。
+
+/boot：
+这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。
+
+/dev ：
+dev 是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，在 Linux 中访问设备的方式和访问文件的方式是相同的。
+
+/etc：
+etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的系统管理所需要的配置文件和子目录。
+
+/home：
+用户的主目录，在 Linux 中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的，如上图中的 alice、bob 和 eve。
+
+/lib：
+lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。几乎所有的应用程序都需要用到这些共享库。
+
+/lost+found：
+这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。
+
+/media：
+linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。
+
+/mnt：
+系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容了。
+
+/opt：
+opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。
+
+/proc：
+proc 是 Processes(进程) 的缩写，/proc 是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。
+
+/root：
+该目录为系统管理员，也称作超级权限者的用户主目录。
+
+/sbin：
+s 就是 Super User 的意思，是 Superuser Binaries (超级用户的二进制文件) 的缩写，这里存放的是系统管理员使用的系统管理程序。
+
+/selinux：
+ 这个目录是 Redhat/CentOS 所特有的目录，Selinux 是一个安全机制，类似于 windows 的防火墙，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的。
+
+/srv：
+ 该目录存放一些服务启动之后需要提取的数据。
+
+/sys：
+
+这是 Linux2.6 内核的一个很大的变化。该目录下安装了 2.6 内核中新出现的一个文件系统 sysfs 。
+
+sysfs 文件系统集成了下面3种文件系统的信息：针对进程信息的 proc 文件系统、针对设备的 devfs 文件系统以及针对伪终端的 devpts 文件系统。
+
+该文件系统是内核设备树的一个直观反映。
+
+当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。
+
+/tmp：
+tmp 是 temporary(临时) 的缩写这个目录是用来存放一些临时文件的。
+
+/usr：
+ usr 是 unix shared resources(共享资源) 的缩写，这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于 windows 下的 program files 目录。
+
+/usr/bin：
+系统用户使用的应用程序。
+
+/usr/sbin：
+超级用户使用的比较高级的管理程序和系统守护程序。
+
+/usr/src：
+内核源代码默认的放置目录。
+
+/var：
+var 是 variable(变量) 的缩写，这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。
+
+/run：
+是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run。
+</code></pre>
+
+<h3 id="linux_4">五、Linux常用命令</h3>
+<pre class="codehilite"><code>sudo apt-get update // 软件更新
+sudo apt-get upgrade    // 软件升级
+sudo apt-get autoremove // 自动移除不必要的包
+sudo dpkg -i package_file.deb   // 安装deb套件包
+sudo dpkg -r package_name   // 反安装deb套件包
+cd、pwd、ls、mkdir、sudo、chmod、rm、mv、cp     // 文件目录操作
+ifconfig、ping       // 网络配置 
+</code></pre>
+
+<p>对于一些生僻的命令，查看这里：<a href="https://www.runoob.com/linux/linux-command-manual.html">Linux命令大全</a></p>
+<h3 id="linux_5">六、Linux常用软件</h3>
+<h4 id="_3">编辑器</h4>
+<ul>
+<li>nano/vim  // 命令行编辑器，可配置nanorc文件</li>
+<li>gedit     // 图形编辑器</li>
+<li>VSCode(code)  // 轻量化代码编辑器，可安装丰富的插件</li>
+<li>Qt        // 跨平台C++ GUI开发，也可用作C++、ROS编辑器</li>
+</ul>
+<h4 id="_4">常用配置文件</h4>
+<ul>
+<li>/etc/apt/source.list  // apt安装源设置</li>
+<li>.bashrc       // 用户环境变量</li>
+<li>启动应用程序     // 设置开机自启动</li>
+</ul>
+<h4 id="_5">常用软件</h4>
+<ul>
+<li>shutter   //截图</li>
+<li>cutecom   //串口调试工具sudo apt-get install cutecom -y</li>
+<li>iptux //即时通讯工具</li>
+<li>OBS studio    //录屏</li>
+<li>Remmina      //远程连接工具（支持RDP、SSH、VNC）</li>
+</ul>
+<h4 id="_6">机器人及自动驾驶开发环境</h4>
+<ul>
+<li>C/C++、Python编译环境（ROS安装中会自动安装）</li>
+<li>ROS Melodic（自带Opencv和PCL 1.8）</li>
+<li>Autoware（感规控和标定工具箱）</li>
+</ul>
+<h3 id="linux_6">Linux常见问题</h3>
+<h4 id="_7">远程登陆</h4>
+<ol>
+<li>ssh
+mobaxterm、xshell、putty</li>
+<li>vnc
+vino、remmina、win10</li>
+</ol>
+<h4 id="nano">nano编辑器快速配置</h4>
+<p>nano是ubuntu系统自带的编辑器，也是最容易学习上手的编辑器，但初始配置在使用起来有点不尽如人意，好在官方已经给我们留好了一些配置选项，下面就记录一下我常用的编辑器环境配置：</p>
+<p>首先，新建文件nano ~/.nanorc，输入以下配置指令:     </p>
+<pre class="codehilite"><code>set linenumbers
+set autoindent
+set mouse
+set smooth
+set tabsize 4
+</code></pre>
+
+<p>然后，进入系统变量配置文件，sudo nano /etc/nanorc，将该文件中以上几条指令前的#去掉即可；</p>
+<p>再次进入nano，行号、缩进、鼠标等就生效了。</p>
+<p>以上。</p>
+<h4 id="dpkg">无法获得dpkg前端锁的解决方法</h4>
+<p>问题：E：无法获得锁……是否有其他进程正占用它？</p>
+<p>原因：进程占用</p>
+<p>解决：在终端依次输入下面命令： </p>
+<pre class="codehilite"><code>sudo rm /var/lib/dpkg/lock
+
+sudo rm /var/lib/dpkg/lock-frontend
+
+sudo rm /var/cache/apt/archives/lock
+</code></pre>
+
+<p>然后，继续运行apt命令就正常了。</p>
+<p><a href="https://blog.csdn.net/qq_40344790/article/details/118143502">参考链接</a></p>
+<h4 id="_8">快速关机</h4>
+<h5 id="_9">通过设置默认停止超时时间</h5>
+<p>关机的默认等待时间默认为 90 秒。在这个时间之后，你的系统会尝试强制停止服务。但一般情况下，我们会想让ubuntu的关机和开机一样快，这时我们就可以修改这个时间。</p>
+<p>在位于 /etc/systemd/system.conf 的配置文件中找到所有的系统设置。该文件中包含很多以 # 开头的行，代表了文件中各条目的默认值。</p>
+<p>在开始之前，最好先复制一份原始文件。</p>
+<p><code>sudo cp /etc/systemd/system.conf /etc/systemd/system.conf.orig</code></p>
+<p>在这里找到 DefaultTimeoutStopSec，它被设置为 90 秒。</p>
+<p><code>DefaultTimeoutStopSec=90s</code>
+可以改为5s或10s。</p>
+<h5 id="top">top查看和关闭进程</h5>
+<ul>
+<li>top kill</li>
+</ul>
+<h4 id="_10">一种类似迅雷的下载器安装</h4>
+<p><a href="https://blog.csdn.net/qq_40344790/article/details/121786376?spm=1001.2014.3001.5501">原文链接</a></p>
+<h4 id="_11">环境及显卡配置</h4>
+<p><a href="https://blog.csdn.net/qq_40344790/article/details/121765107?spm=1001.2014.3001.5501">原文链接</a></p>
+<h4 id="linuxvim">【Linux】Vim的安装与环境配置</h4>
+<p><a href="https://blog.csdn.net/qq_40344790/article/details/119513112">原文链接</a></p>
+<h4 id="linux_7">Linux安装微信</h4>
+<p>最近找到一种在Ubuntu20.04用snap工具安装微信的方法，当然不是官方的产品。</p>
+<p>步骤如下：</p>
+<pre class="codehilite"><code>sudo apt install snapd snapd-xdg-open
+sudo snap install electronic-wechat
+</code></pre>
+
+<p>启动：<code>electronic-chat</code>      <br />
+虽然安装是成功了，但提示“安全原因，不能登陆”，但网上有些帐号是可以的，这就“懂的都懂”了。</p>
+<p>如果你的帐号不能使用，卸载命令如下：<code>sudo snap remove electronic-wechat</code></p>
+<h4 id="linux_8">Linux安装钉钉</h4>
+<p>相对于微信，钉钉还算国产化的好一点，支持国产CPU架构的电脑以及debian Linux。</p>
+<p>考虑到大家一般用Ubuntu比较多，这里搬运官方基于Ubuntu18.04及以上版本的安装。具体如下：</p>
+<ol>
+<li>下载链接：(当前最新版本1.3.0.20214)   <br />
+<code>https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_1.3.0.20214_amd64.deb</code></li>
+<li>下载到本地，使用dpkg命令安装   <br />
+<code>sudo dpkg -i com.alibabainc.dingtalk_1.2.0.132_amd64.deb</code></li>
+<li>钉钉卸载方法 <br />
+<code>sudo dpkg -r com.alibabainc.dingtalk</code><br />
+<code>sudo dpkg -P com.alibabainc.dingtalk</code></li>
+</ol>
+<h2 id="shell">shell脚本编程</h2>
+<p>学习Linux除了学Linux安装和基础操作外，另一个必不可少的就是shell脚本编程。</p>
+<p>大家都知道Linux系统的优点之一就是“<strong>终端命令行操作的高效和快捷！</strong>”，而Linux shell的用途就是编写自动化测试脚本，如一键安装XX软件、一键启动XX环境……</p>
+<h3 id="shell_1">一、什么是shell脚本</h3>
+<p>大家都知道linux有很多内置的终端命令，是存放在/bin目录下的，这些可以说是内置shell命令。
+Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计（脚本）语言。
+Ken Thompson 的 sh 是第一种 Unix Shell，Windows Explorer 是一个典型的图形界面 Shell。</p>
+<p>声明：以下都用bash shell，也就是 Bourne Again Shell，由于易用和免费，Bash 在日常工作中被广泛使用。同时，Bash 也是大多数Linux 系统默认的 Shell。</p>
+<h3 id="shell_2">二、第一个shell脚本</h3>
+<p>和许多编程语言一样，通过执行 Hello World 程序给大家建立学习的信心，也用来确认编译环境正常！</p>
+<pre class="codehilite"><code>#!/bin/bash
+echo &quot;Hello World !&quot;
+echo &quot;请输入你的名字：&quot;
+read name
+echo -e &quot;你好，$name！在这一天：\n&quot;`date` &quot;\n你开始学习shell了！\n我与你同在！&quot;
+</code></pre>
+
+<p>(#! 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种 Shell。)</p>
+<p>echo 命令用于向窗口输出文本。 <br />
+运行shell脚本：<br />
+<code>chmod +x ./test.sh</code>    #使脚本具有执行权限<br />
+<code>./test.sh</code>  #执行脚本</p>
+<h3 id="shell_3">三、shell常用语法实践</h3>
+<h4 id="shell_4">shell变量</h4>
+<ul>
+<li>变量</li>
+</ul>
+<pre class="codehilite"><code>#!/bin/bash
+my_name=&quot;gege&quot;
+echo $my_name
+</code></pre>
+
+<h4 id="shell_5">shell字符串</h4>
+<ul>
+<li>str</li>
+</ul>
+<pre class="codehilite"><code>#!/bin/bash
+your_name=&quot;awei&quot;
+str=&quot;Hello, I know you are \&quot;$your_name\&quot;! \n&quot;  # \&quot;是特殊转义，表示双引号
+echo -e $str    # -e 开启转义
+</code></pre>
+
+<ul>
+<li>str拼接</li>
+</ul>
+<pre class="codehilite"><code>#!/bin/bash
+your_name=&quot;awei阿伟&quot;
+my_name=&quot;dalao大佬&quot;
+# 使用双引号拼接
+greeting=&quot;hello, &quot;$your_name&quot; !&quot;
+greeting_1=&quot;hello, ${my_name} !&quot;
+echo $greeting  $greeting_1
+</code></pre>
+
+<ul>
+<li>str提取长度</li>
+</ul>
+<pre class="codehilite"><code>#!/bin/bash
+string=&quot;abcd&quot;
+echo ${#string}   # 输出 4
+#echo ${#string[0]}   # 输出 4
+</code></pre>
+
+<ul>
+<li>str提取子字符串</li>
+</ul>
+<pre class="codehilite"><code>#!/bin/bash
+string=&quot;runoob is a great site&quot;
+echo ${string:1:4} # 输出 unoo
+</code></pre>
+
+<h4 id="shell_6">shell数组</h4>
+<p>bash当前只支持一维数组，不限制数组大小。</p>
+<pre class="codehilite"><code>#!/bin/bash
+array_name=(value0 value1 value2 value3)
+echo ${array_name[@]}   # 打印所有数组变量
+echo ${array_name[1]}   # 打印特定变量
+# 取得数组元素的个数
+length=${#array_name[@]}
+echo $length
+# 取得数组单个元素的长度
+lengthn=${#array_name[n]}
+echo $lengthn
+</code></pre>
+
+<h4 id="shell_7">shell注释</h4>
+<pre class="codehilite"><code>#  单行注释
+:&lt;&lt;!
+多行注释
+!
+</code></pre>
+
+<h4 id="shell_8">shell传递参数</h4>
+<pre class="codehilite"><code>#!/bin/bash
+echo &quot;Shell 传递参数实例！&quot;;
+echo &quot;执行的文件名：$0&quot;;
+echo &quot;第一个参数为：$1&quot;;
+echo &quot;第二个参数为：$2&quot;;
+echo &quot;第三个参数为：$3&quot;;
+#-----------------------
+echo &quot;Shell 传递参数实例！&quot;;
+echo &quot;第一个参数为：$1&quot;;
+echo &quot;参数个数为：$#&quot;;
+echo &quot;传递的参数作为一个字符串显示：$*&quot;;
+</code></pre>
+
+<h4 id="shell_9">shell基本运算符</h4>
+<p>原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr 最常用。<br />
+expr 是一款表达式计算工具，使用它能完成表达式的求值操作。 
+需要注意： <br />
+表达式和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 + 2，这与我们熟悉的大多数编程语言不一样。 
+完整的表达式要被 <code></code> 包含，注意这个字符不是常用的单引号，在 Esc 键下边。       </p>
+<h5 id="shell_10">shell算术运算</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell算术运算符
+a=10
+b=20
+
+val=`expr $a + $b`
+echo &quot;a + b : $val&quot;
+
+val=`expr $a - $b`
+echo &quot;a - b : $val&quot;
+
+val=`expr $a \* $b`
+echo &quot;a * b : $val&quot;
+
+val=`expr $b / $a`
+echo &quot;b / a : $val&quot;
+
+val=`expr $b % $a`
+echo &quot;b % a : $val&quot;
+
+if [ $a == $b ]
+then
+   echo &quot;a 等于 b&quot;
+fi
+if [ $a != $b ]
+then
+   echo &quot;a 不等于 b&quot;
+fi
+</code></pre>
+
+<h5 id="shell_11">shell关系运算</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell关系运算符
+a=10
+b=20
+# 等于
+if [ $a -eq $b ]
+then
+   echo &quot;$a -eq $b : a 等于 b&quot;
+else
+   echo &quot;$a -eq $b: a 不等于 b&quot;
+fi
+# 不等于
+if [ $a -ne $b ]
+then
+   echo &quot;$a -ne $b: a 不等于 b&quot;
+else
+   echo &quot;$a -ne $b : a 等于 b&quot;
+fi
+# 左大于右
+if [ $a -gt $b ]
+then
+   echo &quot;$a -gt $b: a 大于 b&quot;
+else
+   echo &quot;$a -gt $b: a 不大于 b&quot;
+fi
+# 左小于右
+if [ $a -lt $b ]
+then
+   echo &quot;$a -lt $b: a 小于 b&quot;
+else
+   echo &quot;$a -lt $b: a 不小于 b&quot;
+fi
+# 左大于等于右
+if [ $a -ge $b ]
+then
+   echo &quot;$a -ge $b: a 大于或等于 b&quot;
+else
+   echo &quot;$a -ge $b: a 小于 b&quot;
+fi
+# 左小于等于右
+if [ $a -le $b ]
+then
+   echo &quot;$a -le $b: a 小于或等于 b&quot;
+else
+   echo &quot;$a -le $b: a 大于 b&quot;
+fi
+</code></pre>
+
+<h5 id="shell_12">shell布尔运算</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell布尔运算符
+a=10
+b=20
+
+if [ $a != $b ]
+then
+   echo &quot;$a != $b : a 不等于 b&quot;
+else
+   echo &quot;$a == $b: a 等于 b&quot;
+fi
+if [ $a -lt 100 -a $b -gt 15 ]
+then
+   echo &quot;$a 小于 100 且 $b 大于 15 : 返回 true&quot;
+else
+   echo &quot;$a 小于 100 且 $b 大于 15 : 返回 false&quot;
+fi
+if [ $a -lt 100 -o $b -gt 100 ]
+then
+   echo &quot;$a 小于 100 或 $b 大于 100 : 返回 true&quot;
+else
+   echo &quot;$a 小于 100 或 $b 大于 100 : 返回 false&quot;
+fi
+if [ $a -lt 5 -o $b -gt 100 ]
+then
+   echo &quot;$a 小于 5 或 $b 大于 100 : 返回 true&quot;
+else
+   echo &quot;$a 小于 5 或 $b 大于 100 : 返回 false&quot;
+fi
+</code></pre>
+
+<h5 id="shell_13">shell逻辑运算</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell逻辑运算符
+a=10
+b=20
+
+if [[ $a -lt 100 &amp;&amp; $b -gt 100 ]]
+then
+   echo &quot;返回 true&quot;
+else
+   echo &quot;返回 false&quot;
+fi
+
+if [[ $a -lt 100 || $b -gt 100 ]]
+then
+   echo &quot;返回 true&quot;
+else
+   echo &quot;返回 false&quot;
+fi
+</code></pre>
+
+<h5 id="shell_14">shell字符串运算</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell字符串运算符
+a=&quot;abc&quot;
+b=&quot;efg&quot;
+
+if [ $a = $b ]
+then
+   echo &quot;$a = $b : a 等于 b&quot;
+else
+   echo &quot;$a = $b: a 不等于 b&quot;
+fi
+if [ $a != $b ]
+then
+   echo &quot;$a != $b : a 不等于 b&quot;
+else
+   echo &quot;$a != $b: a 等于 b&quot;
+fi
+if [ -z $a ]
+then
+   echo &quot;-z $a : 字符串长度为 0&quot;
+else
+   echo &quot;-z $a : 字符串长度不为 0&quot;
+fi
+if [ -n &quot;$a&quot; ]
+then
+   echo &quot;-n $a : 字符串长度不为 0&quot;
+else
+   echo &quot;-n $a : 字符串长度为 0&quot;
+fi
+if [ $a ]
+then
+   echo &quot;$a : 字符串不为空&quot;
+else
+   echo &quot;$a : 字符串为空&quot;
+fi
+</code></pre>
+
+<h5 id="shell_15">shell文件测试运算</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell文件测试运算符
+file=&quot;/home/wangzf/dev/fishros/1&quot;   # 写要测试的文件
+if [ -r $file ]
+then
+   echo &quot;文件可读&quot;
+else
+   echo &quot;文件不可读&quot;
+fi
+if [ -w $file ]
+then
+   echo &quot;文件可写&quot;
+else
+   echo &quot;文件不可写&quot;
+fi
+if [ -x $file ]
+then
+   echo &quot;文件可执行&quot;
+else
+   echo &quot;文件不可执行&quot;
+fi
+if [ -f $file ]
+then
+   echo &quot;文件为普通文件&quot;
+else
+   echo &quot;文件为特殊文件&quot;
+fi
+if [ -d $file ]
+then
+   echo &quot;文件是个目录&quot;
+else
+   echo &quot;文件不是个目录&quot;
+fi
+if [ -s $file ]
+then
+   echo &quot;文件不为空&quot;
+else
+   echo &quot;文件为空&quot;
+fi
+if [ -e $file ]
+then
+   echo &quot;文件存在&quot;
+else
+   echo &quot;文件不存在&quot;
+fi
+</code></pre>
+
+<h4 id="shell-printf">shell printf输出</h4>
+<pre class="codehilite"><code>#!/bin/bash
+# shell printf输出
+# format-string为双引号
+printf &quot;%d %s\n&quot; 1 &quot;abc&quot;
+
+# 单引号与双引号效果一样
+printf '%d %s\n' 1 &quot;abc&quot;
+
+# 没有引号也可以输出
+printf %s abcdef
+
+# 格式只指定了一个参数，但多出的参数仍然会按照该格式输出，format-string 被重用
+printf %s abc def
+
+printf &quot;%s\n&quot; abc def
+
+printf &quot;%s %s %s\n&quot; a b c d e f g h i j
+
+# 如果没有 arguments，那么 %s 用NULL代替，%d 用 0 代替
+printf &quot;%s and %d \n&quot;
+</code></pre>
+
+<h4 id="shell-test">shell test测试</h4>
+<pre class="codehilite"><code>#!/bin/bash
+# shell test命令（测试更规范）
+#shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。
+# 数值
+num1=100
+num2=100
+if test $[num1] -eq $[num2] # 代码中的 [] 执行基本的算数运算
+then
+    echo '两个数相等！'
+else
+    echo '两个数不相等！'
+fi
+# 字符
+str1=&quot;ru1noob&quot;
+str2=&quot;runoob&quot;
+if test $str1 = $str2
+then
+    echo '两个字符串相等!'
+else
+    echo '两个字符串不相等!'
+fi
+# 文件
+cd ~
+if test -e ./bash
+then
+    echo '文件已存在!'
+else
+    echo '文件不存在!'
+fi
+# 另外，Shell 还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为： ! 最高， -a 次之， -o 最低。例如：
+cd ~
+if test -e ./notFile -o -e ./bash
+then
+    echo '至少有一个文件存在!'
+else
+    echo '两个文件都不存在'
+fi
+</code></pre>
+
+<h4 id="shell_16">shell流程控制</h4>
+<h5 id="if_else">if_else</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell if-else命令
+a=10
+b=20
+if [ $a == $b ]
+then
+   echo &quot;a 等于 b&quot;
+elif [ $a -gt $b ]
+then
+   echo &quot;a 大于 b&quot;
+elif [ $a -lt $b ]
+then
+   echo &quot;a 小于 b&quot;
+else
+   echo &quot;没有符合的条件&quot;
+fi
+</code></pre>
+
+<h5 id="for">for</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell for循环
+for loop in 1 2 3 4 5
+do
+    echo &quot;The value is: $loop&quot;
+done
+</code></pre>
+
+<h5 id="while">while</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell while循环
+int=1
+while(( $int&lt;=5 ))
+do
+    echo $int
+    let &quot;int++&quot;
+done
+# 以上实例使用了 Bash let 命令，它用于执行一个或多个表达式，变量计算中不需要加上 $ 来表示变量
+</code></pre>
+
+<h5 id="until">until</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell until循环
+a=0
+
+until [ ! $a -lt 10 ]
+do
+   echo $a
+   a=`expr $a + 1`
+done
+</code></pre>
+
+<h5 id="case-easc">case-easc</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell case ... esac多选择语句,;;表示break
+echo '输入 1 到 4 之间的数字:'
+echo '你输入的数字为:'
+read aNum
+case $aNum in
+    1)  echo '你选择了 1'
+    ;;
+    2)  echo '你选择了 2'
+    ;;
+    3)  echo '你选择了 3'
+    ;;
+    4)  echo '你选择了 4'
+    ;;
+    *)  echo '你没有输入 1 到 4 之间的数字'
+    ;;
+esac
+</code></pre>
+
+<h5 id="break">break</h5>
+<pre class="codehilite"><code>#!/bin/bash
+# shell break（外面一个无限循环，里面多选择+break）
+while :
+do
+    echo -n &quot;输入 1 到 5 之间的数字:&quot;
+    read aNum
+    case $aNum in
+        1|2|3|4|5) echo &quot;你输入的数字为 $aNum!&quot;
+        ;;
+        *) echo &quot;你输入的数字不是 1 到 5 之间的! 游戏结束&quot;
+            break
+        ;;
+    esac
+done
+</code></pre>
+
+<h4 id="shell_17">shell函数</h4>
+<ul>
+<li>无返回值</li>
+</ul>
+<pre class="codehilite"><code>#!/bin/bash
+# shell 函数
+demoFun(){
+    echo &quot;这是我的第一个 shell 函数!&quot;
+}
+echo &quot;-----函数开始执行-----&quot;
+demoFun
+echo &quot;-----函数执行完毕-----&quot;
+</code></pre>
+
+<ul>
+<li>有返回值</li>
+</ul>
+<pre class="codehilite"><code>#!/bin/bash
+# shell 函数
+funWithReturn(){
+    echo &quot;这个函数会对输入的两个数字进行相加运算...&quot;
+    echo &quot;输入第一个数字: &quot;
+    read aNum
+    echo &quot;输入第二个数字: &quot;
+    read anotherNum
+    echo &quot;两个数字分别为 $aNum 和 $anotherNum !&quot;
+    return $(($aNum+$anotherNum))
+}
+funWithReturn
+echo &quot;输入的两个数字之和为 $? !&quot;
+# 函数返回值在调用该函数后通过 $? 来获得。 
+</code></pre>
+
+<h4 id="shell_18">shell输入/输出重定向</h4>
+<pre class="codehilite"><code>command &gt; /dev/null # 如果希望执行某个命令，但又不希望在屏幕上显示输出结果，那么可以将输出重定向到 /dev/null，/dev/null 文件非常有用，将命令的输出重定向到它，会起到&quot;禁止输出&quot;的效果。
+command &gt; file  # 将输出重定向到 file
+command &lt; file  #将输入重定向到 file。
+command &gt;&gt; file     #将输出以追加的方式重定向到 file。
+n &gt; file    #将文件描述符为 n 的文件重定向到 file。
+n &gt;&gt; file   #将文件描述符为 n 的文件以追加的方式重定向到 file。
+n &gt;&amp; m  #将输出文件 m 和 n 合并。
+n &lt;&amp; m  #将输入文件 m 和 n 合并。
+&lt;&lt; tag  #将开始标记 tag 和结束标记 tag 之间的内容作为输入。
+# 文件描述符 0 通常是标准输入（STDIN），1 是标准输出（STDOUT），2 是标准错误输出（STDERR）。
+</code></pre>
+
+<h4 id="shell_19">shell文件包含/生效环境变量</h4>
+<pre class="codehilite"><code>source filename 或. filename   # 注意点号(.)和文件名中间有一空格
+# 生效/包含上一个文件后，第二个文件可以引用第一个文件的内容/变量
+</code></pre>
+
+<h3 id="shell_20">shell应用案例</h3>
+<h4 id="root">判断是否为root用户</h4>
+<pre class="codehilite"><code>#!/bin/bash
+if [ $UID -eq 0 ];then
+        echo &quot;the user is root&quot;
+else
+        echo &quot;the user is not root&quot;
+fi
+</code></pre>
+
+<h4 id="_12">读取键盘消息</h4>
+<pre class="codehilite"><code>#!/bin/bash
+echo '按下 &lt;CTRL-D&gt; 退出'
+echo -n '输入你最喜欢的网站名: '
+while read FILM
+do
+    echo &quot;是的！$FILM 是一个好网站&quot;
+done
+</code></pre>
+
+<h4 id="_13">多窗口启动</h4>
+<pre class="codehilite"><code>#!/bin/bash
+
+{
+gnome-terminal --title=&quot;roscore&quot; -x bash -c &quot;roscore&quot;; 
+}
+
+echo 'roscore success'
+sleep 1;
+
+{
+gnome-terminal --title=&quot;startAutoDriver&quot; -x bash -c &quot;bash startAutoDriver.sh&quot;; 
+}
+
+echo 'startAutoDriver success'
+sleep 1;
+
+{
+gnome-terminal --title=&quot;startLidarFusion&quot; -x bash -c &quot;bash startLidarFusion.sh&quot;; 
+}
+
+echo 'startLidarFusion success'
+sleep 1;
+
+{
+gnome-terminal --title=&quot;startLidars&quot; -x bash -c &quot;bash startLidars.sh&quot;; 
+}
+
+echo 'startLidars success'
+sleep 1;
+
+{
+gnome-terminal --title=&quot;startNtrip&quot; -x bash -c &quot;bash startNtrip.sh&quot;; 
+}
+
+echo 'startNtrip success'
+</code></pre>
+
+<h3 id="shell_21">shell参考手册</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 - 2024 DevFrank
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs", "navigation.instant"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+    
+  </body>
+</html>
