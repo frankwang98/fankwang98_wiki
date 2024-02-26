@@ -1,0 +1,88 @@
+# Project Information
+site_name: DevFrank Wiki
+site_description: DevFrank Wiki是一个知识库整合站点
+site_author: DevFrank
+site_url: https://frankwang98.github.io/wiki/
+repo_url: https://github.com/frankwang98/fankwang98_wiki
+strict: false
+
+# Copyright
+copyright: Copyright &copy; 2022 - 2024 DevFrank
+
+# Contents 导航栏
+nav:
+  - 简介: index.md
+  - 语言基础:
+    - STM32: ./Econtrol/1-stm32.md
+    - C/CPP: ./Econtrol/2-cpp.md
+    - Python: ./Econtrol/3-python.md
+  - 库和框架: 
+    - Qt: ./Application/1-qt.md
+    - Shell: ./Application/2-linux.md
+    - ROS: ./Application/3-ros.md
+  - 数据结构与算法: 
+    - Vision: ./AI/1-vision.md
+    - PointCloud: ./AI/2-pointcloud.md
+    - Fusion: ./AI/3-fusion.md
+  - 工具: 
+    - 工具: ./Other/toolbox.md
+    - 资源: ./Other/study.md
+  - 关于: about.md 
+
+# 主题
+# theme: material # readthedocs material darkly bootswatch
+
+# Theme
+theme:
+  name: null
+  custom_dir: 'mkdocs-material/material/templates'
+  static_templates:
+    - 404.html
+  language: 'zh'
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: red
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  include_search_page: false
+  search_index_only: true
+  favicon: 'favicon.ico'
+  icon:
+    logo: 'material/school'
+  features:
+    - content.action.edit
+    - navigation.tabs
+    - navigation.instant
+  font:
+    text: 'Fira Sans'
+    code: 'Fira Mono'
+
+# 插件
+# plugins:
+#   - search
+#   - awesome-pages
+
+plugins: []
+  
+# markdown
+markdown_extensions:
+  - smarty
+  - codehilite
+  - toc:
+      permalink: false
+  - mdx_math:
+      add_preview: true
+      enable_dollar_delimiter: true
