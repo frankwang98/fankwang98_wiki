@@ -1,0 +1,1763 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="DevFrank Wiki是一个知识库整合站点">
+      
+      
+        <meta name="author" content="DevFrank">
+      
+      
+        <link rel="canonical" href="https://frankwang98.github.io/wiki/shell_python/%E3%80%90Java%E3%80%91JDK%E5%AE%89%E8%A3%85%E5%8F%8Ajava%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80_java%20jdk/">
+      
+      
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
+    
+    
+      
+        <title>【Java】JDK安装及java语法基础 java jdk - DevFrank Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="DevFrank Wiki" class="md-header__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevFrank Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              【Java】JDK安装及java语法基础 java jdk
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  简介
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_library/jsoncpp%E5%BA%93/" class="md-tabs__link">
+          
+  
+  C++开源库和框架
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++Qt嵌入式与桌面应用
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_ros/ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++ROS机器人与自动驾驶
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++CV计算机视觉与音视频
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++GL计算机图形学与游戏
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  Shell脚本与自动化
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DevFrank Wiki" class="md-nav__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    DevFrank Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            C++基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环境配置与基础语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%80%E6%BA%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开源库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%96%87%E4%BB%B6IO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件IO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    字符串
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    智能指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并发编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            C++算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    排序算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    查找算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E5%B8%B8%E7%94%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++开源库和框架
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            C++开源库和框架
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/jsoncpp%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jsoncpp库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++Qt嵌入式与桌面应用
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            C++Qt嵌入式与桌面应用
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qt环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++ROS机器人与自动驾驶
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            C++ROS机器人与自动驾驶
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++CV计算机视觉与音视频
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            C++CV计算机视觉与音视频
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenCV环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++GL计算机图形学与游戏
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            C++GL计算机图形学与游戏
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenGL环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell脚本与自动化
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Shell脚本与自动化
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      文章目录
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-jdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. JDK安装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 第一个java程序
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 系统环境变量配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Java语法基础
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-java-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Java UI基础
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. IDEA安装与代理
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/frankwang98/wiki/edit/master/docs/shell_python/【Java】JDK安装及java语法基础_java jdk.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+  <h1>【Java】JDK安装及java语法基础 java jdk</h1>
+
+<p>一直听说Java是C++的升级和优化，却一直没用过，今天来简单学习一下。  </p>
+<h4 id="_1">文章目录</h4>
+<ul>
+<li>
+<ul>
+<li><a href="#1_JDK_2">1. JDK安装</a></li>
+<li><a href="#2_java_16">2. 第一个java程序</a></li>
+<li><a href="#3__40">3. 系统环境变量配置</a></li>
+<li><a href="#4_Java_60">4. Java语法基础</a></li>
+<li><a href="#5_Java_UI_314">5. Java UI基础</a></li>
+<li><a href="#6_IDEA_354">6. IDEA安装与代理</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="1-jdk">1. JDK安装</h3>
+<p>JDK（JavaDevelopment Kit）：是指Java开发套件，类似gcc/g++，有了它就可以编译运行java程序。</p>
+<p>JDK8好像是大家最常用的版本，这里我用的JDK17，也是一个长期支持版。<br />
+ 官网下载链接：</p>
+<blockquote>
+<p>https://www.oracle.com/java/technologies/downloads/</p>
+</blockquote>
+<p>网盘下载链接如下：</p>
+<blockquote>
+<p>链接：https://pan.baidu.com/s/1irjtM4d846FTUzmtno1EZA<br />
+ 提取码：3h53</p>
+</blockquote>
+<p>按照提示一步步安装即可。<br />
+<img alt="请添加图片描述" src="https://img-blog.csdnimg.cn/ccc2867fc08844fba54492ce120cfe21.png" /></p>
+<h3 id="2-java">2. 第一个java程序</h3>
+<p>类似C++，java的程序也有编写、编译和运行三步骤。</p>
+<p>首先，创建 HelloWorld.java 文件，写入以下程序：</p>
+<div class="codehilite"><pre><span></span><code>public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println(&quot;HelloWorld!&quot;);
+    }
+}
+</code></pre></div>
+
+<p>在此处打开 cmd ，通过 javac 命令编译程序：<br />
+<code>javac HelloWorld.java</code></p>
+<p>最后，通过 java 命令运行程序：<br />
+<code>java HelloWorld</code></p>
+<p><img alt="请添加图片描述" src="https://img-blog.csdnimg.cn/e4826f33764445dc97059c011350d6a6.png" /></p>
+<p>另外，从JDK11开始，可以支持用 java 命令直接运行Java文件了，如：<br />
+<code>java HelloWorld.java</code></p>
+<p><img alt="请添加图片描述" src="https://img-blog.csdnimg.cn/2d90293369f64e42a8327628795995ee.png" /></p>
+<h3 id="3">3. 系统环境变量配置</h3>
+<p>此处以JDK17为例，其他版本可能还需要配置CLASSPATH，在此说明。</p>
+<p>第一步：配置 JAVA_HOME 变量</p>
+<p><img alt="请添加图片描述" src="https://img-blog.csdnimg.cn/22cc8726413f4a61b34cd8a65b140b74.png" /></p>
+<p>第二步：配置 Path 变量</p>
+<p><img alt="请添加图片描述" src="https://img-blog.csdnimg.cn/074b18eb8cba419ba461e63db11aa810.png" /></p>
+<p><strong>配置完环境变量后，就可以在电脑任意位置编译运行 java 程序了，否则只能在 JDK 的安装盘内编译运行。</strong></p>
+<p>几条检查java是否安装的命令：</p>
+<div class="codehilite"><pre><span></span><code>java
+javac
+java -version
+</code></pre></div>
+
+<h3 id="4-java">4. Java语法基础</h3>
+<p>Java与C++很多方面是类似的，如下面的程序：</p>
+<div class="codehilite"><pre><span></span><code><span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">项目</span>
+ \<span class="o">*</span> <span class="n">模块</span>
+ \<span class="o">*</span> <span class="n">包</span>
+ \<span class="o">*/</span>
+<span class="n">package</span> <span class="n">test</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="p">;</span>  <span class="o">//</span> <span class="n">Java日期和时间</span>
+<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="p">;</span>  <span class="o">//</span> <span class="n">获取随机数</span>
+<span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="p">;</span>  <span class="o">//</span> <span class="n">数据输入</span>
+<span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">Java程序中最基本的单位是类</span><span class="err">；</span>
+ \<span class="o">*</span> <span class="n">类的定义</span><span class="err">：</span><span class="n">public</span> <span class="k">class</span> <span class="nc">类名</span><span class="p">{</span>
+ \<span class="o">*</span> 
+ \<span class="o">*</span> <span class="p">}</span>
+ \<span class="o">*</span> <span class="n">这是我定义的hello类</span><span class="err">；</span>
+ \<span class="o">*/</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">hello</span> <span class="p">{</span>
+    <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">main函数是程序的入口函数</span><span class="err">；</span>
+ \<span class="o">*/</span>
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">//</span> <span class="n">程序输出用</span> <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span> <span class="err">，</span><span class="s2">&quot;&quot;</span><span class="n">中的字符可以修改</span><span class="err">；</span>
+
+        <span class="o">//</span> <span class="n">打印日期和时间</span><span class="err">，</span><span class="n">初始化</span> <span class="n">Date</span> <span class="n">对象</span>
+        <span class="n">Date</span> <span class="n">date</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Date</span><span class="p">();</span>
+        <span class="o">//</span> <span class="n">使用</span> <span class="n">toString</span><span class="p">()</span> <span class="n">函数显示日期时间</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">toString</span><span class="p">());</span>
+
+        <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">调用方法示例</span>
+ \<span class="o">*/</span>
+<span class="o">//</span> <span class="n">test</span>\<span class="n">_out</span><span class="p">();</span>
+<span class="o">//</span> <span class="n">test</span>\<span class="n">_in</span><span class="p">();</span>
+<span class="o">//</span> <span class="n">test</span>\<span class="n">_structure</span><span class="p">();</span>
+<span class="o">//</span> <span class="n">test</span>\<span class="n">_dataStructure</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">定义test方法</span><span class="err">，</span><span class="n">这样就不用把长篇大论都写在main方法中</span><span class="err">；</span>
+ \<span class="o">*/</span>
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">test</span>\<span class="n">_out</span><span class="p">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;test方法&quot;</span><span class="p">);</span>
+
+        <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">常量有以下几种</span><span class="err">；</span>
+ \<span class="o">*/</span>
+        <span class="o">//</span> <span class="n">字符串常量</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;Hello World!!!&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;你好，世界!!!&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;------------&quot;</span><span class="p">);</span>
+        <span class="o">//</span> <span class="n">整数常量</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="mi">666</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="o">-</span><span class="mi">88</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;------------&quot;</span><span class="p">);</span>
+        <span class="o">//</span> <span class="n">小数常量</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="mf">13.14</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="o">-</span><span class="mf">3.14</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;------------&quot;</span><span class="p">);</span>
+        <span class="o">//</span> <span class="n">字符常量</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;------------&quot;</span><span class="p">);</span>
+        <span class="o">//</span> <span class="n">布尔常量</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="n">false</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;------------&quot;</span><span class="p">);</span>
+        <span class="o">//</span> <span class="n">空常量</span>
+        <span class="o">//</span> <span class="n">空常量是不能直接输出的</span>
+        <span class="o">//</span><span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="n">null</span><span class="p">);</span>
+
+        <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">数据类型有基本数据类型和引用数据类型</span><span class="err">；</span>
+ \<span class="o">*</span> <span class="n">基本数据类型</span><span class="err">：</span><span class="n">整型</span><span class="err">（</span><span class="n">byte</span><span class="err">、</span><span class="n">short</span><span class="err">、</span><span class="nb">int</span><span class="err">、</span><span class="n">long</span><span class="err">）、</span><span class="n">浮点型</span><span class="err">（</span><span class="nb">float</span><span class="err">、</span><span class="n">double</span><span class="err">）、</span><span class="n">字符型</span><span class="err">（</span><span class="n">char</span><span class="err">）、</span><span class="n">布尔型</span><span class="err">（</span><span class="n">boolean</span><span class="err">）</span>
+ \<span class="o">*</span> <span class="n">引用数据类型</span><span class="err">：</span><span class="n">类</span><span class="err">（</span><span class="n">class</span><span class="err">）、</span><span class="n">接口</span><span class="err">（</span><span class="n">interface</span><span class="err">）、</span><span class="n">数组</span><span class="err">（【】）</span>
+ \<span class="o">*</span> <span class="n">整数默认是int</span><span class="err">，</span><span class="n">浮点型默认是double</span><span class="err">；</span> 
+ \<span class="o">*/</span>
+
+        <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">变量</span><span class="err">：</span><span class="n">程序运行过程中</span><span class="err">，</span><span class="n">其值可以改变的量</span><span class="err">。</span>
+ \<span class="o">*</span> <span class="n">变量定义</span><span class="err">：</span><span class="n">数据类型</span><span class="o">+</span><span class="n">变量名</span><span class="o">+</span><span class="n">变量值</span>
+ \<span class="o">*</span> <span class="n">自动类型转换</span><span class="err">：</span><span class="n">范围小的变量</span><span class="err">》</span><span class="n">范围大的变量</span>
+ \<span class="o">*</span> <span class="n">强制类型转换</span><span class="err">：</span><span class="n">范围大的变量</span><span class="err">》</span><span class="n">范围小的变量</span>
+ \<span class="o">*/</span>
+        <span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="mf">8.8</span><span class="p">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;更新前的i：&quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;更新后的i：&quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;------------&quot;</span><span class="p">);</span>
+
+        <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> 
+ \<span class="o">*</span> <span class="n">有两种命名约定</span><span class="err">：</span>
+ \<span class="o">*</span> <span class="n">针对方法和变量</span><span class="err">，</span><span class="n">常采用小驼峰命名法</span><span class="err">，</span><span class="n">即首字母小写</span><span class="err">，</span><span class="n">其余单词首字母大写</span><span class="err">；</span>
+ \<span class="o">*</span> <span class="n">针对类</span><span class="err">，</span><span class="n">常采用大驼峰命名法</span><span class="err">，</span><span class="n">即单词的首字母都大写</span><span class="err">；</span>
+ \<span class="o">*/</span>
+
+       <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">算术运算符</span><span class="err">：</span><span class="o">+-</span>\<span class="o">*</span><span class="err">÷</span><span class="o">%</span>
+ \<span class="o">*</span> <span class="n">赋值运算符</span>
+ \<span class="o">*</span> <span class="n">关系运算符</span><span class="err">：</span><span class="o">==</span><span class="err">、！</span><span class="o">=</span><span class="err">、</span><span class="o">&gt;=</span><span class="err">、</span><span class="o">&lt;=</span>
+ \<span class="o">*</span> <span class="n">逻辑运算符</span><span class="err">：</span><span class="o">&amp;</span> <span class="o">|</span> <span class="err">！</span><span class="o">^</span>
+ \<span class="o">*</span> <span class="n">短路逻辑运算符</span><span class="err">：</span><span class="o">&amp;&amp;</span> <span class="o">||</span><span class="err">（</span><span class="n">作用相同</span><span class="err">，</span><span class="n">但有短路效果</span><span class="err">）</span>
+ \<span class="o">*</span> <span class="n">三元运算符</span><span class="err">：</span> <span class="n">关系表达式</span><span class="err">？</span><span class="n">表达式1</span><span class="err">：</span><span class="n">表达式2</span>
+ \<span class="o">*</span> <span class="n">字符串的</span><span class="o">+</span><span class="n">操作</span><span class="o">=</span><span class="n">拼接</span>
+ \<span class="o">*/</span>
+        <span class="nb">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="nb">int</span> <span class="nb">max</span> <span class="o">=</span> <span class="n">a</span><span class="o">&gt;</span><span class="n">b</span><span class="err">?</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;wzf&quot;</span><span class="o">+</span><span class="mi">666</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">max:&quot;</span><span class="o">+</span><span class="nb">max</span><span class="p">);</span>
+        <span class="o">//</span><span class="n">案例</span><span class="err">：</span><span class="n">比较3个和尚的最高身高</span>
+        <span class="nb">int</span> <span class="n">height1</span> <span class="o">=</span> <span class="mi">150</span><span class="p">;</span>
+        <span class="nb">int</span> <span class="n">height2</span> <span class="o">=</span> <span class="mi">165</span><span class="p">;</span>
+        <span class="nb">int</span> <span class="n">height3</span> <span class="o">=</span> <span class="mi">210</span><span class="p">;</span>
+        <span class="nb">int</span> <span class="n">tempHeight</span> <span class="o">=</span> <span class="n">height1</span> <span class="o">&gt;</span> <span class="n">height2</span> <span class="err">?</span> <span class="n">height1</span> <span class="p">:</span> <span class="n">height2</span><span class="p">;</span>
+        <span class="nb">int</span> <span class="n">maxHeight</span> <span class="o">=</span> <span class="n">tempHeight</span> <span class="o">&gt;</span> <span class="n">height3</span> <span class="err">?</span> <span class="n">tempHeight</span> <span class="p">:</span> <span class="n">height3</span><span class="p">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;maxHeight:&quot;</span> <span class="o">+</span> <span class="n">maxHeight</span><span class="p">);</span>
+
+        <span class="o">//</span><span class="n">获取随机数</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Random</span><span class="p">();</span>
+        <span class="nb">int</span> <span class="n">num_random</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">nextInt</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;随机数：&quot;</span> <span class="o">+</span> <span class="n">num_random</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">test</span>\<span class="n">_in</span><span class="p">(){</span>
+        <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">数据输入</span>
+ \<span class="o">*</span> <span class="mf">1.</span><span class="n">导入Scanner</span>
+ \<span class="o">*</span> <span class="mf">2.</span><span class="n">创建对象</span>
+ \<span class="o">*</span> <span class="mf">3.</span><span class="n">接收对象</span>
+ \<span class="o">*/</span>
+        <span class="n">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="o">.</span><span class="ow">in</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;请输入一个整数x&quot;</span><span class="p">);</span>
+        <span class="nb">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">nextInt</span><span class="p">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;x:&quot;</span> <span class="o">+</span> <span class="n">x</span><span class="p">);</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">close</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">test</span>\<span class="n">_structure</span><span class="p">(){</span>
+        <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">顺序结构</span><span class="err">：</span><span class="n">依次执行</span>
+ \<span class="o">*</span> <span class="n">条件结构</span>
+ \<span class="o">*</span> <span class="n">循环结构</span>
+ \<span class="o">*/</span>
+        <span class="o">//</span><span class="n">顺序结构</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;开始&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;语句1&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;语句2&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;结束&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;--------&quot;</span><span class="p">);</span>
+
+        <span class="o">//</span><span class="n">条件结构</span> <span class="k">if</span><span class="p">(</span><span class="n">关系表达式</span><span class="p">){</span><span class="n">结构体</span><span class="p">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;开始&quot;</span><span class="p">);</span>
+        <span class="n">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="o">.</span><span class="ow">in</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;输入小明的分数：&quot;</span><span class="p">);</span>
+        <span class="nb">int</span> <span class="n">score</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">nextInt</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">90</span> <span class="o">&amp;&amp;</span> <span class="n">score</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;山地自行车的一辆&quot;</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">80</span> <span class="o">&amp;&amp;</span> <span class="n">score</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;变形金刚一套&quot;</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">70</span> <span class="o">&amp;&amp;</span> <span class="n">score</span> <span class="o">&lt;=</span> <span class="mi">80</span><span class="p">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;胖揍一顿&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;结束&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;--------&quot;</span><span class="p">);</span>
+
+        <span class="o">//</span><span class="n">条件结构</span> <span class="n">switch</span><span class="o">-</span><span class="n">case</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;开始&quot;</span><span class="p">);</span>
+        <span class="n">Scanner</span> <span class="n">sc_week</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="o">.</span><span class="ow">in</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;输入星期数：&quot;</span><span class="p">);</span>
+        <span class="nb">int</span> <span class="n">week</span> <span class="o">=</span> <span class="n">sc_week</span><span class="o">.</span><span class="n">nextInt</span><span class="p">();</span>
+        <span class="n">switch</span> <span class="p">(</span><span class="n">week</span><span class="p">){</span>
+            <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;星期一&quot;</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;星期二&quot;</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;星期三&quot;</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;星期四&quot;</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">5</span><span class="p">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;星期五&quot;</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">6</span><span class="p">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;星期六&quot;</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;星期日&quot;</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="n">default</span><span class="p">:</span>
+                <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;输入星期数有误&quot;</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;结束&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;--------&quot;</span><span class="p">);</span>
+
+        <span class="o">//</span><span class="n">循环结构</span><span class="err">：</span><span class="n">初始化</span><span class="o">+</span><span class="n">条件判断</span><span class="o">+</span><span class="n">条件控制</span><span class="o">+</span><span class="n">循环体</span>
+        <span class="k">for</span><span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;for循环&quot;</span><span class="o">+</span> <span class="n">i</span> <span class="o">+</span><span class="s2">&quot;次&quot;</span><span class="p">);</span>
+
+        <span class="nb">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;while循环&quot;</span><span class="o">+</span> <span class="n">j</span> <span class="o">+</span><span class="s2">&quot;次&quot;</span><span class="p">);</span>
+            <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nb">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">do</span><span class="p">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;doWhile循环&quot;</span><span class="o">+</span> <span class="n">k</span> <span class="o">+</span><span class="s2">&quot;次&quot;</span><span class="p">);</span>
+            <span class="n">k</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">while</span><span class="p">(</span><span class="n">k</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">test</span>\<span class="n">_dataStructure</span><span class="p">(){</span>
+        <span class="o">/</span>\<span class="o">*</span>
+ \<span class="o">*</span> <span class="n">数组</span><span class="err">：</span><span class="n">存储相同类型数据</span>
+ \<span class="o">*</span> <span class="n">dataType</span><span class="p">[]</span> <span class="n">arrayRefVar</span><span class="p">;</span> <span class="o">//</span> <span class="n">声明数组变量</span>
+ \<span class="o">*</span> <span class="n">结构体</span><span class="err">：</span><span class="n">存储不同类型数据</span>
+ \<span class="o">*/</span>
+        <span class="nb">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+        <span class="nb">int</span><span class="p">[]</span> <span class="n">arr1</span> <span class="o">=</span> <span class="n">new</span> <span class="nb">int</span><span class="p">[</span><span class="n">size</span><span class="p">];</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">arr1</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nb">int</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">arr1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">element</span><span class="p">:</span> <span class="n">arr1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;打印所有数组：&quot;</span> <span class="o">+</span> <span class="n">element</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">println</span><span class="p">(</span><span class="s2">&quot;数组的和：&quot;</span> <span class="o">+</span> <span class="n">total</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="5-java-ui">5. Java UI基础</h3>
+<p>Swing是一个为Java设计的GUI工具包，属于Java基础类的一部分。下面通过swing做一个简单的图形界面：</p>
+<div class="codehilite"><pre><span></span><code><span class="n">package</span> <span class="n">test</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.swing.</span>\<span class="o">*</span><span class="p">;</span>
+<span class="n">public</span> <span class="k">class</span> <span class="nc">ui</span> <span class="p">{</span>
+    <span class="o">/</span>\<span class="o">*</span>\<span class="o">*</span><span class="p">{</span>
+ \<span class="o">*</span> <span class="n">创建并显示GUI</span><span class="err">。</span><span class="n">出于线程安全的考虑</span><span class="err">，</span>
+ \<span class="o">*</span> <span class="n">这个方法在事件调用线程中调用</span><span class="err">。</span>
+ \<span class="o">*/</span>
+    <span class="n">private</span> <span class="n">static</span> <span class="n">void</span> <span class="n">createAndShowGUI</span><span class="p">()</span> <span class="p">{</span>
+        <span class="o">//</span> <span class="n">确保一个漂亮的外观风格</span>
+        <span class="n">JFrame</span><span class="o">.</span><span class="n">setDefaultLookAndFeelDecorated</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
+
+        <span class="o">//</span> <span class="n">创建及设置窗口</span>
+        <span class="n">JFrame</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">new</span> <span class="n">JFrame</span><span class="p">(</span><span class="s2">&quot;HelloWorldSwing&quot;</span><span class="p">);</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">setDefaultCloseOperation</span><span class="p">(</span><span class="n">JFrame</span><span class="o">.</span><span class="n">EXIT</span>\<span class="n">_ON</span>\<span class="n">_CLOSE</span><span class="p">);</span>
+
+        <span class="o">//</span> <span class="n">添加</span> <span class="s2">&quot;Hello World&quot;</span> <span class="n">标签</span>
+        <span class="n">JLabel</span> <span class="n">label</span> <span class="o">=</span> <span class="n">new</span> <span class="n">JLabel</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">);</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">getContentPane</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">label</span><span class="p">);</span>
+
+        <span class="o">//</span> <span class="n">显示窗口</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">pack</span><span class="p">();</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">setVisible</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="o">//</span> <span class="n">显示应用</span> <span class="n">GUI</span>
+        <span class="n">javax</span><span class="o">.</span><span class="n">swing</span><span class="o">.</span><span class="n">SwingUtilities</span><span class="o">.</span><span class="n">invokeLater</span><span class="p">(</span><span class="n">new</span> <span class="n">Runnable</span><span class="p">()</span> <span class="p">{</span>
+            <span class="n">public</span> <span class="n">void</span> <span class="n">run</span><span class="p">()</span> <span class="p">{</span>
+                <span class="n">createAndShowGUI</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="6-idea">6. IDEA安装与代理</h3>
+<p>IDEA下载地址：<code>https://www.jetbrains.com/idea/download/?section=windows</code></p>
+<p>安装好后，创建新项目，JDK会自动检测（前面安装了<code>JDK17</code>），也可以自己新增。构建可选择<code>Maven</code>或者<code>Gradle</code>（这里用Maven）。</p>
+<p>Maven下载需要先设置代理：</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/d89359cbe8df4e90a72e65560859d2f3.png" /></p>
+<p>在该目录下新建<code>settings.xml</code>，写入：</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;settings</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;</span>
+<span class="w">          </span><span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+<span class="w">          </span><span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;mirrors&gt;</span>
+<span class="w">        </span><span class="cm">&lt;!-- mirror</span>
+<span class="cm">         | Specifies a repository mirror site to use instead of a given repository. The repository that</span>
+<span class="cm">         | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used</span>
+<span class="cm">         | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.</span>
+<span class="cm">         |</span>
+<span class="cm">        &lt;mirror&gt;</span>
+<span class="cm">          &lt;id&gt;mirrorId&lt;/id&gt;</span>
+<span class="cm">          &lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;</span>
+<span class="cm">          &lt;name&gt;Human Readable Name for this Mirror.&lt;/name&gt;</span>
+<span class="cm">          &lt;url&gt;http://my.repository.com/repo/path&lt;/url&gt;</span>
+<span class="cm">        &lt;/mirror&gt;</span>
+<span class="cm">         --&gt;</span>
+
+<span class="w">        </span><span class="nt">&lt;mirror&gt;</span>
+<span class="w">            </span><span class="nt">&lt;id&gt;</span>alimaven<span class="nt">&lt;/id&gt;</span>
+<span class="w">            </span><span class="nt">&lt;name&gt;</span>aliyun<span class="w"> </span>maven<span class="nt">&lt;/name&gt;</span>
+<span class="w">            </span><span class="nt">&lt;url&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="nt">&lt;/url&gt;</span>
+<span class="w">            </span><span class="nt">&lt;mirrorOf&gt;</span>central<span class="nt">&lt;/mirrorOf&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/mirror&gt;</span>
+
+<span class="w">        </span><span class="nt">&lt;mirror&gt;</span>
+<span class="w">            </span><span class="nt">&lt;id&gt;</span>uk<span class="nt">&lt;/id&gt;</span>
+<span class="w">            </span><span class="nt">&lt;mirrorOf&gt;</span>central<span class="nt">&lt;/mirrorOf&gt;</span>
+<span class="w">            </span><span class="nt">&lt;name&gt;</span>Human<span class="w"> </span>Readable<span class="w"> </span>Name<span class="w"> </span>for<span class="w"> </span>this<span class="w"> </span>Mirror.<span class="nt">&lt;/name&gt;</span>
+<span class="w">            </span><span class="nt">&lt;url&gt;</span>http://uk.maven.org/maven2/<span class="nt">&lt;/url&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/mirror&gt;</span>
+
+<span class="w">        </span><span class="nt">&lt;mirror&gt;</span>
+<span class="w">            </span><span class="nt">&lt;id&gt;</span>CN<span class="nt">&lt;/id&gt;</span>
+<span class="w">            </span><span class="nt">&lt;name&gt;</span>OSChina<span class="w"> </span>Central<span class="nt">&lt;/name&gt;</span>
+<span class="w">            </span><span class="nt">&lt;url&gt;</span>http://maven.oschina.net/content/groups/public/<span class="nt">&lt;/url&gt;</span>
+<span class="w">            </span><span class="nt">&lt;mirrorOf&gt;</span>central<span class="nt">&lt;/mirrorOf&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/mirror&gt;</span>
+
+<span class="w">        </span><span class="nt">&lt;mirror&gt;</span>
+<span class="w">            </span><span class="nt">&lt;id&gt;</span>nexus<span class="nt">&lt;/id&gt;</span>
+<span class="w">            </span><span class="nt">&lt;name&gt;</span>internal<span class="w"> </span>nexus<span class="w"> </span>repository<span class="nt">&lt;/name&gt;</span>
+<span class="w">            </span><span class="nt">&lt;url&gt;</span>http://repo.maven.apache.org/maven2<span class="nt">&lt;/url&gt;</span>
+<span class="w">            </span><span class="nt">&lt;mirrorOf&gt;</span>central<span class="nt">&lt;/mirrorOf&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/mirror&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;/mirrors&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre></div>
+
+<p>然后就可以正常下载<code>Maven</code>插件，下载好后就可以运行程序了。</p>
+<p>以上。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 - 2024 DevFrank
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs", "navigation.instant", "content.code.copy", "content.code.annotate", "navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+    
+  </body>
+</html>

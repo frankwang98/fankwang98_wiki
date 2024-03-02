@@ -1,0 +1,1891 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="DevFrank Wiki是一个知识库整合站点">
+      
+      
+        <meta name="author" content="DevFrank">
+      
+      
+        <link rel="canonical" href="https://frankwang98.github.io/wiki/cpp_library/%E3%80%90C%2B%2B%E3%80%91%E5%BC%80%E6%BA%90%EF%BC%9ABoost%E5%BA%93%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8_c%2B%2B%20boost%E5%BA%93%E9%85%8D%E7%BD%AE/">
+      
+      
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
+    
+    
+      
+        <title>【C++】开源：Boost库常用组件配置使用 c++ boost库配置 - DevFrank Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="DevFrank Wiki" class="md-header__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevFrank Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              【C++】开源：Boost库常用组件配置使用 c++ boost库配置
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  简介
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../jsoncpp%E5%BA%93/" class="md-tabs__link">
+          
+  
+  C++开源库和框架
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++Qt嵌入式与桌面应用
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_ros/ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++ROS机器人与自动驾驶
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++CV计算机视觉与音视频
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++GL计算机图形学与游戏
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../shell_python/Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  Shell脚本与自动化
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DevFrank Wiki" class="md-nav__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    DevFrank Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            C++基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环境配置与基础语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%80%E6%BA%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开源库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%96%87%E4%BB%B6IO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件IO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    字符串
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    智能指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并发编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            C++算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    排序算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    查找算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E5%B8%B8%E7%94%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++开源库和框架
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            C++开源库和框架
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsoncpp%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jsoncpp库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++Qt嵌入式与桌面应用
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            C++Qt嵌入式与桌面应用
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qt环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++ROS机器人与自动驾驶
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            C++ROS机器人与自动驾驶
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++CV计算机视觉与音视频
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            C++CV计算机视觉与音视频
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenCV环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++GL计算机图形学与游戏
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            C++GL计算机图形学与游戏
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenGL环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell脚本与自动化
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Shell脚本与自动化
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../shell_python/Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      文章目录
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      😏1. 项目介绍
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="😏1. 项目介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boostthread" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Thread特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boostserialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Serialization特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boostmath" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Math特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boosttime" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Time特性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boostgeometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Geometry几何计算库特性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      😊2. 环境配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      😆3. 使用说明
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="😆3. 使用说明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boostthread_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Thread使用示例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boostserialization_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Serialization使用示例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boostmath_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Math使用示例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boosttime_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Time使用示例
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boostgeometry_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Boost.Geometry使用示例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/frankwang98/wiki/edit/master/docs/cpp_library/【C++】开源：Boost库常用组件配置使用_c++ boost库配置.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+  <h1>【C++】开源：Boost库常用组件配置使用 c++ boost库配置</h1>
+
+<blockquote>
+<p>😏<em>★,°</em>:.☆(￣▽￣)/$:<em>.°★</em> 😏<br />
+ 这篇文章主要介绍Boost库常用组件配置使用。<br />
+<strong>无专精则不能成，无涉猎则不能通。——梁启超</strong><br />
+ 欢迎来到我的博客，一起学习，共同进步。<br />
+ 喜欢的朋友可以关注一下，下次更新不迷路🥞</p>
+</blockquote>
+<h4 id="_1">文章目录</h4>
+<ul>
+<li>
+<ul>
+<li><a href="#smirk1__7">:smirk:1. 项目介绍</a></li>
+<li>
+<ul>
+<li><a href="#BoostThread_32">Boost.Thread特性</a></li>
+<li><a href="#BoostSerialization_44">Boost.Serialization特性</a></li>
+<li><a href="#BoostMath_52">Boost.Math特性</a></li>
+<li><a href="#BoostTime_61">Boost.Time特性</a></li>
+<li><a href="#BoostGeometry_66">Boost.Geometry几何计算库特性</a></li>
+</ul>
+</li>
+<li><a href="#blush2__72">:blush:2. 环境配置</a></li>
+<li><a href="#satisfied3__92">:satisfied:3. 使用说明</a></li>
+<li>
+<ul>
+<li><a href="#BoostThread_95">Boost.Thread使用示例</a></li>
+<li><a href="#BoostSerialization_135">Boost.Serialization使用示例</a></li>
+<li><a href="#BoostMath_201">Boost.Math使用示例</a></li>
+<li><a href="#BoostTime_228">Boost.Time使用示例</a></li>
+<li><a href="#BoostGeometry_293">Boost.Geometry使用示例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1">😏1. 项目介绍</h3>
+<p>项目Github地址：<code>https://github.com/boostorg/boost</code></p>
+<p>Boost库在线书籍：<code>https://wizardforcel.gitbooks.io/the-boost-cpp-libraries/content/0.html</code></p>
+<p>Boost是一个流行的、开源的C++库集合，提供了各种功能强大的库和工具，扩展了C++语言的能力，并为开发者提供了更高级别的抽象和工具。Boost库经过广泛的使用和测试，被认为是C++社区的事实标准之一。</p>
+<p>Boost库包含了多个模块，每个模块都提供了不同领域的功能和工具，覆盖了诸如字符串操作、数据结构、算法、日期时间处理、文件系统、线程、网络、正则表达式等各个方面。以下是一些常用的Boost库：</p>
+<blockquote>
+<p>1.Boost.Asio：提供了异步I/O操作的网络编程库，支持TCP、UDP、串口等网络协议。</p>
+<p>2.Boost.Smart_Ptr：提供了智能指针类，如shared_ptr和weak_ptr，用于方便地进行内存管理。</p>
+<p>3.Boost.Filesystem：提供了对文件系统的访问和操作，包括文件和目录的创建、删除、遍历等。</p>
+<p>4.Boost.Regex：提供了正则表达式的功能，用于进行文本匹配和搜索操作。</p>
+<p>5.Boost.Thread：提供了跨平台的多线程编程接口，简化了线程的创建、同步和通信等操作。</p>
+<p>6.Boost.Serialization：提供了对象的序列化和反序列化功能，可以将对象以二进制或XML格式进行存储和传输。</p>
+</blockquote>
+<p>除了以上列举的库之外，Boost还包含了许多其他功能丰富的库，如Boost.Math用于数学计算、Boost.Graph用于图论算法、Boost.Test用于单元测试等。Boost库通常以头文件方式提供，使用Boost只需包含相应的头文件，并链接对应的库文件。</p>
+<p>Boost库的目标是提供高质量和高可移植性的C++代码，因此它的代码质量很高，并且支持各种主流操作系统和编译器。Boost库的开发是一个开放的社区驱动过程，接受用户的反馈和贡献，并定期发布新版本。</p>
+<h4 id="boostthread">Boost.Thread特性</h4>
+<blockquote>
+<p>线程管理：Boost.Thread可以创建、启动、停止和管理线程。它提供了线程对象（boost::thread）来表示一个线程，并提供了一些类似于启动线程、等待线程结束、检查线程状态等方法。</p>
+<p>互斥锁和条件变量：Boost.Thread 提供了互斥锁和条件变量等同步原语，用于实现线程之间的互斥和同步。互斥锁可以保护共享资源的访问，条件变量可以实现线程之间的等待和通知机制。</p>
+<p>线程间数据共享：Boost.Thread提供了一些线程间数据共享的机制，如原子操作、线程局部存储等，可以保证在多线程环境下的数据访问的正确性和一致性。</p>
+<p>线程间通信：Boost.Thread 还提供了一些线程间通信的机制，如消息队列、信号量等，可以实现线程之间的信息传递和同步。</p>
+<p>并发算法：Boost.Thread 还提供了一些并发算法，如并行循环（parallel loop）、并行排序（parallel sort）等，可以在多核处理器上有效地执行并行计算任务。</p>
+</blockquote>
+<h4 id="boostserialization">Boost.Serialization特性</h4>
+<blockquote>
+<p>序列化：Boost.Serialization 可以将对象序列化为字节流。通过使用 boost::serialization 命名空间中的 &lt;&lt; 运算符，您可以将对象写入输出流中。<br />
+ 反序列化：Boost.Serialization 可以从字节流反序列化对象。通过使用 boost::serialization 命名空间中的 &gt;&gt; 运算符，您可以从输入流中读取字节并重建对象。<br />
+ 版本控制：Boost.Serialization 支持版本控制，可以在不同版本之间进行对象的序列化和反序列化。这使得改变对象的结构时可以进行向前和向后兼容。<br />
+ 对象关联：Boost.Serialization 能够正确地处理对象之间的关联关系和引用。当序列化一个对象时，被引用的对象也会被自动序列化，并在反序列化时进行恢复。<br />
+ 自定义扩展：Boost.Serialization 允许开发者对自定义类型进行扩展和适配，以支持序列化和反序列化操作。通过为自定义类型添加 serialize 函数，可以指定如何将对象转换为字节流和从字节流中恢复。</p>
+</blockquote>
+<h4 id="boostmath">Boost.Math特性</h4>
+<blockquote>
+<p>数字运算：Boost.Math 提供了大量的数学函数，例如幂函数、指数函数、对数函数、三角函数、双曲函数等。这些函数支持各种数据类型，包括整数、浮点数和复数，并且具有高精度和高效率。<br />
+ 特殊函数：Boost.Math 实现了许多特殊函数，如伽玛函数、贝塞尔函数、椭圆积分、误差函数和球贝塞尔函数等。这些函数在科学计算、信号处理、概率统计和物理建模等领域中具有广泛的应用。<br />
+ 数值常量：Boost.Math 提供了许多常用的数学常量，如圆周率 π、自然对数底 e、黄金比例 φ 等。这些常量可以直接在代码中使用，而无需手动输入。<br />
+ 概率分布：Boost.Math 实现了各种概率分布函数和随机数生成器，如正态分布、均匀分布、泊松分布和二项分布等。这些函数和生成器可用于模拟实验、数据分析和统计推断等应用场景。<br />
+ 统计算法：Boost.Math 包含一些统计计算的算法，如平均值、标准差、方差、协方差和相关系数等。这些算法可以用于描述和分析数据集的统计特性。<br />
+ 几何计算：Boost.Math 提供了一些用于几何计算的函数和类，如点、向量、矩阵、线段、射线和多边形等。这些工具可以用于解决几何问题，如交点计算、距离计算和形状检测等。</p>
+</blockquote>
+<h4 id="boosttime">Boost.Time特性</h4>
+<blockquote>
+<p>boost::posix_time：提供了对时间点和时间间隔进行操作的类和函数。它支持高精度的时间表示，并提供了各种算术和比较运算符，以及格式化和解析时间的能力。<br />
+ boost::gregorian：提供了对 Gregorian 阳历日期进行操作的类和函数。它支持日期的算术和比较运算符，以及格式化和解析日期的能力。它还提供了一些有用的函数，如计算某个日期的下一个工作日、计算某个月份的天数等。<br />
+ boost::date_time：提供了一个更高级的日期和时间处理框架，可以处理多种不同的日历系统、时区和时间精度。它建立在 boost::posix_time 和 boost::gregorian 的基础上，提供了更丰富的功能。例如，它支持多种不同的日历系统，如 Julian 日历、季节日历等；支持多种不同的时区表示和转换；还提供了更复杂的日期和时间算法，如计算某个日期之前或之后的工作日，计算某个日期所在的周是当年的第几周等。</p>
+</blockquote>
+<h4 id="boostgeometry">Boost.Geometry几何计算库特性</h4>
+<blockquote>
+<p>几何数据模型：Boost.Geometry 定义了一套通用的几何数据模型，包括点、线、多边形等。这个数据模型可以适用于二维和三维空间，并支持不同的几何类型。<br />
+ 几何算法：Boost.Geometry 提供了许多几何算法，包括距离计算、相交检测、包围盒计算、缓冲区计算等。这些算法可以应用于几何对象上，以解决各种几何问题。<br />
+ 几何运算：Boost.Geometry 支持各种几何运算，如交集、并集、差集、对称差集等。这些运算可以用于组合和修改几何对象。<br />
+ 空间索引：Boost.Geometry 提供了一些空间索引数据结构，如 R-tree 和 Quadtree，用于高效地进行空间查询和搜索。<br />
+ 输入/输出支持：Boost.Geometry 支持各种几何数据格式的输入和输出，包括 WKT (Well-Known Text)、WKB (Well-Known Binary) 等。这使得与其他几何库和工具进行数据交换变得更加容易。</p>
+</blockquote>
+<h3 id="2">😊2. 环境配置</h3>
+<p>下面进行环境配置：</p>
+<div class="codehilite"><pre><span></span><code># apt安装常用模块
+sudo apt-get install libboost-dev
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="gh">#</span> Boost.Geometry只在boost1.75以上支持
+wget https://dl.bintray.com/boostorg/release/1.76.0/source/boost_1_76_0.tar.gz
+tar -xzvf boost_1_76_0.tar.gz
+cd boost_1_76_0
+./bootstrap.sh --prefix=/usr/local
+sudo ./b2 install
+sudo apt install libboost-all-dev
+<span class="gh">#</span> 验证高版本安装
+ls /usr/local/include/boost/geometry/
+</code></pre></div>
+
+<h3 id="3">😆3. 使用说明</h3>
+<p>下面进行使用分析：</p>
+<h4 id="boostthread_1">Boost.Thread使用示例</h4>
+<p>创建线程示例：</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/thread.hpp&gt;</span>
+
+<span class="c1">// 线程函数</span>
+<span class="kr">void</span><span class="w"> </span><span class="nf">threadFunction</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 输出线程相关信息</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Thread ID: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="nf">get</span><span class="err">\</span><span class="n">_id</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello from a thread!&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 创建线程并启动</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="kr">thread</span><span class="w"> </span><span class="n">threadObj</span><span class="p">(</span><span class="n">threadFunction</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 多个线程类似</span>
+
+<span class="w">    </span><span class="c1">// 等待线程结束</span>
+<span class="w">    </span><span class="n">threadObj</span><span class="p">.</span><span class="n">join</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// 输出主线程相关信息</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Thread ID: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="nf">get</span><span class="err">\</span><span class="n">_id</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Main thread exiting...&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>编译运行：</p>
+<div class="codehilite"><pre><span></span><code>g++ -o main main.cpp -lboost\_thread -lpthread
+./main
+Thread ID: 7f65d8552700
+Hello from a thread!
+Thread ID: 7f65d8553740
+Main thread exiting...
+</code></pre></div>
+
+<h4 id="boostserialization_1">Boost.Serialization使用示例</h4>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/archive/text\_oarchive.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/archive/text\_iarchive.hpp&gt;</span>
+
+<span class="c1">// 要进行序列化和反序列化的示例类</span>
+<span class="kr">class</span><span class="w"> </span><span class="nc">MyClass</span>
+<span class="p">{</span>
+<span class="kr">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kr">int</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">double</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kr">string</span><span class="w"> </span><span class="n">str</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 声明 Boost 序列化函数为友元函数</span>
+<span class="w">    </span><span class="kr">friend</span><span class="w"> </span><span class="kr">class</span><span class="w"> </span><span class="nc">boost</span><span class="o">::</span><span class="n">serialization</span><span class="o">::</span><span class="n">access</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// Boost 序列化函数（将对象转换为字节流）</span>
+<span class="w">    </span><span class="n">template</span><span class="o">&lt;</span><span class="kr">class</span><span class="w"> </span><span class="nc">Archive</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="kr">void</span><span class="w"> </span><span class="n">serialize</span><span class="p">(</span><span class="n">Archive</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ar</span><span class="p">,</span><span class="w"> </span><span class="kr">const</span><span class="w"> </span><span class="kr">unsigned</span><span class="w"> </span><span class="kr">int</span><span class="w"> </span><span class="n">version</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ar</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ar</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="w">        </span><span class="n">ar</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">str</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kr">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 创建一个 MyClass 对象并设置数据</span>
+<span class="w">    </span><span class="n">MyClass</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span>
+<span class="w">    </span><span class="n">obj</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
+<span class="w">    </span><span class="n">obj</span><span class="p">.</span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.005</span><span class="p">;</span>
+<span class="w">    </span><span class="n">obj</span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello&quot;</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 将对象序列化到文件</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="n">outputFile</span><span class="p">(</span><span class="s">&quot;data.txt&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">text_oarchive</span><span class="w"> </span><span class="n">outputArchive</span><span class="p">(</span><span class="n">outputFile</span><span class="p">);</span>
+<span class="w">    </span><span class="n">outputArchive</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span>
+<span class="w">    </span><span class="n">outputFile</span><span class="p">.</span><span class="nf">close</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// 从文件中反序列化对象</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span><span class="w"> </span><span class="n">inputFile</span><span class="p">(</span><span class="s">&quot;data.txt&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">archive</span><span class="o">::</span><span class="n">text_iarchive</span><span class="w"> </span><span class="n">inputArchive</span><span class="p">(</span><span class="n">inputFile</span><span class="p">);</span>
+<span class="w">    </span><span class="n">MyClass</span><span class="w"> </span><span class="n">restoredObj</span><span class="p">;</span>
+<span class="w">    </span><span class="n">inputArchive</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">restoredObj</span><span class="p">;</span>
+<span class="w">    </span><span class="n">inputFile</span><span class="p">.</span><span class="nf">close</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// 输出反序列化后的对象数据</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Restored data: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">restoredObj</span><span class="p">.</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Restored d: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">restoredObj</span><span class="p">.</span><span class="n">d</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Restored str: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">restoredObj</span><span class="p">.</span><span class="n">str</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>编译运行：</p>
+<div class="codehilite"><pre><span></span><code>g++ -o main main.cpp -lboost\_serialization &amp;&amp; ./main
+Restored data: 42
+Restored d: 1.005
+Restored str: hello
+</code></pre></div>
+
+<h4 id="boostmath_1">Boost.Math使用示例</h4>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/math/constants/constants.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/math/special\_functions/bessel.hpp&gt;</span>
+
+<span class="kr">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 计算圆周率</span>
+<span class="w">    </span><span class="kr">double</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">constants</span><span class="o">::</span><span class="n">pi</span><span class="o">&lt;</span><span class="kr">double</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Pi: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 贝塞尔函数</span>
+<span class="w">    </span><span class="kr">double</span><span class="w"> </span><span class="n">besselJ0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">math</span><span class="o">::</span><span class="n">cyl</span><span class="err">\</span><span class="n">_bessel</span><span class="err">\</span><span class="n">_j</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Bessel J0(2.0): &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">besselJ0</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>编译运行：</p>
+<div class="codehilite"><pre><span></span><code>g++ -o main main.cpp -lboost\_math\_c99 -lboost\_math\_c99f &amp;&amp; ./main
+Pi: 3.14159
+Bessel J0(2.0): 0.223891
+</code></pre></div>
+
+<h4 id="boosttime_1">Boost.Time使用示例</h4>
+<div class="codehilite"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/date\_time/posix\_time/posix\_time.hpp&gt;</span>
+
+<span class="kr">long</span><span class="w"> </span><span class="nf">GetTime</span><span class="p">();</span>
+
+<span class="kr">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 获取当前系统时间</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">ptime</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">second_clock</span><span class="o">::</span><span class="n">local</span><span class="err">\</span><span class="n">_time</span><span class="p">();</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Current system time: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 格式化输出当前系统时间</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kr">string</span><span class="w"> </span><span class="n">formattedTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">to</span><span class="err">\</span><span class="n">_simple</span><span class="err">\</span><span class="n">_string</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Formatted current system time: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">formattedTime</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 日期增减</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">ptime</span><span class="w"> </span><span class="n">tomorrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">gregorian</span><span class="o">::</span><span class="n">days</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Tomorrow: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">tomorrow</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 时间增减</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">ptime</span><span class="w"> </span><span class="n">nextHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">hours</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Next hour: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">nextHour</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 时间差计算</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">time_duration</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextHour</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">now</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Difference between now and next hour: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">diff</span><span class="p">.</span><span class="n">total</span><span class="err">\</span><span class="n">_seconds</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; seconds&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 获取当前系统时间，精确到毫秒</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">ptime</span><span class="w"> </span><span class="n">now_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">microsec_clock</span><span class="o">::</span><span class="n">local</span><span class="err">\</span><span class="n">_time</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// 将时间转换为毫秒</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">time_duration</span><span class="w"> </span><span class="n">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now_ms</span><span class="p">.</span><span class="n">time</span><span class="err">\</span><span class="n">_of</span><span class="err">\</span><span class="n">_day</span><span class="p">();</span>
+<span class="w">    </span><span class="kr">long</span><span class="w"> </span><span class="n">milliseconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">duration</span><span class="p">.</span><span class="n">total</span><span class="err">\</span><span class="n">_milliseconds</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// 输出毫秒级时间</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Current system milliseconds: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">milliseconds</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kr">long</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetTime</span><span class="p">();</span>
+<span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="w">    </span><span class="kr">long</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetTime</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// 输出时间差</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;This program cost: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">long</span><span class="w"> </span><span class="nf">GetTime</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">ptime</span><span class="w"> </span><span class="n">now_ms</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">microsec_clock</span><span class="o">::</span><span class="n">local</span><span class="err">\</span><span class="n">_time</span><span class="p">();</span>
+<span class="w">    </span><span class="n">boost</span><span class="o">::</span><span class="n">posix_time</span><span class="o">::</span><span class="n">time_duration</span><span class="w"> </span><span class="n">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">now_ms</span><span class="p">.</span><span class="n">time</span><span class="err">\</span><span class="n">_of</span><span class="err">\</span><span class="n">_day</span><span class="p">();</span>
+<span class="w">    </span><span class="kr">long</span><span class="w"> </span><span class="n">milliseconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">duration</span><span class="p">.</span><span class="n">total</span><span class="err">\</span><span class="n">_milliseconds</span><span class="p">();</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">milliseconds</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>编译运行：</p>
+<div class="codehilite"><pre><span></span><code>g++ -o main main.cpp -lboost\_date\_time &amp;&amp; ./main
+28 16:52:31
+Tomorrow: 2023-Jul-29 16:52:31
+Next hour: 2023-Jul-28 17:52:31
+Difference between now and next hour: 3600 seconds
+Current system milliseconds: 60751420
+This program cost: 1000
+</code></pre></div>
+
+<h4 id="boostgeometry_1">Boost.Geometry使用示例</h4>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 计算两点间距离 -lboost\_system -lboost\_geometry</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry/geometries/register/point.hpp&gt;</span>
+
+<span class="n">namespace</span><span class="w"> </span><span class="nn">bg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">boost</span><span class="o">::</span><span class="nn">geometry</span><span class="p">;</span>
+
+<span class="c1">// 定义一个 Point 结构体，并注册为 Boost.Geometry 的点类型</span>
+<span class="kr">struct</span><span class="w"> </span><span class="nc">Point</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kr">double</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">BOOST</span><span class="err">\</span><span class="n">_GEOMETRY</span><span class="err">\</span><span class="n">_REGISTER</span><span class="err">\</span><span class="n">_POINT</span><span class="err">\</span><span class="n">_2D</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span><span class="w"> </span><span class="kr">double</span><span class="p">,</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">cs</span><span class="o">::</span><span class="n">cartesian</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span>
+
+<span class="kr">int</span><span class="w"> </span><span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 创建两个点</span>
+<span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">p1</span><span class="p">{</span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">};</span>
+<span class="w">    </span><span class="n">Point</span><span class="w"> </span><span class="n">p2</span><span class="p">{</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">};</span>
+
+<span class="w">    </span><span class="c1">// 计算两个点之间的欧几里得距离</span>
+<span class="w">    </span><span class="kr">double</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">distance</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">p2</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Distance between points: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1">// 点集转线</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry/geometries/point\_xy.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry/geometries/linestring.hpp&gt;</span>
+
+<span class="n">namespace</span><span class="w"> </span><span class="nn">bg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">boost</span><span class="o">::</span><span class="nn">geometry</span><span class="p">;</span>
+
+<span class="kr">typedef</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">d2</span><span class="o">::</span><span class="n">point_xy</span><span class="o">&lt;</span><span class="kr">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Point</span><span class="p">;</span>
+<span class="kr">typedef</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">linestring</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">LineString</span><span class="p">;</span>
+
+<span class="kr">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 创建点集</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">points</span><span class="p">;</span>
+<span class="w">    </span><span class="n">points</span><span class="p">.</span><span class="n">push</span><span class="err">\</span><span class="n">_back</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<span class="w">    </span><span class="n">points</span><span class="p">.</span><span class="n">push</span><span class="err">\</span><span class="n">_back</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">    </span><span class="n">points</span><span class="p">.</span><span class="n">push</span><span class="err">\</span><span class="n">_back</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
+<span class="w">    </span><span class="n">points</span><span class="p">.</span><span class="n">push</span><span class="err">\</span><span class="n">_back</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// 将点集转换为线</span>
+<span class="w">    </span><span class="n">LineString</span><span class="w"> </span><span class="nf">line</span><span class="p">;</span>
+<span class="w">    </span><span class="n">bg</span><span class="o">::</span><span class="n">assign</span><span class="err">\</span><span class="n">_points</span><span class="p">(</span><span class="nf">line</span><span class="p">,</span><span class="w"> </span><span class="n">points</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 输出线的坐标</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Line coordinates: &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kr">auto</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="nf">begin</span><span class="p">(</span><span class="nf">line</span><span class="p">);</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">boost</span><span class="o">::</span><span class="nf">end</span><span class="p">(</span><span class="nf">line</span><span class="p">);</span><span class="w"> </span><span class="o">++</span><span class="n">it</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="nf">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="err">\</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="nf">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="err">\</span><span class="o">*</span><span class="n">it</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1">// 面要素转线要素</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry/geometries/polygon.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry/geometries/linestring.hpp&gt;</span>
+
+<span class="n">namespace</span><span class="w"> </span><span class="nn">bg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">boost</span><span class="o">::</span><span class="nn">geometry</span><span class="p">;</span>
+
+<span class="kr">typedef</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">polygon</span><span class="o">&lt;</span><span class="n">bg</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">d2</span><span class="o">::</span><span class="n">point_xy</span><span class="o">&lt;</span><span class="kr">double</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">Polygon</span><span class="p">;</span>
+<span class="kr">typedef</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">linestring</span><span class="o">&lt;</span><span class="n">bg</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">d2</span><span class="o">::</span><span class="n">point_xy</span><span class="o">&lt;</span><span class="kr">double</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">LineString</span><span class="p">;</span>
+
+<span class="kr">void</span><span class="w"> </span><span class="nf">polygonToLineString</span><span class="p">(</span><span class="kr">const</span><span class="w"> </span><span class="n">Polygon</span><span class="o">&amp;</span><span class="w"> </span><span class="n">polygon</span><span class="p">,</span><span class="w"> </span><span class="n">LineString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lineString</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kr">const</span><span class="w"> </span><span class="kr">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">outerRing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">exterior</span><span class="err">\</span><span class="n">_ring</span><span class="p">(</span><span class="n">polygon</span><span class="p">);</span>
+<span class="w">    </span><span class="n">bg</span><span class="o">::</span><span class="n">append</span><span class="p">(</span><span class="n">lineString</span><span class="p">,</span><span class="w"> </span><span class="n">outerRing</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kr">const</span><span class="w"> </span><span class="kr">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">innerRing</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">interior</span><span class="err">\</span><span class="n">_rings</span><span class="p">(</span><span class="n">polygon</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">bg</span><span class="o">::</span><span class="n">append</span><span class="p">(</span><span class="n">lineString</span><span class="p">,</span><span class="w"> </span><span class="n">innerRing</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 创建一个多边形</span>
+<span class="w">    </span><span class="n">Polygon</span><span class="w"> </span><span class="n">polygon</span><span class="p">;</span>
+<span class="w">    </span><span class="n">bg</span><span class="o">::</span><span class="nf">read</span><span class="err">\</span><span class="n">_wkt</span><span class="p">(</span><span class="s">&quot;POLYGON((0 0,0 10,10 10,10 0,0 0),(2 2,2 8,8 8,8 2,2 2))&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">polygon</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 将多边形转换为线</span>
+<span class="w">    </span><span class="n">LineString</span><span class="w"> </span><span class="n">lineString</span><span class="p">;</span>
+<span class="w">    </span><span class="n">polygonToLineString</span><span class="p">(</span><span class="n">polygon</span><span class="p">,</span><span class="w"> </span><span class="n">lineString</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 输出线上的点</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Line points: &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kr">const</span><span class="w"> </span><span class="kr">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">point</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">lineString</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;(&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="nf">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="nf">point</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="nf">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="nf">point</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;), &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1">// 线要素转点要素</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry/geometries/point.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;boost/geometry/geometries/linestring.hpp&gt;</span>
+
+<span class="n">namespace</span><span class="w"> </span><span class="nn">bg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">boost</span><span class="o">::</span><span class="nn">geometry</span><span class="p">;</span>
+
+<span class="kr">typedef</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="nf">point</span><span class="o">&lt;</span><span class="kr">double</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">cs</span><span class="o">::</span><span class="n">cartesian</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Point</span><span class="p">;</span>
+<span class="kr">typedef</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="n">model</span><span class="o">::</span><span class="n">linestring</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">LineString</span><span class="p">;</span>
+
+<span class="kr">void</span><span class="w"> </span><span class="nf">lineStringToPoints</span><span class="p">(</span><span class="kr">const</span><span class="w"> </span><span class="n">LineString</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lineString</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">points</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kr">const</span><span class="w"> </span><span class="kr">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">point</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">lineString</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">points</span><span class="p">.</span><span class="n">push</span><span class="err">\</span><span class="n">_back</span><span class="p">(</span><span class="nf">point</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 创建一个线要素</span>
+<span class="w">    </span><span class="n">LineString</span><span class="w"> </span><span class="n">lineString</span><span class="p">;</span>
+<span class="w">    </span><span class="n">lineString</span><span class="p">.</span><span class="n">push</span><span class="err">\</span><span class="n">_back</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<span class="w">    </span><span class="n">lineString</span><span class="p">.</span><span class="n">push</span><span class="err">\</span><span class="n">_back</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">    </span><span class="n">lineString</span><span class="p">.</span><span class="n">push</span><span class="err">\</span><span class="n">_back</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">));</span>
+
+<span class="w">    </span><span class="c1">// 将线要素转换为点</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">points</span><span class="p">;</span>
+<span class="w">    </span><span class="n">lineStringToPoints</span><span class="p">(</span><span class="n">lineString</span><span class="p">,</span><span class="w"> </span><span class="n">points</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// 输出点的坐标</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Point coordinates: &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kr">const</span><span class="w"> </span><span class="kr">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="nf">point</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">points</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;(&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="nf">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="nf">point</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">bg</span><span class="o">::</span><span class="nf">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="nf">point</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;), &quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/6cbcd6c17cec4dba9bb3c0f895f02fa2.png" /></p>
+<p>以上。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 - 2024 DevFrank
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs", "navigation.instant", "content.code.copy", "content.code.annotate", "navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+    
+  </body>
+</html>

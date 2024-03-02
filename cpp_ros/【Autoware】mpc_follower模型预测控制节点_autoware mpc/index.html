@@ -1,0 +1,1549 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="DevFrank Wiki是一个知识库整合站点">
+      
+      
+        <meta name="author" content="DevFrank">
+      
+      
+        <link rel="canonical" href="https://frankwang98.github.io/wiki/cpp_ros/%E3%80%90Autoware%E3%80%91mpc_follower%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9_autoware%20mpc/">
+      
+      
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
+    
+    
+      
+        <title>【Autoware】mpc follower模型预测控制节点 autoware mpc - DevFrank Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="DevFrank Wiki" class="md-header__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevFrank Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              【Autoware】mpc follower模型预测控制节点 autoware mpc
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  简介
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_library/jsoncpp%E5%BA%93/" class="md-tabs__link">
+          
+  
+  C++开源库和框架
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++Qt嵌入式与桌面应用
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++ROS机器人与自动驾驶
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++CV计算机视觉与音视频
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++GL计算机图形学与游戏
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../shell_python/Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  Shell脚本与自动化
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DevFrank Wiki" class="md-nav__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    DevFrank Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            C++基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环境配置与基础语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%80%E6%BA%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开源库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%96%87%E4%BB%B6IO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件IO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    字符串
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    智能指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并发编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            C++算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    排序算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    查找算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E5%B8%B8%E7%94%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++开源库和框架
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            C++开源库和框架
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/jsoncpp%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jsoncpp库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++Qt嵌入式与桌面应用
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            C++Qt嵌入式与桌面应用
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qt环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++ROS机器人与自动驾驶
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            C++ROS机器人与自动驾驶
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++CV计算机视觉与音视频
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            C++CV计算机视觉与音视频
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenCV环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++GL计算机图形学与游戏
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            C++GL计算机图形学与游戏
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenGL环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell脚本与自动化
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Shell脚本与自动化
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../shell_python/Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      文章目录
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 技术原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 代码实现
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/frankwang98/wiki/edit/master/docs/cpp_ros/【Autoware】mpc_follower模型预测控制节点_autoware mpc.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+  <h1>【Autoware】mpc follower模型预测控制节点 autoware mpc</h1>
+
+<h4 id="_1">文章目录</h4>
+<ul>
+<li>
+<ul>
+<li><a href="#1__1">1. 技术原理</a></li>
+<li><a href="#2__18">2. 代码实现</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="1">1. 技术原理</h3>
+<p>MPC，即Model Predictive Control（模型预测控制），是一种基于动态模型的控制算法。MPC算法通过建立系统的数学模型，根据当前状态和一定时间内的预测，优化未来的控制输入，从而实现对系统的控制。</p>
+<p>MPC算法主要分为以下几个步骤：</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">建立数学模型</span><span class="err">：</span><span class="n">根据系统的物理特性</span><span class="err">，</span><span class="n">建立状态空间模型或者传递函数模型</span><span class="err">。</span>
+<span class="mf">2.</span><span class="w"> </span><span class="n">预测状态</span><span class="err">：</span><span class="n">根据当前状态</span><span class="err">，</span><span class="n">利用建立的数学模型对未来一段时间内的状态进行预测</span><span class="err">。</span>
+<span class="mf">3.</span><span class="w"> </span><span class="n">生成控制输入</span><span class="err">：</span><span class="n">根据预测的状态和控制目标</span><span class="err">，</span><span class="n">利用最优化算法生成控制输入</span><span class="err">。</span>
+<span class="mf">4.</span><span class="w"> </span><span class="n">执行控制</span><span class="err">：</span><span class="n">根据生成的控制输入</span><span class="err">，</span><span class="n">执行控制</span><span class="err">。</span>
+<span class="mf">5.</span><span class="w"> </span><span class="n">更新状态</span><span class="err">：</span><span class="n">根据执行的控制输入</span><span class="err">，</span><span class="n">更新系统状态</span><span class="err">，</span><span class="n">并进入下一次预测和控制循环</span><span class="err">。</span>
+</code></pre></div>
+
+<p>基于模型预测控制的轨迹跟踪算法对未来轨迹的预测和处理多目标约束条件的能力较强。主要体现在：能够考虑系统的非线性和时变性，适用于各种复杂系统的控制；能够考虑多个控制目标，并在它们之间进行平衡和优化；能够对约束条件进行有效的处理，例如系统的输入和输出限制、状态变量的可行性等。</p>
+<p>MPC算法可以用于实现车辆的路径跟踪和速度控制。具体地，利用车辆的动态模型，预测未来一段时间内的车辆状态（例如位置、速度、加速度等），并根据预测结果生成最优的车辆控制输入（例如方向盘转角、油门踏板位置、刹车踏板位置等），从而实现对车辆的精确控制。MPC算法还可以考虑车辆与周围环境的交互，例如与其他车辆、行人和路标的交互，从而实现更加安全和高效的自动驾驶。</p>
+<h3 id="2">2. 代码实现</h3>
+<p>在Autoware中，MPC算法主要实现在mpc_follower节点中。该节点接收<code>/vehicle_status、/vehicle_cmd和/trajectory</code>等消息，其中<code>/vehicle_status</code>消息包括车辆状态信息（例如位置、速度、方向等），<code>/vehicle_cmd</code>消息包括车辆控制指令（例如方向盘转角、油门踏板位置、刹车踏板位置等），<code>/trajectory</code>消息包括规划的车辆轨迹。通过对这些消息的处理，mpc_follower节点可以计算出最优的车辆控制指令，并将其发送给<code>/vehicle_cmd</code>话题，从而实现对车辆的控制。</p>
+<p>在实现MPC控制的过程中，需要定义车辆的动态模型、代价函数以及约束条件等。可以通过编辑<code>mpc_param.yaml</code>文件来配置MPC控制的参数。</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/948f9d190d674a80834528f56b2c11df.png" /></p>
+<p>mpc_follower_core.h</p>
+<div class="codehilite"><pre><span></span><code><span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">limits</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">chrono</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">unistd</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">deque</span><span class="o">&gt;</span>
+
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">ros</span><span class="o">/</span><span class="n">ros</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">Float64</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">Float32</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">std</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">Float64MultiArray</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">geometry</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">PoseStamped</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">geometry</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">TwistStamped</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">visualization</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">MarkerArray</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">visualization</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">Marker</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">tf2</span><span class="o">/</span><span class="n">utils</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">eigen3</span><span class="o">/</span><span class="n">Eigen</span><span class="o">/</span><span class="n">Core</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">eigen3</span><span class="o">/</span><span class="n">Eigen</span><span class="o">/</span><span class="n">LU</span><span class="o">&gt;</span>
+
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">autoware</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">ControlCommandStamped</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">autoware</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">Lane</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">autoware</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">VehicleStatus</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+
+<span class="n">#include</span><span class="w"> </span><span class="ss">&quot;mpc\_follower/mpc\_utils.h&quot;</span>
+<span class="n">#include</span><span class="w"> </span><span class="ss">&quot;mpc\_follower/mpc\_trajectory.h&quot;</span>
+<span class="n">#include</span><span class="w"> </span><span class="ss">&quot;mpc\_follower/lowpass\_filter.h&quot;</span>
+<span class="n">#include</span><span class="w"> </span><span class="ss">&quot;mpc\_follower/vehicle\_model/vehicle\_model\_bicycle\_kinematics.h&quot;</span>
+<span class="n">#include</span><span class="w"> </span><span class="ss">&quot;mpc\_follower/vehicle\_model/vehicle\_model\_bicycle\_dynamics.h&quot;</span>
+<span class="n">#include</span><span class="w"> </span><span class="ss">&quot;mpc\_follower/vehicle\_model/vehicle\_model\_bicycle\_kinematics\_no\_delay.h&quot;</span>
+<span class="n">#include</span><span class="w"> </span><span class="ss">&quot;mpc\_follower/qp\_solver/qp\_solver\_unconstr.h&quot;</span>
+<span class="n">#include</span><span class="w"> </span><span class="ss">&quot;mpc\_follower/qp\_solver/qp\_solver\_unconstr\_fast.h&quot;</span>
+<span class="n">#include</span><span class="w"> </span><span class="ss">&quot;mpc\_follower/qp\_solver/qp\_solver\_qpoases.h&quot;</span>
+
+<span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span><span class="w"> </span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@class</span><span class="w"> </span><span class="n">MPC</span><span class="o">-</span><span class="n">based</span><span class="w"> </span><span class="n">waypoints</span><span class="w"> </span><span class="n">follower</span><span class="w"> </span><span class="k">class</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">calculate</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">follow</span><span class="w"> </span><span class="n">reference</span><span class="w"> </span><span class="n">waypoints</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="k">class</span><span class="w"> </span><span class="n">MPCFollower</span>
+<span class="err">{</span>
+<span class="k">public</span><span class="err">:</span>
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">constructor</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">MPCFollower</span><span class="p">();</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">destructor</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="o">~</span><span class="n">MPCFollower</span><span class="p">();</span>
+
+<span class="nl">private</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">NodeHandle</span><span class="w"> </span><span class="n">nh_</span><span class="p">;</span><span class="w">                    </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">ros</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">handle</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">NodeHandle</span><span class="w"> </span><span class="n">pnh_</span><span class="p">;</span><span class="w">                   </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">private</span><span class="w"> </span><span class="n">ros</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="n">handle</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Publisher</span><span class="w"> </span><span class="n">pub_steer_vel_ctrl_cmd_</span><span class="p">;</span><span class="w"> </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">topic</span><span class="w"> </span><span class="n">publisher</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">command</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Publisher</span><span class="w"> </span><span class="n">pub_twist_cmd_</span><span class="p">;</span><span class="w">          </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">topic</span><span class="w"> </span><span class="n">publisher</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">twist</span><span class="w"> </span><span class="n">command</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Subscriber</span><span class="w"> </span><span class="n">sub_ref_path_</span><span class="p">;</span><span class="w">          </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">topic</span><span class="w"> </span><span class="n">subscriber</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">reference</span><span class="w"> </span><span class="n">waypoints</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Subscriber</span><span class="w"> </span><span class="n">sub_pose_</span><span class="p">;</span><span class="w">              </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">subscriber</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="n">pose</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Subscriber</span><span class="w"> </span><span class="n">sub_vehicle_status_</span><span class="p">;</span><span class="w">    </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">subscriber</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">currrent</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">status</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Timer</span><span class="w"> </span><span class="n">timer_control_</span><span class="p">;</span><span class="w">              </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">timer</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">computation</span>
+
+<span class="w">  </span><span class="n">MPCTrajectory</span><span class="w"> </span><span class="n">ref_traj_</span><span class="p">;</span><span class="w">                                   </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">reference</span><span class="w"> </span><span class="n">trajectory</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">followed</span>
+<span class="w">  </span><span class="n">Butterworth2dFilter</span><span class="w"> </span><span class="n">lpf_steering_cmd_</span><span class="p">;</span><span class="w">                     </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">lowpass</span><span class="w"> </span><span class="k">filter</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">command</span>
+<span class="w">  </span><span class="n">Butterworth2dFilter</span><span class="w"> </span><span class="n">lpf_lateral_error_</span><span class="p">;</span><span class="w">                    </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">lowpass</span><span class="w"> </span><span class="k">filter</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">lateral</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">calculate</span><span class="w"> </span><span class="n">derivatie</span>
+<span class="w">  </span><span class="n">Butterworth2dFilter</span><span class="w"> </span><span class="n">lpf_yaw_error_</span><span class="p">;</span><span class="w">                        </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">lowpass</span><span class="w"> </span><span class="k">filter</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">calculate</span><span class="w"> </span><span class="n">derivatie</span>
+<span class="w">  </span><span class="nl">autoware_msgs</span><span class="p">:</span><span class="err">:</span><span class="n">Lane</span><span class="w"> </span><span class="n">current_waypoints_</span><span class="p">;</span><span class="w">                    </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="n">waypoints</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">followed</span>
+<span class="w">  </span><span class="nl">std</span><span class="p">:</span><span class="err">:</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">VehicleModelInterface</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vehicle_model_ptr_</span><span class="p">;</span><span class="w"> </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">MPC</span>
+<span class="w">  </span><span class="nl">std</span><span class="p">:</span><span class="err">:</span><span class="n">string</span><span class="w"> </span><span class="n">vehicle_model_type_</span><span class="p">;</span><span class="w">                           </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">MPC</span>
+<span class="w">  </span><span class="nl">std</span><span class="p">:</span><span class="err">:</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">QPSolverInterface</span><span class="o">&gt;</span><span class="w"> </span><span class="n">qpsolver_ptr_</span><span class="p">;</span><span class="w">          </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">qp</span><span class="w"> </span><span class="n">solver</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">MPC</span>
+<span class="w">  </span><span class="nl">std</span><span class="p">:</span><span class="err">:</span><span class="n">string</span><span class="w"> </span><span class="n">output_interface_</span><span class="p">;</span><span class="w">                             </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">type</span>
+<span class="w">  </span><span class="nl">std</span><span class="p">:</span><span class="err">:</span><span class="n">deque</span><span class="o">&lt;</span><span class="k">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">input_buffer_</span><span class="p">;</span><span class="w">                          </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="k">input</span><span class="w"> </span><span class="p">(</span><span class="n">mpc</span><span class="err">\</span><span class="n">_output</span><span class="p">)</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="n">conpemsation</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="k">parameters</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">control</span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">ctrl_period_</span><span class="p">;</span><span class="w">              </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">frequency</span><span class="w"> </span><span class="o">[</span><span class="n">s</span><span class="o">]</span>
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">steering_lpf_cutoff_hz_</span><span class="p">;</span><span class="w">   </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">cutoff</span><span class="w"> </span><span class="n">frequency</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">lowpass</span><span class="w"> </span><span class="k">filter</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">[</span><span class="n">Hz</span><span class="o">]</span>
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">admisible_position_error_</span><span class="p">;</span><span class="w"> </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">stop</span><span class="w"> </span><span class="n">MPC</span><span class="w"> </span><span class="n">calculation</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="k">lateral</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">large</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="o">[</span><span class="n">m</span><span class="o">]</span>
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">admisible_yaw_error_deg_</span><span class="p">;</span><span class="w">  </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">stop</span><span class="w"> </span><span class="n">MPC</span><span class="w"> </span><span class="n">calculation</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">large</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="o">[</span><span class="n">deg</span><span class="o">]</span>
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">steer_lim_deg_</span><span class="p">;</span><span class="w">            </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="o">[</span><span class="n">rad</span><span class="o">]</span>
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">wheelbase_</span><span class="p">;</span><span class="w">                </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">wheelbase</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">[</span><span class="n">m</span><span class="o">]</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nf">convert</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">angular</span><span class="w"> </span><span class="n">velocity</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="k">parameters</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">path</span><span class="w"> </span><span class="n">smoothing</span><span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">bool</span><span class="w"> </span><span class="n">enable_path_smoothing_</span><span class="p">;</span><span class="w">     </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">path</span><span class="w"> </span><span class="n">smoothing</span>
+<span class="w">  </span><span class="n">bool</span><span class="w"> </span><span class="n">enable_yaw_recalculation_</span><span class="p">;</span><span class="w">  </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">recalculation</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">yaw</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="k">after</span><span class="w"> </span><span class="n">resampling</span>
+<span class="w">  </span><span class="nc">int</span><span class="w"> </span><span class="n">path_filter_moving_ave_num_</span><span class="p">;</span><span class="w"> </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">param</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">moving</span><span class="w"> </span><span class="n">average</span><span class="w"> </span><span class="k">filter</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">path</span><span class="w"> </span><span class="n">smoothing</span>
+<span class="w">  </span><span class="nc">int</span><span class="w"> </span><span class="n">path_smoothing_times_</span><span class="p">;</span><span class="w">       </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">times</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">applying</span><span class="w"> </span><span class="k">path</span><span class="w"> </span><span class="n">smoothing</span><span class="w"> </span><span class="k">filter</span>
+<span class="w">  </span><span class="nc">int</span><span class="w"> </span><span class="n">curvature_smoothing_num_</span><span class="p">;</span><span class="w">    </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">point</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="n">point</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">curvature</span><span class="w"> </span><span class="n">calculation</span>
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">traj_resample_dist_</span><span class="p">;</span><span class="w">      </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">path</span><span class="w"> </span><span class="n">resampling</span><span class="w"> </span><span class="k">interval</span><span class="w"> </span><span class="o">[</span><span class="n">m</span><span class="o">]</span>
+
+<span class="w">  </span><span class="n">struct</span><span class="w"> </span><span class="n">MPCParam</span>
+<span class="w">  </span><span class="err">{</span>
+<span class="w">    </span><span class="nc">int</span><span class="w"> </span><span class="n">prediction_horizon</span><span class="p">;</span><span class="w">                         </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">prediction</span><span class="w"> </span><span class="n">horizon</span><span class="w"> </span><span class="n">step</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">prediction_sampling_time</span><span class="p">;</span><span class="w">                </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">prediction</span><span class="w"> </span><span class="n">horizon</span><span class="w"> </span><span class="n">period</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">weight_lat_error</span><span class="p">;</span><span class="w">                        </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">lateral</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">weight_heading_error</span><span class="p">;</span><span class="w">                    </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">weight_heading_error_squared_vel_coeff</span><span class="p">;</span><span class="w">  </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">weight_steering_input</span><span class="p">;</span><span class="w">                   </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="n">R</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">weight_steering_input_squared_vel_coeff</span><span class="p">;</span><span class="w"> </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="n">R</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">weight_lat_jerk</span><span class="p">;</span><span class="w">                         </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">lateral</span><span class="w"> </span><span class="n">jerk</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="n">R</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">weight_terminal_lat_error</span><span class="p">;</span><span class="w">               </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">terminal</span><span class="w"> </span><span class="k">lateral</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">weight_terminal_heading_error</span><span class="p">;</span><span class="w">           </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">terminal</span><span class="w"> </span><span class="n">heading</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="n">Q</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">zero_ff_steer_deg</span><span class="p">;</span><span class="w">                       </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">feed</span><span class="o">-</span><span class="n">forward</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">becomes</span><span class="w"> </span><span class="n">zero</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">delay_compensation_time</span><span class="p">;</span><span class="w">                </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">delay</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="k">input</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">compensated</span>
+<span class="w">  </span><span class="err">}</span><span class="p">;</span>
+<span class="w">  </span><span class="n">MPCParam</span><span class="w"> </span><span class="n">mpc_param_</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">mpc</span><span class="w"> </span><span class="n">design</span><span class="w"> </span><span class="k">parameter</span>
+
+<span class="w">  </span><span class="n">struct</span><span class="w"> </span><span class="n">VehicleStatus</span>
+<span class="w">  </span><span class="err">{</span>
+<span class="w">    </span><span class="nl">std_msgs</span><span class="p">:</span><span class="err">:</span><span class="n">Header</span><span class="w"> </span><span class="n">header</span><span class="p">;</span><span class="w">    </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">header</span>
+<span class="w">    </span><span class="nl">geometry_msgs</span><span class="p">:</span><span class="err">:</span><span class="n">Pose</span><span class="w"> </span><span class="n">pose</span><span class="p">;</span><span class="w">   </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">pose</span>
+<span class="w">    </span><span class="nl">geometry_msgs</span><span class="p">:</span><span class="err">:</span><span class="n">Twist</span><span class="w"> </span><span class="n">twist</span><span class="p">;</span><span class="w"> </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">velocity</span>
+<span class="w">    </span><span class="k">double</span><span class="w"> </span><span class="n">tire_angle_rad</span><span class="p">;</span><span class="w">      </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">tire</span><span class="w"> </span><span class="n">angle</span>
+<span class="w">  </span><span class="err">}</span><span class="p">;</span>
+<span class="w">  </span><span class="n">VehicleStatus</span><span class="w"> </span><span class="n">vehicle_status_</span><span class="p">;</span><span class="w"> </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">status</span>
+
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">steer_cmd_prev_</span><span class="p">;</span><span class="w">     </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">calculated</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">previous</span><span class="w"> </span><span class="n">period</span>
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">lateral_error_prev_</span><span class="p">;</span><span class="w"> </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">previous</span><span class="w"> </span><span class="k">lateral</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">derivative</span>
+<span class="w">  </span><span class="k">double</span><span class="w"> </span><span class="n">yaw_error_prev_</span><span class="p">;</span><span class="w">     </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">previous</span><span class="w"> </span><span class="k">lateral</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">derivative</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">bool</span><span class="w"> </span><span class="n">my_position_ok_</span><span class="p">;</span><span class="w"> </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">validity</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="n">pose</span>
+<span class="w">  </span><span class="n">bool</span><span class="w"> </span><span class="n">my_velocity_ok_</span><span class="p">;</span><span class="w"> </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">validity</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="n">velocity</span>
+<span class="w">  </span><span class="n">bool</span><span class="w"> </span><span class="n">my_steering_ok_</span><span class="p">;</span><span class="w"> </span><span class="o">//&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">validity</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">angle</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">compute</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">path</span><span class="w"> </span><span class="n">follow</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">constant</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">period</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">void</span><span class="w"> </span><span class="n">timerCallback</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">TimerEvent</span><span class="w"> </span><span class="o">&amp;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">current</span><span class="err">\</span><span class="n">_waypoints</span><span class="err">\</span><span class="n">_</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">receved</span><span class="w"> </span><span class="n">message</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">void</span><span class="w"> </span><span class="n">callbackRefPath</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="nl">autoware_msgs</span><span class="p">:</span><span class="err">:</span><span class="nl">Lane</span><span class="p">:</span><span class="err">:</span><span class="n">ConstPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">vehicle</span><span class="err">\</span><span class="n">_status</span><span class="err">\</span><span class="n">_</span><span class="p">.</span><span class="n">pose</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">receved</span><span class="w"> </span><span class="n">message</span><span class="w"> </span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">void</span><span class="w"> </span><span class="n">callbackPose</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="nl">geometry_msgs</span><span class="p">:</span><span class="err">:</span><span class="nl">PoseStamped</span><span class="p">:</span><span class="err">:</span><span class="n">ConstPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">vehicle</span><span class="err">\</span><span class="n">_status</span><span class="err">\</span><span class="n">_</span><span class="p">.</span><span class="n">twist</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">vehicle</span><span class="err">\</span><span class="n">_status</span><span class="err">\</span><span class="n">_</span><span class="p">.</span><span class="n">tire</span><span class="err">\</span><span class="n">_angle</span><span class="err">\</span><span class="n">_rad</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">receved</span><span class="w"> </span><span class="n">message</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">void</span><span class="w"> </span><span class="n">callbackVehicleStatus</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="nl">autoware_msgs</span><span class="p">:</span><span class="err">:</span><span class="n">VehicleStatus</span><span class="w"> </span><span class="o">&amp;</span><span class="n">msg</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">calculated</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">MPC</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">in</span><span class="o">]</span><span class="w"> </span><span class="n">vel</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">[</span><span class="n">m/s</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">control</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">in</span><span class="o">]</span><span class="w"> </span><span class="n">acc</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">acceleration</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">[</span><span class="n">m/s2</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">control</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">in</span><span class="o">]</span><span class="w"> </span><span class="n">steer</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">[</span><span class="n">rad</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">control</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">in</span><span class="o">]</span><span class="w"> </span><span class="n">steer</span><span class="err">\</span><span class="n">_vel</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">[</span><span class="n">rad/s</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">control</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">void</span><span class="w"> </span><span class="n">publishControlCommands</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vel_cmd</span><span class="p">,</span><span class="w"> </span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">acc_cmd</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">steer_cmd</span><span class="p">,</span><span class="w"> </span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">steer_vel_cmd</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">geometry</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">TwistStamped</span><span class="w"> </span><span class="n">type</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">in</span><span class="o">]</span><span class="w"> </span><span class="n">vel</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">[</span><span class="n">m/s</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">control</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">in</span><span class="o">]</span><span class="w"> </span><span class="n">omega</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">angular</span><span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">[</span><span class="n">rad/s</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">control</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">void</span><span class="w"> </span><span class="n">publishTwist</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vel_cmd</span><span class="p">,</span><span class="w"> </span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">omega_cmd</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">publish</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">autoware</span><span class="err">\</span><span class="n">_msgs</span><span class="o">/</span><span class="n">ControlCommand</span><span class="w"> </span><span class="n">type</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">in</span><span class="o">]</span><span class="w"> </span><span class="n">vel</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">[</span><span class="n">m/s</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">control</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">in</span><span class="o">]</span><span class="w"> </span><span class="n">acc</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">acceleration</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">[</span><span class="n">m/s2</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">control</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">in</span><span class="o">]</span><span class="w"> </span><span class="n">steer</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">angle</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">[</span><span class="n">rad</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">vehicle</span><span class="w"> </span><span class="n">control</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">void</span><span class="w"> </span><span class="n">publishCtrlCmd</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vel_cmd</span><span class="p">,</span><span class="w"> </span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">acc_cmd</span><span class="p">,</span><span class="w"> </span><span class="n">const</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">steer_cmd</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">calculate</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">MPC</span><span class="w"> </span><span class="n">algorithm</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">out</span><span class="o">]</span><span class="w"> </span><span class="n">vel</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="n">command</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">out</span><span class="o">]</span><span class="w"> </span><span class="n">acc</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">acceleration</span><span class="w"> </span><span class="n">command</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">out</span><span class="o">]</span><span class="w"> </span><span class="n">steer</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">command</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@param</span><span class="w"> </span><span class="o">[</span><span class="n">out</span><span class="o">]</span><span class="w"> </span><span class="n">steer</span><span class="err">\</span><span class="n">_vel</span><span class="err">\</span><span class="n">_cmd</span><span class="w"> </span><span class="n">steering</span><span class="w"> </span><span class="n">rotation</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="n">command</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">bool</span><span class="w"> </span><span class="n">calculateMPC</span><span class="p">(</span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vel_cmd</span><span class="p">,</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">acc_cmd</span><span class="p">,</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">steer_cmd</span><span class="p">,</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="o">&amp;</span><span class="n">steer_vel_cmd</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">bool</span><span class="w"> </span><span class="n">show_debug_info_</span><span class="p">;</span><span class="w">      </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">flag</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">display</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="n">info</span>
+
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Publisher</span><span class="w"> </span><span class="n">pub_debug_filtered_traj_</span><span class="p">;</span><span class="w">        </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">publisher</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="n">info</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Publisher</span><span class="w"> </span><span class="n">pub_debug_predicted_traj_</span><span class="p">;</span><span class="w">       </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">publisher</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="n">info</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Publisher</span><span class="w"> </span><span class="n">pub_debug_values_</span><span class="p">;</span><span class="w">               </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">publisher</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="n">info</span>
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Publisher</span><span class="w"> </span><span class="n">pub_debug_mpc_calc_time_</span><span class="p">;</span><span class="w">        </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">publisher</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="n">info</span>
+
+<span class="w">  </span><span class="nl">ros</span><span class="p">:</span><span class="err">:</span><span class="n">Subscriber</span><span class="w"> </span><span class="n">sub_estimate_twist_</span><span class="p">;</span><span class="w">         </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">subscriber</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="o">/</span><span class="n">estimate</span><span class="err">\</span><span class="n">_twist</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">debug</span>
+<span class="w">  </span><span class="nl">geometry_msgs</span><span class="p">:</span><span class="err">:</span><span class="n">TwistStamped</span><span class="w"> </span><span class="n">estimate_twist_</span><span class="p">;</span><span class="w"> </span><span class="o">//!&lt;</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">received</span><span class="w"> </span><span class="o">/</span><span class="n">estimate</span><span class="err">\</span><span class="n">_twist</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">debug</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="nf">convert</span><span class="w"> </span><span class="n">MPCTraj</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">visualizaton</span><span class="w"> </span><span class="n">marker</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">visualization</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">void</span><span class="w"> </span><span class="n">convertTrajToMarker</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="n">MPCTrajectory</span><span class="w"> </span><span class="o">&amp;</span><span class="n">traj</span><span class="p">,</span><span class="w"> </span><span class="nl">visualization_msgs</span><span class="p">:</span><span class="err">:</span><span class="n">Marker</span><span class="w"> </span><span class="o">&amp;</span><span class="n">markers</span><span class="p">,</span>
+<span class="w">                           </span><span class="nl">std</span><span class="p">:</span><span class="err">:</span><span class="n">string</span><span class="w"> </span><span class="n">ns</span><span class="p">,</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="k">double</span><span class="w"> </span><span class="n">z</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">/</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="w"> </span><span class="nv">@brief</span><span class="w"> </span><span class="n">callback</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">estimate</span><span class="w"> </span><span class="n">twist</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">debug</span>
+<span class="w"> </span><span class="err">\</span><span class="o">*/</span>
+<span class="w">  </span><span class="n">void</span><span class="w"> </span><span class="n">callbackEstimateTwist</span><span class="p">(</span><span class="n">const</span><span class="w"> </span><span class="nl">geometry_msgs</span><span class="p">:</span><span class="err">:</span><span class="n">TwistStamped</span><span class="w"> </span><span class="o">&amp;</span><span class="n">msg</span><span class="p">)</span><span class="w"> </span><span class="err">{</span><span class="w"> </span><span class="n">estimate_twist_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">msg</span><span class="p">;</span><span class="w"> </span><span class="err">}</span>
+<span class="err">}</span><span class="p">;</span>
+</code></pre></div>
+
+<p>以上。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 - 2024 DevFrank
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs", "navigation.instant", "content.code.copy", "content.code.annotate", "navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+    
+  </body>
+</html>

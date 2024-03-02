@@ -1,0 +1,1660 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="DevFrank Wiki是一个知识库整合站点">
+      
+      
+        <meta name="author" content="DevFrank">
+      
+      
+        <link rel="canonical" href="https://frankwang98.github.io/wiki/cpp_library/%E3%80%90C%2B%2B%E3%80%91FFmpeg%EF%BC%9A%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BA%93%E4%BB%8B%E7%BB%8D%E4%B8%8E%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B_%E6%92%AD%E6%94%BE%E5%99%A8%20c%2B%2B/">
+      
+      
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
+    
+    
+      
+        <title>【C++】FFmpeg：音视频库介绍与使用示例 播放器 c++ - DevFrank Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="DevFrank Wiki" class="md-header__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevFrank Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              【C++】FFmpeg：音视频库介绍与使用示例 播放器 c++
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  简介
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../jsoncpp%E5%BA%93/" class="md-tabs__link">
+          
+  
+  C++开源库和框架
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++Qt嵌入式与桌面应用
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_ros/ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++ROS机器人与自动驾驶
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++CV计算机视觉与音视频
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  C++GL计算机图形学与游戏
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../shell_python/Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  Shell脚本与自动化
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DevFrank Wiki" class="md-nav__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    DevFrank Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            C++基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环境配置与基础语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%80%E6%BA%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开源库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%96%87%E4%BB%B6IO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件IO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    字符串
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    智能指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并发编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模板
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            C++算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    排序算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    查找算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E5%B8%B8%E7%94%A8%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++开源库和框架
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            C++开源库和框架
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jsoncpp%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jsoncpp库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++Qt嵌入式与桌面应用
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            C++Qt嵌入式与桌面应用
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qt环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++ROS机器人与自动驾驶
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            C++ROS机器人与自动驾驶
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++CV计算机视觉与音视频
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            C++CV计算机视觉与音视频
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenCV环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++GL计算机图形学与游戏
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            C++GL计算机图形学与游戏
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenGL环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Shell脚本与自动化
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Shell脚本与自动化
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../shell_python/Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      文章目录
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-ffmpeg" class="md-nav__link">
+    <span class="md-ellipsis">
+      😏1. FFmpeg音视频库介绍
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      😊2. 环境配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      😆3. 应用实例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="😆3. 应用实例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      视频
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      音频
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      C++示例
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      😆4. 视频播放器示例
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/frankwang98/wiki/edit/master/docs/cpp_library/【C++】FFmpeg：音视频库介绍与使用示例_播放器 c++.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+  <h1>【C++】FFmpeg：音视频库介绍与使用示例 播放器 c++</h1>
+
+<blockquote>
+<p>😏<em>★,°</em>:.☆(￣▽￣)/$:<em>.°★</em> 😏<br />
+ 这篇文章主要介绍FFmpeg音视频库介绍与使用示例。<br />
+<strong>无专精则不能成，无涉猎则不能通。——梁启超</strong><br />
+ 欢迎来到我的博客，一起学习，共同进步。<br />
+ 喜欢的朋友可以关注一下，下次更新不迷路🥞</p>
+</blockquote>
+<h4 id="_1">文章目录</h4>
+<ul>
+<li>
+<ul>
+<li><a href="#smirk1_FFmpeg_7">:smirk:1. FFmpeg音视频库介绍</a></li>
+<li><a href="#blush2__27">:blush:2. 环境配置</a></li>
+<li><a href="#satisfied3__63">:satisfied:3. 应用实例</a></li>
+<li>
+<ul>
+<li><a href="#_64">视频</a></li>
+<li><a href="#_106">音频</a></li>
+<li><a href="#C_155">C++示例</a></li>
+</ul>
+</li>
+<li><a href="#satisfied4__289">:satisfied:4. 视频播放器示例</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="1-ffmpeg">😏1. FFmpeg音视频库介绍</h3>
+<p>ffmpeg官网：<code>http://www.ffmpeg.org/</code></p>
+<p><code>FFmpeg</code>是一款开源的音视频库，提供了处理音视频文件、转码、解码、编码、播放等功能。它是一个完整的跨平台解决方案，支持多种音视频格式，并提供多种API和工具来处理音视频数据。</p>
+<p>FFmpeg框架的基本组成包括：<code>AVFormet</code>封装模块、<code>AVCodec</code>编解码模块、<code>AVFilter</code>滤镜模块、<code>AVDevice</code>、<code>AVUtil</code>等模块库。</p>
+<p>下面简单介绍一些FFmpeg库的基础知识：</p>
+<blockquote>
+<p>1.编码器与解码器<br />
+ FFmpeg提供了多种编码器和解码器来处理不同的音视频格式，例如H.264、MPEG-4、AAC等。可以使用avcodec_find_encoder和avcodec_find_decoder函数查找可用的编码器和解码器，并使用avcodec_open2函数打开需要使用的编码器或解码器。</p>
+<p>2.格式封装与解封装<br />
+ FFmpeg可以处理多种音视频文件格式，例如MP4、AVI、WAV等。它使用封装格式来将音视频流打包到一个容器中。常见的封装格式有MP4、AVI、FLV、MKV等。可以使用avformat_open_input函数打开音视频文件，并使用av_read_frame函数读取文件中的音视频数据。</p>
+<p>3.帧与数据包<br />
+ 在FFmpeg中，音视频数据被组织成帧和数据包。音频数据通常被组织成PCM数据，每个样本对应一帧数据；而视频数据则被组织成一系列关键帧和非关键帧。</p>
+<p>4.协议<br />
+ FFmpeg可以处理不同的音视频流传输协议，例如RTSP、RTMP、HTTP等。可以使用avformat_open_input函数打开网络音视频流，并使用av_read_frame函数读取数据包。</p>
+</blockquote>
+<h3 id="2">😊2. 环境配置</h3>
+<p>下面进行环境配置：</p>
+<div class="codehilite"><pre><span></span><code># apt安装
+sudo apt install ffmpeg
+ffmpeg -version
+# 也可选择源码安装
+
+# windows可从官网下载
+</code></pre></div>
+
+<p>编译示例：</p>
+<div class="codehilite"><pre><span></span><code>g++ -o main main.cpp -lavformat -lavcodec -lavutil
+</code></pre></div>
+
+<p>CMakeLists.txt示例：</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.19</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">ffmpeg_demo</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">14</span><span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">FFMPEG_ROOT</span><span class="w"> </span><span class="s2">&quot;D:/develop/ffmpeg611\_mingw/mingw64&quot;</span><span class="p">)</span>
+<span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">FFMPEG\_ROOT</span><span class="o">}</span><span class="s">/include</span><span class="p">)</span>
+<span class="nb">link_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">FFMPEG\_ROOT</span><span class="o">}</span><span class="s">/lib</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">FFMPEG_LIBS</span><span class="w"> </span><span class="s">avcodec</span><span class="w"> </span><span class="s">avformat</span><span class="w"> </span><span class="s">avutil</span><span class="w"> </span><span class="s">avdevice</span><span class="w"> </span><span class="s">avfilter</span><span class="w"> </span><span class="s">postproc</span><span class="w"> </span><span class="s">swresample</span><span class="w"> </span><span class="s">swscale</span><span class="p">)</span>
+<span class="c">#link\_directories(${FFMPEG\_ROOT}/bin)</span>
+<span class="c">#set(FFMPEG\_LIBS avcodec-60 avformat-60 avutil-58 swscale-7)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">ffmpeg_demo</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">ffmpeg_demo</span><span class="w"> </span><span class="o">${</span><span class="nv">FFMPEG\_LIBS</span><span class="o">}</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="3">😆3. 应用实例</h3>
+<h4 id="_2">视频</h4>
+<p>采集摄像头：</p>
+<div class="codehilite"><pre><span></span><code>ffmpeg -f video4linux2 -s  640x480 -pixel\_format yuyv422  -i /dev/video0  out.mp4 -loglevel debug
+ffmpeg -f x11grab -framerate 25 -video\_size 1280*720 -i :0.0 out.mp4   # 采集x11桌面
+</code></pre></div>
+
+<p>视频格式转换：</p>
+<div class="codehilite"><pre><span></span><code>ffmpeg -i input.avi output.mp4
+</code></pre></div>
+
+<p>帧率转换：</p>
+<div class="codehilite"><pre><span></span><code>ffmpeg -i input.avi -r 24 output.mp4
+</code></pre></div>
+
+<p>多路视频拼接命令行：</p>
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">两路视频横向拼接</span>
+<span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out1</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out2</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="k">filter</span><span class="err">\</span><span class="n">_complex</span><span class="w"> </span><span class="ss">&quot;[0:v]pad=iw\*2:ih\*1[a];[a][1:v]overlay=w&quot;</span><span class="w"> </span><span class="k">out</span><span class="p">.</span><span class="n">mp4</span>
+<span class="err">#</span><span class="w"> </span><span class="n">两路视频纵向拼接</span>
+<span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out1</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out2</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="k">filter</span><span class="err">\</span><span class="n">_complex</span><span class="w"> </span><span class="ss">&quot;[0:v]pad=iw:ih\*2[a];[a][1:v]overlay=0:h&quot;</span><span class="w"> </span><span class="k">out</span><span class="p">.</span><span class="n">mp4</span>
+<span class="err">#</span><span class="w"> </span><span class="n">三路视频横向拼接</span>
+<span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out1</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out2</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out3</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="k">filter</span><span class="err">\</span><span class="n">_complex</span><span class="w"> </span><span class="ss">&quot;[0:v]pad=iw\*3:ih\*1[a];[a][1:v]overlay=w[b];[b][2:v]overlay=2.0\*w&quot;</span><span class="w"> </span><span class="k">out</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span>
+<span class="err">#</span><span class="w"> </span><span class="n">三路视频纵向拼接</span>
+<span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out1</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out2</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out3</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="k">filter</span><span class="err">\</span><span class="n">_complex</span><span class="w"> </span><span class="ss">&quot;[0:v]pad=iw:ih\*3[a];[a][1:v]overlay=0:h[b];[b][2:v]overlay=0:2.0\*h&quot;</span><span class="w"> </span><span class="k">out</span><span class="p">.</span><span class="n">mp4</span>
+<span class="err">#</span><span class="w"> </span><span class="n">四路视频2X2排列</span>
+<span class="n">ffmpeg</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out1</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out2</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out3</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">out4</span><span class="p">.</span><span class="n">mp4</span><span class="w"> </span><span class="o">-</span><span class="k">filter</span><span class="err">\</span><span class="n">_complex</span><span class="w"> </span><span class="ss">&quot;[0:v]pad=iw\*2:ih\*2[a];[a][1:v]overlay=w[b];[b][2:v]overlay=0:h[c];[c][3:v]overlay=w:h&quot;</span><span class="w"> </span><span class="k">out</span><span class="p">.</span><span class="n">mp4</span>
+</code></pre></div>
+
+<p>视频推流：</p>
+<div class="codehilite"><pre><span></span><code>ffmpeg -r 100 -i /dev/video0 -f flv udp://192.168.111.121:9666
+ffplay -max\_delay 10 udp://192.168.111.121:9666
+<span class="gh">#</span> 原始音视频推流
+ffmpeg  -f alsa -ar 11025 -ac 2 -i hw:0 -i /dev/video0 -f flv udp://192.168.111.121:9666
+</code></pre></div>
+
+<h4 id="_3">音频</h4>
+<p>音频格式转换：</p>
+<div class="codehilite"><pre><span></span><code>ffmpeg64 -i null.ape -ar 44100 -ac 2 -ab 16k -vol 50 -f mp3 null.mp3
+注：-i代表输入参数
+          -acodec aac（音频编码用AAC） 
+          -ar 设置音频采样频率
+          -ac  设置音频通道数
+          -ab 设定声音比特率
+          -vol &lt;百分比&gt; 设定音量
+
+# 或创建list包含所需音频
+ffmpeg -safe 0 -f concat -i list.txt -c copy out.wav
+</code></pre></div>
+
+<p>音频拼接：</p>
+<div class="codehilite"><pre><span></span><code># 新建列表，包含所需音频
+touch list.txt
+file &#39;1.mp3&#39;
+file &#39;2.mp3&#39;
+ffmpeg -f concat -i list.txt -c copy out.mp3
+</code></pre></div>
+
+<p>音频录制：</p>
+<div class="codehilite"><pre><span></span><code>ffmpeg -y -f alsa -i hw:0 -t 00:00:03 -ar 8000 -ac 1 out.mp3
+</code></pre></div>
+
+<p>音频推流：</p>
+<div class="codehilite"><pre><span></span><code>ffmpeg  -f alsa -i hw:0 -ar 11025 -ac 1 -f flv udp://192.168.111.121:9666
+</code></pre></div>
+
+<p>其他参考：</p>
+<div class="codehilite"><pre><span></span><code>视频播放器的实现：http://t.csdn.cn/N6Vuo
+
+音视频播放器实现：http://t.csdn.cn/zJuXn
+
+通过opencv读取摄像头：http://t.csdn.cn/mGCog
+
+推送摄像头 rtsp 流：http://t.csdn.cn/YrLMm
+</code></pre></div>
+
+<h4 id="c">C++示例</h4>
+<div class="codehilite"><pre><span></span><code><span class="n">extern</span><span class="w"> </span><span class="ss">&quot;C&quot;</span><span class="w"> </span><span class="err">{</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">libavformat</span><span class="o">/</span><span class="n">avformat</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="n">libavutil</span><span class="o">/</span><span class="n">avutil</span><span class="p">.</span><span class="n">h</span><span class="o">&gt;</span>
+<span class="err">}</span>
+<span class="n">#include</span><span class="w"> </span><span class="o">&lt;</span><span class="k">map</span><span class="o">&gt;</span>
+
+<span class="nc">int</span><span class="w"> </span><span class="n">main</span><span class="p">(</span><span class="nc">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="nc">char</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="n">argv</span><span class="err">[]</span><span class="p">)</span>
+<span class="err">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">argc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="ss">&quot;remux &lt;input&gt; &lt;output&gt;\n&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="n">const</span><span class="w"> </span><span class="nc">char</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="n">in_filename</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="p">;</span>
+<span class="w">    </span><span class="n">const</span><span class="w"> </span><span class="nc">char</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="n">out_filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="p">;</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="k">input</span>
+<span class="w">    </span><span class="n">AVFormatContext</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="n">decoder_fmt_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avformat</span><span class="err">\</span><span class="n">_open</span><span class="err">\</span><span class="n">_input</span><span class="p">(</span><span class="o">&amp;</span><span class="n">decoder_fmt_ctx</span><span class="p">,</span><span class="w"> </span><span class="n">in_filename</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;failed to open the %s file.\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">in_filename</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avformat</span><span class="err">\</span><span class="n">_find</span><span class="err">\</span><span class="n">_stream</span><span class="err">\</span><span class="n">_info</span><span class="p">(</span><span class="n">decoder_fmt_ctx</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;not find stream info.\n&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="n">av</span><span class="err">\</span><span class="n">_dump</span><span class="err">\</span><span class="n">_format</span><span class="p">(</span><span class="n">decoder_fmt_ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">in_filename</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="k">output</span>
+<span class="w">    </span><span class="n">AVFormatContext</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="n">encoder_fmt_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nullptr</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avformat</span><span class="err">\</span><span class="n">_alloc</span><span class="err">\</span><span class="n">_output</span><span class="err">\</span><span class="n">_context2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">encoder_fmt_ctx</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">,</span><span class="w"> </span><span class="n">out_filename</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;failed to alloc output-context memory.\n&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="n">streams</span>
+<span class="w">    </span><span class="o">//</span>
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">media</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">always</span><span class="w"> </span><span class="k">contains</span><span class="w"> </span><span class="n">several</span><span class="w"> </span><span class="n">streams</span><span class="p">,</span><span class="w"> </span><span class="ow">like</span><span class="w"> </span><span class="n">video</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">audio</span><span class="w"> </span><span class="n">streams</span><span class="p">.</span>
+<span class="w">    </span><span class="nl">std</span><span class="p">:</span><span class="err">:</span><span class="k">map</span><span class="o">&lt;</span><span class="n">unsigned</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"> </span><span class="nc">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">stream_mapping</span><span class="err">{}</span><span class="p">;</span>
+<span class="w">    </span><span class="nc">int</span><span class="w"> </span><span class="n">stream_idx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">unsigned</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">decoder_fmt_ctx</span><span class="o">-&gt;</span><span class="n">nb_streams</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="n">AVCodecParameters</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="n">decode_params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">decoder_fmt_ctx</span><span class="o">-&gt;</span><span class="n">streams</span><span class="o">[</span><span class="n">i</span><span class="o">]-&gt;</span><span class="n">codecpar</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">decode_params</span><span class="o">-&gt;</span><span class="n">codec_type</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">AVMEDIA_TYPE_VIDEO</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">decode_params</span><span class="o">-&gt;</span><span class="n">codec_type</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">AVMEDIA_TYPE_AUDIO</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">decode_params</span><span class="o">-&gt;</span><span class="n">codec_type</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">AVMEDIA_TYPE_SUBTITLE</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">            </span><span class="n">stream_mapping</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="err">}</span>
+
+<span class="w">        </span><span class="n">stream_mapping</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stream_idx</span><span class="o">++</span><span class="p">;</span>
+
+<span class="w">        </span><span class="n">AVStream</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="n">encode_stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">avformat</span><span class="err">\</span><span class="n">_new</span><span class="err">\</span><span class="n">_stream</span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">encode_stream</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">nullptr</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">            </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;failed to create a stream for output.\n&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="err">}</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avcodec</span><span class="err">\</span><span class="n">_parameters</span><span class="err">\</span><span class="n">_copy</span><span class="p">(</span><span class="n">encode_stream</span><span class="o">-&gt;</span><span class="n">codecpar</span><span class="p">,</span><span class="w"> </span><span class="n">decode_params</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">            </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;failed to copy parameters.\n&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="err">}</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="k">open</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="k">file</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="err">!</span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="o">-&gt;</span><span class="n">oformat</span><span class="o">-&gt;</span><span class="n">flags</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">AVFMT_NOFILE</span><span class="p">))</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avio</span><span class="err">\</span><span class="n">_open</span><span class="p">(</span><span class="o">&amp;</span><span class="n">encoder_fmt_ctx</span><span class="o">-&gt;</span><span class="n">pb</span><span class="p">,</span><span class="w"> </span><span class="n">out_filename</span><span class="p">,</span><span class="w"> </span><span class="n">AVIO_FLAG_WRITE</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="ss">&quot;can not open the output file : %s.\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">out_filename</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="err">}</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">header</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">avformat</span><span class="err">\</span><span class="n">_write</span><span class="err">\</span><span class="n">_header</span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="p">,</span><span class="w"> </span><span class="n">nullptr</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;can not write header to the output file.\n&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="n">av</span><span class="err">\</span><span class="n">_dump</span><span class="err">\</span><span class="n">_format</span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">out_filename</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">copy</span><span class="w"> </span><span class="n">streams</span>
+<span class="w">    </span><span class="n">AVPacket</span><span class="w"> </span><span class="err">\</span><span class="o">*</span><span class="n">packet</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">av</span><span class="err">\</span><span class="n">_packet</span><span class="err">\</span><span class="n">_alloc</span><span class="p">();</span>
+<span class="w">    </span><span class="n">int64</span><span class="err">\</span><span class="n">_t</span><span class="w"> </span><span class="n">frame_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">av</span><span class="err">\</span><span class="n">_read</span><span class="err">\</span><span class="n">_frame</span><span class="p">(</span><span class="n">decoder_fmt_ctx</span><span class="p">,</span><span class="w"> </span><span class="n">packet</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">stream_mapping</span><span class="o">[</span><span class="n">packet-&gt;stream_index</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">            </span><span class="o">//</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">packet</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">reference</span><span class="o">-</span><span class="n">counted</span><span class="p">.</span>
+<span class="w">            </span><span class="o">//</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">ffmpeg</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">library</span><span class="p">,</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="n">unreference</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="n">manually</span>
+<span class="w">            </span><span class="n">av</span><span class="err">\</span><span class="n">_packet</span><span class="err">\</span><span class="n">_unref</span><span class="p">(</span><span class="n">packet</span><span class="p">);</span>
+<span class="w">            </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">        </span><span class="err">}</span>
+
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="nf">convert</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">timestamps</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">input</span><span class="w"> </span><span class="n">stream</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="n">stream</span>
+<span class="w">        </span><span class="o">//</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="ow">In</span><span class="w"> </span><span class="n">simple</span><span class="w"> </span><span class="n">terms</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">rescaling</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">unit</span><span class="w"> </span><span class="k">second</span><span class="p">,</span><span class="w"> </span><span class="ow">like</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">100</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">1001</span><span class="o">/</span><span class="mi">24000</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="n">stream</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">own</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="n">base</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">timestamps</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">packets</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="k">of</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">streams</span><span class="p">,</span><span class="w"> </span><span class="n">timestamps</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">different</span><span class="w"> </span><span class="n">meanings</span><span class="w"> </span><span class="n">depending</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="n">unit</span><span class="p">.</span>
+<span class="w">        </span><span class="o">//</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">necessary</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">example</span><span class="w"> </span><span class="n">since</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">input</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="n">streams</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="p">.</span>
+<span class="w">        </span><span class="n">av</span><span class="err">\</span><span class="n">_packet</span><span class="err">\</span><span class="n">_rescale</span><span class="err">\</span><span class="n">_ts</span><span class="p">(</span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="n">decoder_fmt_ctx</span><span class="o">-&gt;</span><span class="n">streams</span><span class="o">[</span><span class="n">packet-&gt;stream_index</span><span class="o">]-&gt;</span><span class="n">time_base</span><span class="p">,</span>
+<span class="w">                             </span><span class="n">encoder_fmt_ctx</span><span class="o">-&gt;</span><span class="n">streams</span><span class="o">[</span><span class="n">stream_mapping[packet-&gt;stream_index</span><span class="o">]</span><span class="err">]</span><span class="o">-&gt;</span><span class="n">time_base</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span>
+<span class="w">                </span><span class="ss">&quot; -- %s] packet = %6ld, pts: %6ld, dts: %6ld, duration: %5ld\n&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">av</span><span class="err">\</span><span class="n">_get</span><span class="err">\</span><span class="n">_media</span><span class="err">\</span><span class="n">_type</span><span class="err">\</span><span class="n">_string</span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="o">-&gt;</span><span class="n">streams</span><span class="o">[</span><span class="n">packet-&gt;stream_index</span><span class="o">]-&gt;</span><span class="n">codecpar</span><span class="o">-&gt;</span><span class="n">codec_type</span><span class="p">),</span>
+<span class="w">                </span><span class="n">frame_number</span><span class="o">++</span><span class="p">,</span><span class="w"> </span><span class="n">packet</span><span class="o">-&gt;</span><span class="n">pts</span><span class="p">,</span><span class="w"> </span><span class="n">packet</span><span class="o">-&gt;</span><span class="n">dts</span><span class="p">,</span><span class="w"> </span><span class="n">packet</span><span class="o">-&gt;</span><span class="n">duration</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">packet</span><span class="o">-&gt;</span><span class="n">stream_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stream_mapping</span><span class="o">[</span><span class="n">packet-&gt;stream_index</span><span class="o">]</span><span class="p">;</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">packet</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="k">file</span>
+<span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">take</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">owership</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">packet</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">packet</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">blank</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">av</span><span class="err">\</span><span class="n">_interleaved</span><span class="err">\</span><span class="n">_write</span><span class="err">\</span><span class="n">_frame</span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="p">,</span><span class="w"> </span><span class="n">packet</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">            </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;failed to write frame.\n&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="err">}</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="k">write</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">trailer</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="k">close</span><span class="w"> </span><span class="n">it</span>
+<span class="w">    </span><span class="n">av</span><span class="err">\</span><span class="n">_write</span><span class="err">\</span><span class="n">_trailer</span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="err">!</span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="o">-&gt;</span><span class="n">oformat</span><span class="o">-&gt;</span><span class="n">flags</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">AVFMT_NOFILE</span><span class="p">))</span>
+<span class="w">        </span><span class="n">avio</span><span class="err">\</span><span class="n">_closep</span><span class="p">(</span><span class="o">&amp;</span><span class="n">encoder_fmt_ctx</span><span class="o">-&gt;</span><span class="n">pb</span><span class="p">);</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="k">release</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">resources</span>
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">let</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">think</span><span class="w"> </span><span class="n">about</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">abnormal</span><span class="w"> </span><span class="k">exit</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">simplicity</span>
+<span class="w">    </span><span class="n">av</span><span class="err">\</span><span class="n">_packet</span><span class="err">\</span><span class="n">_free</span><span class="p">(</span><span class="o">&amp;</span><span class="n">packet</span><span class="p">);</span>
+<span class="w">    </span><span class="n">avformat</span><span class="err">\</span><span class="n">_close</span><span class="err">\</span><span class="n">_input</span><span class="p">(</span><span class="o">&amp;</span><span class="n">decoder_fmt_ctx</span><span class="p">);</span>
+<span class="w">    </span><span class="n">avformat</span><span class="err">\</span><span class="n">_free</span><span class="err">\</span><span class="n">_context</span><span class="p">(</span><span class="n">encoder_fmt_ctx</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="err">}</span>
+</code></pre></div>
+
+<h3 id="4">😆4. 视频播放器示例</h3>
+<p>视频播放器项目Github地址：<code>https://github.com/pockethook/player.git</code></p>
+<p>视频播放器项目主要使用<code>FFmpeg</code>做视频编解码，用<code>SDL</code>做渲染。</p>
+<p>编译运行：</p>
+<div class="codehilite"><pre><span></span><code>make
+./player xxx.mp4
+</code></pre></div>
+
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/6cbcd6c17cec4dba9bb3c0f895f02fa2.png" /></p>
+<p>以上。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 - 2024 DevFrank
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs", "navigation.instant", "content.code.copy", "content.code.annotate", "navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+    
+  </body>
+</html>
