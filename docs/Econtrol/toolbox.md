@@ -242,8 +242,3 @@ Windows+R，输入cmd进入命令行，常用的设置网络命令如下：
 - Qt：基于C++的界面开发
 - ROS：机器人操作系统
 - Pycharm：Python集成开发工具
-
-## VScode自动生成Markdown目录
-安装Markdown ALL插件,Ctrl+shift+P打开命令面板,Generate TOC即可.
-记得写Markdown时不要加序号了,不然会重复.
-也可以修改配置来取消自动编号!

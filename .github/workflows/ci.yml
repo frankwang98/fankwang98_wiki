@@ -1,0 +1,22 @@
+name: wiki_ci 
+on:
+  push:
+    branches: 
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
+
+      - name: Set up Python3.x
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install mkdocs mkdocs-material python-markdown-math
+
+      - name: Deploy
+        run: mkdocs gh-deploy

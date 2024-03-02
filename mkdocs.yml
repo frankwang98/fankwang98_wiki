@@ -12,22 +12,42 @@ copyright: Copyright &copy; 2022 - 2024 DevFrank
 # Contents 导航栏
 nav:
   - 简介: index.md
-  - 语言基础:
-    - STM32: ./Econtrol/1-stm32.md
-    - C/CPP: ./Econtrol/2-cpp.md
-    - Python: ./Econtrol/3-python.md
-  - 库和框架: 
-    - Qt: ./Application/1-qt.md
-    - Shell: ./Application/2-linux.md
-    - ROS: ./Application/3-ros.md
-  - 数据结构与算法: 
-    - Vision: ./AI/1-vision.md
-    - PointCloud: ./AI/2-pointcloud.md
-    - Fusion: ./AI/3-fusion.md
-  - 工具: 
-    - 工具: ./Other/toolbox.md
-    - 资源: ./Other/study.md
-  - 关于: about.md 
+  - C++基础: 
+    - 环境配置与基础语法: cpp_basic/C++环境配置与基础语法.md
+    - 标准库及开源库: cpp_basic/C++标准库.md
+    - 文件IO: cpp_basic/C++文件IO.md
+    - 字符串: cpp_basic/C++字符串.md
+    - 异常处理: cpp_basic/C++异常处理.md
+    - 智能指针: cpp_basic/C++智能指针.md
+    - 面向对象: cpp_basic/C++面向对象.md
+    - 模板: cpp_basic/C++模板.md
+    - 并发编程: cpp_basic/C++并发编程.md
+    - 网络编程: cpp_basic/C++网络编程.md
+    
+  - C++数据结构与算法:
+    - 常用排序算法: cpp_algorithm/常用排序算法.md
+  - C++开源库和框架
+  - C++Qt嵌入式与桌面应用
+  - C++ROS机器人与自动驾驶
+  - C++CV计算机视觉与音视频
+  - C++GL计算机图形学与游戏
+  - Shell脚本与自动化
+  # - 语言基础:
+  #   - STM32: ./Econtrol/1-stm32.md
+  #   - C/CPP: ./Econtrol/2-cpp.md
+  #   - Python: ./Econtrol/3-python.md
+  # - 库和框架: 
+  #   - Qt: ./Application/1-qt.md
+  #   - Shell: ./Application/2-linux.md
+  #   - ROS: ./Application/3-ros.md
+  # - 数据结构与算法: 
+  #   - Vision: ./AI/1-vision.md
+  #   - PointCloud: ./AI/2-pointcloud.md
+  #   - Fusion: ./AI/3-fusion.md
+  # - 工具: 
+  #   - 工具: ./Other/toolbox.md
+  #   - 资源: ./Other/study.md
+  # - 关于: about.md 
 
 # 主题
 # theme: material # readthedocs material darkly bootswatch
@@ -66,6 +86,9 @@ theme:
     - content.action.edit
     - navigation.tabs
     - navigation.instant
+    - content.code.copy
+    - content.code.annotate 
+    - navigation.top
   font:
     text: 'Fira Sans'
     code: 'Fira Mono'
@@ -74,6 +97,7 @@ theme:
 # plugins:
 #   - search
 #   - awesome-pages
+#   - markdown-code-blocks
 
 plugins: []
   

@@ -9,9 +9,8 @@ Wiki of frankwang98 for guys（内含C++修炼合集）
 ```shell
 # 安装mkdocs
 pip install mkdocs
-# 安装对应插件
-pip install mkdocs-awesome-pages-plugin python-markdown-math
-pip install mkdocs-material # 可通过添加子模块安装
+pip install mkdocs-awesome-pages-plugin python-markdown-math # 安装对应插件
+pip install mkdocs-material # 可通过添加子模块安装主题
 
 # 其他
 git submodule add <URL of the repository> <local directory> # 添加子模块
