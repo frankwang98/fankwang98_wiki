@@ -54,8 +54,8 @@ nav:
 
 # Theme
 theme:
-  name: mkdocs-material
-  # custom_dir: 'mkdocs-material/material/templates'
+  name: null
+  custom_dir: 'mkdocs-material/material/templates'
   static_templates:
     - 404.html
   language: 'zh'

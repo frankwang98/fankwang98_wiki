@@ -18,5 +18,8 @@ jobs:
       - name: Install dependencies
         run: pip install mkdocs mkdocs-material python-markdown-math
 
+      - name: Git clone
+        run: git clone https://github.com/squidfunk/mkdocs-material
+
       - name: Deploy
         run: mkdocs gh-deploy
