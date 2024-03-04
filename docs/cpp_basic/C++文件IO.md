@@ -51,7 +51,7 @@ int main()
 {
 	ifstream read;
 	read.open("test.txt", ios::in);
-	if (!read.is\_open())
+	if (!read.is_open())
 	{
 		cout << "读取文件失败" << endl;
 		return 0;

@@ -6,22 +6,6 @@ Welcome to my wiki ! ———— 修车转修电脑❤！
 
 此网站基于MkDocs搭建。
 
-## 目录
-
-- [C++基础]
-- [C++开源库]
-- [C++Qt嵌入式与桌面应用]
-- [C++ROS机器人与自动驾驶]
-- [C++CV计算机视觉与音视频]
-- [C++GL计算机图形学与游戏]
-- [Shell脚本与自动化]
-
-- [STM32](./Econtrol/1-stm32.md)
-- [C/CPP](./Econtrol/2-cpp.md)
-- [Python](./Econtrol/3-python.md)
-- [Qt](./Application/1-qt.md)
-- [ROS](./Application/3-ros.md)
-
 ## 主要方向
 
 ### 1. 对集体

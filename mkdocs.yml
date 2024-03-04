@@ -3,7 +3,7 @@ site_name: DevFrank Wiki
 site_description: DevFrank Wiki是一个知识库整合站点
 site_author: DevFrank
 site_url: https://frankwang98.github.io/wiki/
-repo_url: https://github.com/frankwang98/fankwang98_wiki
+repo_url: https://github.com/frankwang98/wiki
 strict: false
 
 # Copyright
@@ -14,24 +14,67 @@ nav:
   - 简介: index.md
   - C++基础: 
     - 环境配置与基础语法: cpp_basic/C++环境配置与基础语法.md
-    - 标准库及开源库: cpp_basic/C++标准库.md
+    - 标准库: cpp_basic/C++标准库.md
+    - 开源库: cpp_basic/C++开源库.md
     - 文件IO: cpp_basic/C++文件IO.md
     - 字符串: cpp_basic/C++字符串.md
     - 异常处理: cpp_basic/C++异常处理.md
-    - 智能指针: cpp_basic/C++智能指针.md
-    - 面向对象: cpp_basic/C++面向对象.md
-    - 模板: cpp_basic/C++模板.md
+    - 数组指针: cpp_basic/C++数组指针.md
     - 并发编程: cpp_basic/C++并发编程.md
     - 网络编程: cpp_basic/C++网络编程.md
+    - 模板编程: cpp_basic/C++模板.md
     
   - C++数据结构与算法:
-    - 常用排序算法: cpp_algorithm/常用排序算法.md
-  - C++开源库和框架
-  - C++Qt嵌入式与桌面应用
-  - C++ROS机器人与自动驾驶
-  - C++CV计算机视觉与音视频
-  - C++GL计算机图形学与游戏
-  - Shell脚本与自动化
+    - 排序算法: cpp_algorithm/排序算法.md
+    - 查找算法: cpp_algorithm/查找算法.md
+    - 链表: cpp_algorithm/链表.md
+    - 设计模式: cpp_algorithm/设计模式.md
+  
+  - C++开源库和框架:
+    - jsoncpp解析库: cpp_library/jsoncpp解析库.md
+    - rapidjson解析库: cpp_library/rapidjson解析库.md
+    - cjson解析库: cpp_library/cjson解析库.md
+    - tinyxml2解析库: cpp_library/tinyxml2解析库.md
+    - fast-cpp-csv-parser解析库: cpp_library/fast-cpp-csv-parser解析库.md
+    - easylogging++日志库: cpp_library/easylogging++日志库.md
+    - spdlog日志库: cpp_library/spdlog日志库.md
+    - zeromq消息队列库: cpp_library/zeromq消息队列库.md
+    - vsomeip消息队列库: cpp_library/vsomeip消息队列库.md
+    - ffmpeg音视频库: cpp_library/ffmpeg音视频库.md
+    - vulkan图形学库: cpp_library/vulkan图形学库.md
+
+  - C++Qt嵌入式与桌面应用:
+    - Qt环境安装与基础示例: cpp_qt/Qt环境安装与基础示例.md
+    - vs2017+qt环境配置: cpp_qt/vs2017+qt环境配置.md
+    - qml环境配置: cpp_qt/qml环境配置.md
+    - QWidget与注册登陆界面: cpp_qt/QWidget与注册登陆界面.md
+    - Qt事件与正弦曲线绘制示例: cpp_qt/Qt事件与正弦曲线绘制示例.md
+    - QCustomPlot图表绘制库: cpp_qt/QCustomPlot图表绘制库.md
+    - SQLite数据库示例: cpp_qt/SQLite数据库示例.md
+    - 获取系统和网络信息示例: cpp_qt/获取系统和网络信息示例.md
+    - 串口调试助手示例: cpp_qt/串口调试助手示例.md
+    - CAN分析仪二次开发示例: cpp_qt/CAN分析仪二次开发示例.md
+    - TCP+UDP网络通信示例: cpp_qt/TCP+UDP网络通信示例.md
+    - windeployqt+nsis程序打包和发布: cpp_qt/windeployqt+nsis程序打包和发布.md
+    - wxGlade配置与使用: cpp_qt/wxGlade配置与使用.md
+
+  - C++ROS机器人与自动驾驶:
+    - ROS环境安装与基础示例: cpp_ros/ROS环境安装与基础示例.md
+
+  - C++CV计算机视觉:
+    - OpenCV环境安装与基础示例: cpp_cv/OpenCV环境安装与基础示例.md
+    - 图像视频读取基础操作: cpp_cv/图像视频读取基础操作.md
+    - 车道线检测原理与实现示例: cpp_cv/车道线检测原理与实现示例.md
+    - YOLO目标检测介绍及实现示例: cpp_cv/YOLO目标检测介绍及实现示例.md
+    - 红绿灯检测及实现示例: cpp_cv/红绿灯检测及实现示例.md
+
+  - C++GL图形学与游戏:
+    - OpenGL环境安装与基础示例: cpp_gl/OpenGL环境安装与基础示例.md
+    - 创建线段和多边形示例: cpp_gl/创建线段和多边形示例.md
+
+  - Shell脚本与自动化:
+    - Python环境安装与基础示例: shell_python/Python环境安装与基础示例.md
+
   # - 语言基础:
   #   - STM32: ./Econtrol/1-stm32.md
   #   - C/CPP: ./Econtrol/2-cpp.md

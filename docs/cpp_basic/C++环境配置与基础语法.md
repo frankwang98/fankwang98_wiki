@@ -8,7 +8,7 @@ cplusplus：`https://cplusplus.com/`
 
 #### 官方语言
 
-**`C++` 是一种通用的编程语言，具有高效和强大的特性，适用于开发各种类型的软件和系统**。它是 C 语言的一个超集（*即任何合法的 C 程序都是合法的 C++ 程序*），可以使用 C 语言的所有特性和库，同时也引入了许多新的特性，例如类、继承、多态等面向对象编程的概念，以及泛型编程、异常处理、STL 等高级特性。
+**`C++` 是一种通用的编程语言，具有高效的特性，适用于开发各种类型的软件和系统**。它是 C 语言的一个超集（*即任何合法的 C 程序都是合法的 C++ 程序*），可以使用 C 语言的所有特性和库，同时也引入了许多新的特性，例如**类、继承、多态**等面向对象编程的概念，以及**泛型编程、异常处理、STL** 等高级特性。
 
 与 C 语言相比，C++ 更适合开发大型项目和复杂的系统。它具有严格的类型检查和内存管理，能够提高程序的可靠性和安全性。同时，C++ 也具备高效和灵活性的优势，支持直接操作底层硬件和编写高性能代码。这些优点使得 C++ 成为广泛使用的编程语言，被应用于各个领域，**如操作系统、嵌入式、数据库、游戏开发、音视频传输、图像处理、金融和科学计算等**。
 
@@ -22,7 +22,7 @@ cplusplus：`https://cplusplus.com/`
 
 #### 特性
 
-C++ 完全支持面向对象的程序设计，包括面向对象开发的四大特性：
+C++ 支持面向对象的程序设计，包括面向对象开发的四大特性：
 
 * 封装：用类class将属性和方法组合在一起，对外隐藏细节
 * 继承：子类可以继承父类的属性和方法，并可扩展与修改
@@ -38,19 +38,19 @@ C++ 完全支持面向对象的程序设计，包括面向对象开发的四大�
 程序员学习路线：**函数式编程、面向对象编程、泛型编程、STL编程、数据结构与算法、网络编程、多线程与并发、操作系统编程和设计模式**等，无论哪种编程语言，在学习的同时需要不断实践，有条件的话跟着项目学是最好的。
 
 在线书籍：  
- [C++ Primer Plus](https://shenjun.gitbooks.io/c-primer-plus/content/)  
- [C++ 程序设计语言](https://shenjun4cplusplus2.github.io/cplusplus2html/)  
- [STL](https://cui-jiacai.gitbook.io/c++-stl-tutorial/)  
- [Boost](https://wizardforcel.gitbooks.io/the-boost-cpp-libraries/content/1.html)  
- [Asio](https://mmoaay.gitbooks.io/boost-asio-cpp-network-programming-chinese/content/index.html)  
- [数据结构与算法](https://xiuxin.gitbook.io/datastructre/)  
- [数据结构与算法2](https://mqjyl2012.gitbook.io/algorithm/)  
- [代码随想录](https://www.programmercarl.com/)  
- [并发](https://nj.gitbooks.io/c/content/)  
- [ModernCpp](https://vivym.gitbooks.io/effective-modern-cpp-zh/content/)  
- [EffectiveCpp](https://wizardforcel.gitbooks.io/effective-cpp/content/index.html)  
- [重构](https://book-refactoring2.ifmicro.com/docs/ch1.html)  
- [GoogleStyle](https://zh-google-styleguide.readthedocs.io/en/latest/)
+[C++ Primer Plus](https://shenjun.gitbooks.io/c-primer-plus/content/)  
+[C++ 程序设计语言](https://shenjun4cplusplus2.github.io/cplusplus2html/)  
+[STL](https://cui-jiacai.gitbook.io/c++-stl-tutorial/)  
+[Boost](https://wizardforcel.gitbooks.io/the-boost-cpp-libraries/content/1.html)  
+[Asio](https://mmoaay.gitbooks.io/boost-asio-cpp-network-programming-chinese/content/index.html)  
+[数据结构与算法](https://xiuxin.gitbook.io/datastructre/)  
+[数据结构与算法2](https://mqjyl2012.gitbook.io/algorithm/)  
+[代码随想录](https://www.programmercarl.com/)  
+[并发](https://nj.gitbooks.io/c/content/)  
+[ModernCpp](https://vivym.gitbooks.io/effective-modern-cpp-zh/content/)  
+[EffectiveCpp](https://wizardforcel.gitbooks.io/effective-cpp/content/index.html)  
+[重构](https://book-refactoring2.ifmicro.com/docs/ch1.html)  
+[GoogleStyle](https://zh-google-styleguide.readthedocs.io/en/latest/)
 
 ### 😊2. 环境安装与配置
 
@@ -71,14 +71,13 @@ g++ main.cpp -o main # 生成-o后的可执行文件
 
 #### make
 
-make构建用到的时`makefile`文件。makefile用于描述软件项目中的源代码文件如何编译和链接成可执行文件、库文件或其他目标文件，提供了一种便捷且灵活的方式来管理和构建项目。
+make构建用到的是`makefile`文件。makefile用于描述软件项目中的源代码文件如何编译和链接成可执行文件、库文件或其他目标文件，提供了一种便捷且灵活的方式来管理和构建项目。
 
 ```bash
 # 编译器
 CXX = g++
 # 编译参数
 CXXFLAGS = -Wall -g
-
 # 目标文件
 TARGET = myprogram
 # 源代码文件
@@ -116,19 +115,19 @@ cmake_minimum_required(VERSION 3.10)
 # 设置项目名称和版本号
 project(MyProject VERSION 1.0)
 
-# 添加可执行文件
-add_executable(myprogram main.cpp utils.cpp)
-
 # 设置编译选项
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# 添加依赖库
+find_package(OpenCV REQUIRED)
+
 # 添加头文件搜索路径
 include_directories(include)
 
-# 添加依赖库
-find_package(OpenCV REQUIRED)
-target_link_libraries(myprogram ${OpenCV\_LIBS})
+# 添加可执行文件
+add_executable(myprogram main.cpp utils.cpp)
+target_link_libraries(myprogram ${OpenCV_LIBS})
 
 # 设置安装规则
 install(TARGETS myprogram DESTINATION bin)
@@ -152,7 +151,7 @@ vscode-proto3
 WSL
 ROS
 CodeGeeX
-
+# 且最好设置git的换行符默认为LF
 ```
 
 目前我常用的配置文件`setting.json`如下：
@@ -196,7 +195,7 @@ using namespace std;
 // main() 是程序开始执行的地方
 int main()
 {
-   cout << "Hello World"; // 输出 Hello World
+   cout << "Hello World\n"; // 输出 Hello World
    return 0;
 }
 
@@ -229,7 +228,7 @@ Color c1 = red;
 ```cpp
 // 静态将int类型转换为float类型
 int i = 10;
-float f = static\_cast<float>(i);
+float f = static_cast<float>(i);
 std::cout << "f is " << f + 0.01 << std::endl;
 
 ```
@@ -444,20 +443,20 @@ using namespace std;
 
 int main() {
     int num1 = 10, num2 = 20;
-    int \*ptr1 = &num1;
-    int \*&ptr2 = ptr1;  // 引用指针
+    int *ptr1 = &num1;
+    int *&ptr2 = ptr1;  // 引用指针的用法
 
     cout << "num1的值：" << num1 << endl;
     cout << "num2的值：" << num2 << endl;
-    cout << "ptr1指向的值：" << \*ptr1 << endl;
-    cout << "ptr2引用的值：" << \*ptr2 << endl;
+    cout << "ptr1指向的值：" << *ptr1 << endl;
+    cout << "ptr2引用的值：" << *ptr2 << endl;
     cout << endl;
 
-    ptr2 = &num2;  // 将ptr2指向num2
+    ptr2 = &num2;  // 将ptr2指向num2，ptr1同步改变
     cout << "num1的值：" << num1 << endl;
     cout << "num2的值：" << num2 << endl;
-    cout << "ptr1指向的值：" << \*ptr1 << endl;
-    cout << "ptr2引用的值：" << \*ptr2 << endl;
+    cout << "ptr1指向的值：" << *ptr1 << endl;
+    cout << "ptr2引用的值：" << *ptr2 << endl;
 
     return 0;
 }
@@ -474,7 +473,7 @@ using namespace std;
 int main() {
     // 写入文件
     ofstream outFile("example.txt", ios::out);
-    if (outFile.is\_open()) {
+    if (outFile.is_open()) {
         outFile << "Hello, World!" << endl;
         outFile << "This is an example file." << endl;
         outFile.close();
@@ -486,7 +485,7 @@ int main() {
 
     // 读取文件
     ifstream inFile("example.txt", ios::in);
-    if (inFile.is\_open()) {
+    if (inFile.is_open()) {
         string line;
         while (getline(inFile, line)) {
             cout << line << endl;

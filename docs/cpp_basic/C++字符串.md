@@ -24,7 +24,7 @@ int main()
     // 2.用=赋值
     string str2 = "hello";
 
-    // 3.用char\*传参
+    // 3.用char*传参
     string str3("ABC");
 
     // 4.重复字符构造
@@ -65,7 +65,7 @@ int main()
     // 2.[]
     // 3.front()
     // 4.back()
-    // 5.c\_str()
+    // 5.c_str()
     // 6.data()
 
     string str = "hello world";
@@ -74,7 +74,7 @@ int main()
     cout << str[1] << endl;
     cout << str.front() << endl;
     cout << str.back() << endl;
-    cout << str.c\_str() << endl;
+    cout << str.c_str() << endl;
     cout << str.data() << endl;
     
     return 0;
@@ -97,17 +97,17 @@ int main()
     // 容量操作
     // 1.empty()
     // 2.size() length() 字节
-    // 3.max\_size()
-    // 4.resize(size\_type cnt) resize(size\_type cnt, CharT ch)
+    // 3.max_size()
+    // 4.resize(size_type cnt) resize(size_type cnt, CharT ch)
     // 5.reserve()
     // 6.capacity()
-    // 7.shrink\_to\_fit()
+    // 7.shrink_to_fit()
     string str = "hello world";
     string str2 = "你好";
     cout << boolalpha << str.empty() << endl;
     cout << str2.size() << endl; // 一个汉字3字节
     cout << str.length() << endl;
-    cout << str.max\_size() << endl;
+    cout << str.max_size() << endl;
     // str.resize(10);
     str.resize(20, 'A');
     cout << str << endl;
@@ -115,7 +115,7 @@ int main()
 
     str.reserve(100); // 分配100个字符的容量
     cout << str.capacity() << endl;
-    str.shrink\_to\_fit(); // 减少容量
+    str.shrink_to_fit(); // 减少容量
     cout << str.capacity() << endl;
     
     return 0;
@@ -137,27 +137,27 @@ int main()
     
     // 迭代器 - 为容器类提供统一的遍历接口
     // 1.正向迭代器 iterator
-    // 2.正向只读迭代器 const\_iterator
-    // 3.反向迭代器 reverse\_iterator
-    // 4.反向只读迭代器 const\_reverse\_iterator
+    // 2.正向只读迭代器 const_iterator
+    // 3.反向迭代器 reverse_iterator
+    // 4.反向只读迭代器 const_reverse_iterator
     string str = "hello world";
     string::iterator it = str.begin(); // auto string::iterator(不可修改)
-    cout << \*it << endl; // h
+    cout << *it << endl; // h
     it++; // it += 2
-    cout << \*it << endl; // e
-    \*it = 'E';
-    cout << \*it << endl; // E
+    cout << *it << endl; // e
+    *it = 'E';
+    cout << *it << endl; // E
     cout << str << endl;
 
     for (; it != str.end(); it++)
     {
-        cout << \*it << endl; // print
+        cout << *it << endl; // print
     }
 
     string::reverse_iterator rit = str.rbegin();
     for (; rit != str.rend(); rit++)
     {
-        cout << \*rit << endl; // reverse print
+        cout << *rit << endl; // reverse print
     }
     
     return 0;
@@ -180,19 +180,19 @@ int main()
     // 字符串相关操作
     // 1.==
     // 2.compare()
-    // 3.starts\_with() ends\_with() // std20
+    // 3.starts_with() ends_with() // std20
     // 4.contains() // std23
     // 5.append()
     // 6.insert()
-    // 7.push\_back()
-    // 8.pop\_back()
+    // 7.push_back()
+    // 8.pop_back()
     // 9.clear()
     // 10.erase()
     // 11.replace()
     // 12.substr()
     // 13.find()
     // 14.rfind()
-    // 15.to\_string()
+    // 15.to_string()
     // 16.stoi() stof()
     // 17.hash
     string str = "hello world";
@@ -203,8 +203,8 @@ int main()
 
     cout << str.append("!!!").append(" C++") << endl;
     cout << str.insert(5, ",") << endl;
-    str.push\_back('!');
-    str.pop\_back();
+    str.push_back('!');
+    str.pop_back();
     cout << str << endl;
     // cout << str.erase(5, 6) << endl;
     // str.clear();
@@ -218,7 +218,7 @@ int main()
 
     cout << stoi("123") << endl;
     cout << stof("123.45") << endl;
-    cout << to\_string(123) << endl;
+    cout << to_string(123) << endl;
 
     hash<string> hs;
     cout << hs(str) << endl; // 计算哈希值
@@ -228,12 +228,12 @@ int main()
 
 ```
 
-### 😆7. string\_view
+### 😆7. string_view
 
 ```cpp
 #include <iostream>
 #include <string>
-#include <string\_view>
+#include <string_view>
 
 using namespace std;
 
@@ -241,16 +241,16 @@ int main()
 {
     cout << __cplusplus << endl;  // -std=c++17
     
-    // string\_view 字符串共享内存，避免重新分配
-    const char \*s = "hello, c++ stl";
-    cout << uintptr\_t(s) << endl;
+    // string_view 字符串共享内存，避免重新分配
+    const char *s = "hello, c++ stl";
+    cout << uintptr_t(s) << endl;
 
     string_view sv = s;
-    cout << uintptr\_t(sv.data()) << endl;
+    cout << uintptr_t(sv.data()) << endl;
     cout << sv << endl;
 
     // 移除字节
-    sv.remove\_prefix(7);
+    sv.remove_prefix(7);
     cout << sv << endl;
     
     return 0;
@@ -259,8 +259,3 @@ int main()
 ```
 
 以上。
-
-
-
-
-

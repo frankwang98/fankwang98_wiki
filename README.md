@@ -17,3 +17,5 @@ git submodule add <URL of the repository> <local directory> # 添加子模块
 git submodule update --remote # 更新子模块
 git clone --recursive <URL of the repository> # 递归克隆
 ```
+
+main与gh-pages分支是独立的，分别维护源码和wiki。
