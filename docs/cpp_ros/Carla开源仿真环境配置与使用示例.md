@@ -1,39 +1,10 @@
-
-
-
-
-
-
-
-
-> 
 > 😏*★,°*:.☆(￣▽￣)/$:*.°★* 😏  
 >  这篇文章主要介绍carla仿真环境安装与运行。  
 >  **学其所用，用其所学。——梁启超**  
 >  欢迎来到我的博客，一起学习，共同进步。  
 >  喜欢的朋友可以关注一下，下次更新不迷路🥞
-> 
-> 
-> 
-
-
-
-
-#### 文章目录
-
-
-* + [:smirk:1. Carla介绍](#smirk1_Carla_7)
-	+ [:blush:2. carla环境配置](#blush2_carla_38)
-	+ - [Windows](#Windows_40)
-		- [Ubuntu](#Ubuntu_73)
-		- [二次开发](#_90)
-	+ [:satisfied:3. carla-ros-bridge安装与仿真](#satisfied3_carlarosbridge_132)
-
-
-
 
 ### 😏1. Carla介绍
-
 
 `Carla`是一个开源的无人驾驶仿真平台，用于训练和测试自动驾驶算法。它提供高度可配置的场景和传感器设置，模拟城市环境和交通情况，以帮助开发者评估他们的自动驾驶系统在各种现实世界场景下的表现。
 
@@ -47,45 +18,15 @@
 `Carla`的主要特点和功能包括：
 
 
-
-> 
 > 1.真实感城市环境：CARLA提供了一个高度详细、真实感的城市环境，包括城市街道、高速公路、交叉口、停车场等。这个城市环境基于OpenStreetMap数据生成，具有丰富的道路网络和多样化的交通场景。
-> 
-> 
-> 
 
-
-
-> 
 > 2.丰富的车辆和传感器模型：CARLA支持各种类型的车辆模型，包括轿车、卡车、自行车等，并提供了多种传感器模型，如相机、激光雷达、雷达和GPS等。开发者可以选择适合其应用场景的车辆和传感器配置。
-> 
-> 
-> 
 
-
-
-> 
 > 3.真实物理模拟：CARLA使用准确的物理模拟来模拟车辆的动力学行为和传感器的测量数据。这使得开发者可以在虚拟环境中进行高度真实的测试和评估，而无需实际车辆和传感器。
-> 
-> 
-> 
 
-
-
-> 
 > 4.可扩展的API和脚本支持：CARLA提供了Python API和脚本支持，使开发者能够通过编写Python代码来控制和监视仿真场景。这使得开发者可以自定义算法、收集数据、进行模拟实验等。
-> 
-> 
-> 
 
-
-
-> 
 > 5.高度可定制的场景和交通设置：CARLA允许开发者自定义仿真场景，包括交通流量、行人行为、天气条件等。这使得开发者可以模拟各种现实世界的交通场景，并进行自动驾驶算法的测试和评估。
-> 
-> 
-> 
-
 
 除了提供仿真环境外，Carla还提供了一套丰富的API和工具，用于收集和分析仿真数据。
 
@@ -94,7 +35,7 @@
 
 
 
-```
+```bash
 官网：https://carla.org/
 Github：https://github.com/carla-simulator/carla
 Wiki：https://carla.readthedocs.io/en/latest/
@@ -137,7 +78,7 @@ Wiki：https://carla.readthedocs.io/en/latest/
 
 
 
-```
+```bash
 # 打开powershell
 cd D:\WindowsNoEditor\PythonAPI\carla\dist
 # 安装egg
@@ -149,7 +90,7 @@ easy_install .\carla-0.9.11-py3.7-win-amd64.egg
 
 
 
-```
+```bash
 cd D:\WindowsNoEditor\PythonAPI\examples
 python .\automatic_control.py	# 自动运行车辆控制
 
@@ -168,7 +109,7 @@ Ubuntu安装类似，也是去下载Ubuntu的`release`版本，然后运行即�
 
 
 
-```
+```bash
 #运行Carla
 ./CarlaUE4.sh
 #加80个随机车辆
@@ -198,7 +139,7 @@ python的话二次开发会好点，因为提供了一些python的`example`，�
 
 
 
-```
+```py
 import pygame
 
 # 初始化pygame和joystick
@@ -241,7 +182,7 @@ except KeyboardInterrupt:
 
 
 
-```
+```sh
 mkdir -p ~/carla-ros-bridge/catkin_ws/src
 cd ~/carla-ros-bridge
 git clone https://github.com/carla-simulator/ros-bridge.git(0.9.11)
@@ -261,7 +202,7 @@ catkin_make
 
 
 
-```
+```sh
 gedit ~/.bashrc
 #### carla
 export PYTHONPATH=$PYTHONPATH:/home/dev/CARLA_0.9.11/PythonAPI/carla/dist/carla-0.9.11-py2.7-linux-x86_64.egg
@@ -275,7 +216,7 @@ ros节点启动：
 
 
 
-```
+```sh
 #### Option 1: start the ros bridge
 roslaunch carla_ros_bridge carla_ros_bridge.launch
 
@@ -299,7 +240,7 @@ roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
 
 
 
-```
+```sh
 1.启动carla-./CarlaUE4.sh 
 2.启动carla_ros_bridge-roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
 3.启动autoware-roslaunch runtime_manager runtime_manager.launch
@@ -322,20 +263,15 @@ roslaunch carla_ros_bridge carla_ros_bridge_with_example_ego_vehicle.launch
 另外，autoware也可以与lgsvl联合仿真，autoware自带了接口。
 
 
-
-> 
 > win启动lgsvl-2019.4，选择autoware车和ip，autoware启动lgsvl的bridge.launch  
 >  能录制velodyne的点云bag，出现车悬空的问题，换了个场景好了
-> 
-> 
-> 
 
 
 ros也能和lgsvl联合仿真，也要启动一个rosbridge：
 
 
 
-```
+```sh
 roslaunch rosbridge_server rosbridge_websocket.launch
 
 ```

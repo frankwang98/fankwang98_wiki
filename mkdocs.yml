@@ -60,6 +60,14 @@ nav:
 
   - C++ROS机器人与自动驾驶:
     - ROS环境安装与基础示例: cpp_ros/ROS环境安装与基础示例.md
+    - ROS2环境配置与基础示例: cpp_ros/ROS2环境配置与基础示例.md
+    - 机器人+自动驾驶学习路线: cpp_ros/机器人+自动驾驶学习路线.md
+    - Windows系统安装ROS体验: cpp_ros/Windows系统安装ROS体验.md
+    - ROS+Qt界面开发环境搭建: cpp_ros/ROS+Qt界面开发环境搭建.md
+    - ROS常用硬件驱动与功能包: cpp_ros/ROS常用硬件驱动与功能包.md
+    - 树莓派资源介绍与实例: cpp_ros/树莓派资源介绍与实例.md
+    - 树莓派ROS智能小车调试使用记录: cpp_ros/树莓派ROS智能小车调试使用记录.md
+    - Carla开源仿真环境配置与使用示例: cpp_ros/Carla开源仿真环境配置与使用示例.md
 
   - C++CV计算机视觉:
     - OpenCV环境安装与基础示例: cpp_cv/OpenCV环境安装与基础示例.md

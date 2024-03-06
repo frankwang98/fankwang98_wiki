@@ -1,57 +1,22 @@
-
-
-
-
-
-
-
-
-> 
 > 大家平时玩ROS都是在Ubuntu系统上，那Windows系统可以安装吗，答案是：可以的！Windows为了发展自家的物联网生态，已经在Windows系统支持ROS了。
-> 
-> 
-> 
-
-
-
-
-#### 文章目录
-
-
-* + [1.安装VS 2017](#1VS_2017_3)
-	+ [2.安装Chocolatey & Git](#2Chocolatey__Git_12)
-	+ [3.安装ROS](#3ROS_31)
-	+ [4.运行ROS例程](#4ROS_40)
-
-
-
 
 ### 1.安装VS 2017
 
-
 微软家的开发离不开VS，所以大家自行安装就好了。
-
 
 VS 2017地址：`https://visualstudio.microsoft.com/zh-hans/thank-you-downloading-visual-studio/?sku=Community&rel=15`
 
-
 进入选择安装的界面，注意勾选C++支持。安装完会有下面这个东西，VS下的命令行工具。
-
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/c5d09b0c57b04069987857806fc97eeb.png)
 
-
 ### 2.安装Chocolatey & Git
-
 
 `Chocolatey`是Windows下的包管理工具，相当于Ubuntu中的apt-get，方便后续安装各种软件包。
 
-
 在VS命令行中复制下面的命令安装：
 
-
-
-```
+```bash
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
 ```
@@ -64,9 +29,7 @@ VS 2017地址：`https://visualstudio.microsoft.com/zh-hans/thank-you-downloadin
 
 比如，安装git可以这样：
 
-
-
-```
+```bash
 choco install git -y
 
 ```
@@ -78,7 +41,7 @@ choco install git -y
 
 
 
-```
+```bash
 choco source add -n=ros-win -s="https://roswin.azurewebsites.net/api/v2" --priority=1
 choco upgrade ros-melodic-desktop -y
 
@@ -113,9 +76,7 @@ choco upgrade ros-melodic-desktop -y
 
 创建一个`ros.bat`的文件，输入：
 
-
-
-```
+```bash
 @echo off
 
 C:
@@ -130,7 +91,7 @@ C:\Windows\System32\cmd.exe /k "D:\Visual Studio\2017\Enterprise\Common7\Tools\V
 
 
 
-```
+```bash
 ## 终端1
 setup.bat
 roscore
@@ -149,8 +110,3 @@ rosrun turtlesim turtle_teleop_key
 
 
 以上。
-
-
-
-
-
