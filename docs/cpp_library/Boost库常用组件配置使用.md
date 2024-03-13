@@ -1,43 +1,8 @@
-
-
-
-
-
-
-
-
-> 
 > 😏*★,°*:.☆(￣▽￣)/$:*.°★* 😏  
 >  这篇文章主要介绍Boost库常用组件配置使用。  
 >  **无专精则不能成，无涉猎则不能通。——梁启超**  
 >  欢迎来到我的博客，一起学习，共同进步。  
 >  喜欢的朋友可以关注一下，下次更新不迷路🥞
-> 
-> 
-> 
-
-
-
-
-#### 文章目录
-
-
-* + [:smirk:1. 项目介绍](#smirk1__7)
-	+ - [Boost.Thread特性](#BoostThread_32)
-		- [Boost.Serialization特性](#BoostSerialization_44)
-		- [Boost.Math特性](#BoostMath_52)
-		- [Boost.Time特性](#BoostTime_61)
-		- [Boost.Geometry几何计算库特性](#BoostGeometry_66)
-	+ [:blush:2. 环境配置](#blush2__72)
-	+ [:satisfied:3. 使用说明](#satisfied3__92)
-	+ - [Boost.Thread使用示例](#BoostThread_95)
-		- [Boost.Serialization使用示例](#BoostSerialization_135)
-		- [Boost.Math使用示例](#BoostMath_201)
-		- [Boost.Time使用示例](#BoostTime_228)
-		- [Boost.Geometry使用示例](#BoostGeometry_293)
-
-
-
 
 ### 😏1. 项目介绍
 

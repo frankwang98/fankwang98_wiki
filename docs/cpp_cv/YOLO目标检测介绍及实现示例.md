@@ -290,6 +290,34 @@ roslaunch robot_vision face_detector.launch
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/direct/bc72e9627a274b5c80b8730dfaa67c0b.png#pic_center)
 
+#### Darknet-Yolo环境配置及运行测试(Ubuntu 18.04)
+创建工作空间catkin_ws/src，下载Darknet-yolo代码包，执行编译catkin_make。
+
+打开摄像头数据，如上。
+
+运行算法测试：`roslaunch darknet_ros darknet_ros.launch`
+
+即可在`rqt_image_view`上查看。
+
+#### NanoDet-PyTorch环境配置及运行测试
+近几年目标检测模型发展很快，最近接触到一款智能小车用到了Nanodet这种目标检测模型，便拿下来试一试，在这过程中，发现一些作者在环境配置方面未提到的细节并在requirements.txt中进行了完善，可以说是手把手教你运行这个目标检测模型。
+
+完善后的模型文件如下：
+https://download.csdn.net/download/qq_40344790/62403360
+
+该代码基于NanoDet项目进行小裁剪，专门用来实现Python语言、PyTorch 版本的代码，下载直接能使用，支持图片、视频文件、摄像头实时目标检测。
+
+用于目标检测，模型小，检测速度快速，适合没GPU显卡的嵌入式设备运行，比如“树莓派”、ARM开发板、嵌入式开发板。
+
+[原文链接](https://blog.csdn.net/qq_40344790/article/details/121906319)
+
+**创建pip虚拟环境**	
+创建python虚拟环境用于安装依赖包并激活环境：
+```
+python -m venv Virtual-NanoDet
+source myvenv/bin/activate
+```
+
 
 以上。
 

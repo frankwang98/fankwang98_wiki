@@ -1,73 +1,45 @@
-# 智能传感器
-这里是自动驾驶“智能传感器”专栏，主要包括以下部分：	
-
-	1.摄像头
-	2.激光雷达
-	3.毫米波雷达
-	4.超声波雷达
-	5.IMU（组合导航）
-
-相关技术有：
-
-	卡尔曼滤波（扩展、无损）
-	人脸检测
-	车道线检测
-	目标检测
-	目标跟踪
-## 一、摄像头
-### 1.相机打开图像数据
-安装usb相机驱动：`sudo apt-get install ros-noetic-usb-cam`
-
-然后发布摄像头图像话题：`roslaunch usb_cam usb_cam-test.launch`
-
-再开一个终端，运行：`rqt_image_view`
-
-会显示所有图像节点，目标检测算法实现界面可在此查看。
-
-### 2.相机标定
-### 3.人脸检测
-
-
-### 4.车道线检测
-
-
-### 5.目标检测（深度学习）
-#### Darknet-Yolo环境配置及运行测试(Ubuntu 18.04)
-创建工作空间catkin_ws/src，下载Darknet-yolo代码包，执行编译catkin_make。
-
-打开摄像头数据，如上。
-
-运行算法测试：`roslaunch darknet_ros darknet_ros.launch`
-
-即可在`rqt_image_view`上查看。
-
-#### NanoDet-PyTorch环境配置及运行测试
-近几年目标检测模型发展很快，最近接触到一款智能小车用到了Nanodet这种目标检测模型，便拿下来试一试，在这过程中，发现一些作者在环境配置方面未提到的细节并在requirements.txt中进行了完善，可以说是手把手教你运行这个目标检测模型。
-
-完善后的模型文件如下：
-https://download.csdn.net/download/qq_40344790/62403360
-
-该代码基于NanoDet项目进行小裁剪，专门用来实现Python语言、PyTorch 版本的代码，下载直接能使用，支持图片、视频文件、摄像头实时目标检测。
-
-用于目标检测，模型小，检测速度快速，适合没GPU显卡的嵌入式设备运行，比如“树莓派”、ARM开发板、嵌入式开发板。
-
-[原文链接](https://blog.csdn.net/qq_40344790/article/details/121906319)
-
-**创建pip虚拟环境**	
-创建python虚拟环境用于安装依赖包并激活环境：
+### Cartographer与Cartographer_ros编译运行
+创建工作空间 进入工作空间安装rosdep先决依赖
+```sh
+mkdir -p ~/cartographer_ws/src 
+cd ~/cartographer_ws
+sudo apt install python3-pip python-pip -y
 ```
-python -m venv Virtual-NanoDet
-source myvenv/bin/activate
+安装配置rosdep（如果不管用，可以查看ros安装部分的rosdep更新方法）
+```sh
+##换源建议换阿里源+中科大ROS源
+##安装rosdep 使用小鱼的rosdepc完美安装
+pip3 install rosdepc
+sudo rosdepc init
+rosdepc update
 ```
+安装编译cartographer的必要依赖
+```sh
+sudo apt install -y python-wstool python-rosdep ninja-build 
+```
+从gitee上下载cartographer和cartographer_ros的源码 我这里随便找了两个人的下载了一下
+```sh
+cd ~/cartographer_ws/src 
+git clone https://gitee.com/c1h2/cartographer_ros.git
+git clone https://gitee.com/LauZanMo/cartographer.git
+```
+进入安装abseil
+```sh
+sudo apt-get install stow -y
+cd ~/cartographer_ws/src/cartographer/scripts
+./install_abseil.sh
 
-## 二、激光雷达
-### 1.激光雷达点云数据可视化
-#### LiDAR网络配置
-[原文链接](https://blog.csdn.net/qq_40344790/article/details/120354924?spm=1001.2014.3001.5501)
+cd ~/cartographer_ws
+##这里的话会把依赖都安装上包括lua glog protobuf等
+sudo rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
+##编译安装cartographer 这里等待10分钟即可安装成功
+catkin_make_isolated --install --use-ninja
+source install_isolated/setup.bash
+```
+到这里就完美安装成功了。
 
-### 2.目标检测
+### 雷达测试与LeGO-LOAM运行
 
-### 3.SLAM
 #### LeGO-LOAM
 LeGO-LOAM是Tixiao Shan提出的⼀种**基于LOAM的改进激光SLAM框架**，主要是为了实现小车在多变地形下的定位和建图，其针对前端和后端都做了⼀系列的改进。目前已在台架上测试成功！
 
@@ -89,7 +61,8 @@ LeGO_LOAM的软件系统输入 3D Lidar 的点云，输出 6 DOF 的位姿估计
 
 第五部分：Transform Integration： Transform Integration 融合了来自 Lidar Odometry 和 Lidar Mapping 的 pose estimation 进行输出最终的 pose estimate。
 ```
-##### 实时雷达测试
+
+#### 测试
 1. 雷达网络配置		
 首先安装好雷达在平台上，供电准备好，雷达网口接终端，雷达本机ip是192.168.1.200，终端ip要配置成192.168.1.102，子网掩码255.255.255.0即可。
 终端ping 192.168.1.200可以ping通则说明雷达通讯没问题。
@@ -159,54 +132,3 @@ sudo apt-get install libparmetis-dev
 Q3. 遇到的问题：[ERROR] [1638358942.333987429]: Point cloud is not in dense format, please remove NaN points first!
 A3. 找到utility.h将useCloudRIng设置为false，并重新编译。
 以上。
-
-#### Cartographer与Cartographer_ros完美编译运行
-创建工作空间 进入工作空间安装rosdep先决依赖
-```
-mkdir -p ~/cartographer_ws/src 
-cd ~/cartographer_ws
-sudo apt install python3-pip python-pip -y
-```
-安装配置rosdep（如果不管用，可以查看ros安装部分的rosdep更新方法）
-```
-##换源建议换阿里源+中科大ROS源
-##安装rosdep 使用小鱼的rosdepc完美安装
-pip3 install rosdepc
-sudo rosdepc init
-rosdepc update
-```
-安装编译cartographer的必要依赖
-```
-sudo apt install -y python-wstool python-rosdep ninja-build 
-```
-从gitee上下载cartographer和cartographer_ros的源码 我这里随便找了两个人的下载了一下
-```
-cd ~/cartographer_ws/src 
-git clone https://gitee.com/c1h2/cartographer_ros.git
-git clone https://gitee.com/LauZanMo/cartographer.git
-```
-进入安装abseil
-```
-sudo apt-get install stow -y
-cd ~/cartographer_ws/src/cartographer/scripts
-./install_abseil.sh
-
-cd ~/cartographer_ws
-##这里的话会把依赖都安装上包括lua glog protobuf等
-sudo rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
-##编译安装cartographer 这里等待10分钟即可安装成功
-catkin_make_isolated --install --use-ninja
-source install_isolated/setup.bash
-```
-到这里就完美安装成功了。
-
-### 4.多传感器标定
-
-## 三、毫米波雷达
-
-
-## 四、超声波雷达
-
-
-## 五、IMU（组合导航）
-

@@ -29,6 +29,12 @@
  中文wiki：`http://wiki.ros.org/cn`  
  ubuntu安装ros：`http://wiki.ros.org/cn/melodic/Installation/Ubuntu`
 
+[小叶玩ros的autoware教程](https://www.bilibili.com/video/BV1oi4y1U75x/?spm_id_from=333.788)
+[Teemo的autoware教程](https://www.bilibili.com/video/BV1Bh41147im?p=1)
+[松灵机器人autoware演示](https://www.bilibili.com/video/BV1pf4y1p72F?spm_id_from=333.337.search-card.all.click)
+[自动驾驶仿真 Autoware + Carla](https://www.bilibili.com/video/BV1sY41177fU/?spm_id_from=333.788.recommend_more_video.-1)
+[Autoware Carla G29 自动驾驶仿真](https://www.bilibili.com/video/BV19e4y197fy?spm_id_from=333.337.search-card.all.click)
+
 
 ros安装最常见的是在ubuntu系统中，有`amd64`和`arm64`两种，安装流程如下：
 

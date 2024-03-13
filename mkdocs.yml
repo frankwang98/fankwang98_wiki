@@ -22,26 +22,83 @@ nav:
     - 数组指针: cpp_basic/C++数组指针.md
     - 并发编程: cpp_basic/C++并发编程.md
     - 网络编程: cpp_basic/C++网络编程.md
-    - 模板编程: cpp_basic/C++模板.md
+    - 模板编程: cpp_basic/C++模板编程.md
     
   - C++数据结构与算法:
     - 排序算法: cpp_algorithm/排序算法.md
     - 查找算法: cpp_algorithm/查找算法.md
+    - 搜索算法: cpp_algorithm/搜索算法.md
+    - 动态规划算法: cpp_algorithm/动态规划算法.md
     - 链表: cpp_algorithm/链表.md
+    - 树: cpp_algorithm/树.md
+    - 图: cpp_algorithm/图.md
+    - 字符串: cpp_algorithm/字符串.md
+    - 位运算: cpp_algorithm/位运算.md
+    - 数学: cpp_algorithm/数学.md
+    - STL常用: cpp_algorithm/STL常用.md
     - 设计模式: cpp_algorithm/设计模式.md
   
   - C++开源库和框架:
+    - Boost库常用组件配置使用: cpp_library/Boost库常用组件配置使用.md
+    - Boost网络库Asio配置使用: cpp_library/Boost网络库Asio配置使用.md
+    - Boost进程间通信库InterProcess配置使用: cpp_library/Boost进程间通信库InterProcess配置使用.md
+    - Boost配置文件解析库PropertyTree配置使用: cpp_library/Boost配置文件解析库PropertyTree配置使用.md
+    - Poco可移植组件库配置与使用: cpp_library/Poco可移植组件库配置与使用.md
+    - abseil-cpp基础组件库配置使用: cpp_library/abseil-cpp基础组件库配置使用.md
+    - websocketpp安装与使用: cpp_library/websocketpp安装与使用.md
+    - cpp-httplib协议库配置与使用: cpp_library/cpp-httplib协议库配置与使用.md
+    - libcurl网络传输库配置与使用: cpp_library/libcurl网络传输库配置与使用.md
+    - 网络请求库cpr配置与使用: cpp_library/网络请求库cpr配置与使用.md
+    - Muduo网络库配置与使用: cpp_library/Muduo网络库配置与使用.md
+    - libmodbus通信协议库配置使用: cpp_library/libmodbus通信协议库配置使用.md
+    - zeromq消息队列库: cpp_library/zeromq消息队列库.md
+    - MQTT安装与配置使用: cpp_library/MQTT安装与配置使用.md
+    - vsomeip消息队列库: cpp_library/vsomeip消息队列库.md
+    - LCM通讯中间件配置使用: cpp_library/LCM通讯中间件配置使用.md
+    - grpc远程过程调用配置与使用: cpp_library/grpc远程过程调用配置与使用.md
+    - libev事件循环库配置使用: cpp_library/libev事件循环库配置使用.md
+    - 事件驱动库libevent配置使用: cpp_library/事件驱动库libevent配置使用.md
+
     - jsoncpp解析库: cpp_library/jsoncpp解析库.md
     - rapidjson解析库: cpp_library/rapidjson解析库.md
     - cjson解析库: cpp_library/cjson解析库.md
     - tinyxml2解析库: cpp_library/tinyxml2解析库.md
+    - yaml-cpp读取和写入yaml信息: cpp_library/yaml-cpp读取和写入yaml信息.md
     - fast-cpp-csv-parser解析库: cpp_library/fast-cpp-csv-parser解析库.md
+    - gflags命令行参数解析库配置使用: cpp_library/gflags命令行参数解析库配置使用.md
+    - 跨平台Excel处理库-libxlsxwriter: cpp_library/跨平台Excel处理库-libxlsxwriter.md
+    - matplotlib-cpp静态图表库配置与使用: cpp_library/matplotlib-cpp静态图表库配置与使用.md
+    - 数据序列化库protobuf配置与使用: cpp_library/数据序列化库protobuf配置与使用.md
+    - 单元测试框架gtest配置使用: cpp_library/单元测试框架gtest配置使用.md
     - easylogging++日志库: cpp_library/easylogging++日志库.md
     - spdlog日志库: cpp_library/spdlog日志库.md
-    - zeromq消息队列库: cpp_library/zeromq消息队列库.md
-    - vsomeip消息队列库: cpp_library/vsomeip消息队列库.md
+    - glog日志库配置使用: cpp_library/glog日志库配置使用.md
+    - MySQL数据库安装与使用: cpp_library/MySQL数据库安装与使用.md
+    - SQLite数据库配置使用: cpp_library/SQLite数据库配置使用.md
+    - Redis数据库配置与使用: cpp_library/Redis数据库配置与使用.md
+    - Eigen3线性代数模板库配置使用: cpp_library/Eigen3线性代数模板库配置使用.md
+    - ceres和g2o非线性优化库配置使用: cpp_library/ceres和g2o非线性优化库配置使用.md
+    - Ipopt、OSQP、osqp-eigen常用求解器配置使用: cpp_library/Ipopt、OSQP、osqp-eigen常用求解器配置使用.md
+    - CGAL计算几何库配置使用: cpp_library/CGAL计算几何库配置使用.md
+
     - ffmpeg音视频库: cpp_library/ffmpeg音视频库.md
     - vulkan图形学库: cpp_library/vulkan图形学库.md
+    - 多媒体SFML库使用入门: cpp_library/多媒体SFML库使用入门.md
+    - Linux端V4L2视频设备库: cpp_library/Linux端V4L2视频设备库.md
+    - Linux端ALSA音频处理库: cpp_library/Linux端ALSA音频处理库.md
+    - mumble跨平台语音通信配置使用: cpp_library/mumble跨平台语音通信配置使用.md
+    - Windows图形库EasyX配置与使用: cpp_library/Windows图形库EasyX配置与使用.md
+    - ImGui图形用户界面库配置与使用: cpp_library/ImGui图形用户界面库配置与使用.md
+    - ncurses终端TUI文本界面库: cpp_library/ncurses终端TUI文本界面库.md
+    - FTXUI终端界面库配置使用: cpp_library/FTXUI终端界面库配置使用.md
+    - FLTK图形界面库配置与使用: cpp_library/FLTK图形界面库配置与使用.md
+    - oatpp-web框架配置与使用: cpp_library/oatpp-web框架配置与使用.md
+    - crowcpp微型web框架配置使用: cpp_library/crowcpp微型web框架配置使用.md
+    - Box2D动力学库配置: cpp_library/Box2D动力学库配置.md
+
+    - Web文件服务器: cpp_library/Web文件服务器.md
+    - ThreadPoll线程池实现与使用: cpp_library/ThreadPoll线程池实现与使用.md
+    - cpp-tbox百宝箱组件库: cpp_library/cpp-tbox百宝箱组件库.md
 
   - C++Qt嵌入式与桌面应用:
     - Qt环境安装与基础示例: cpp_qt/Qt环境安装与基础示例.md
@@ -62,12 +119,35 @@ nav:
     - ROS环境安装与基础示例: cpp_ros/ROS环境安装与基础示例.md
     - ROS2环境配置与基础示例: cpp_ros/ROS2环境配置与基础示例.md
     - 机器人+自动驾驶学习路线: cpp_ros/机器人+自动驾驶学习路线.md
+    - ROS学习入门: cpp_ros/ROS学习入门.md
     - Windows系统安装ROS体验: cpp_ros/Windows系统安装ROS体验.md
     - ROS+Qt界面开发环境搭建: cpp_ros/ROS+Qt界面开发环境搭建.md
     - ROS常用硬件驱动与功能包: cpp_ros/ROS常用硬件驱动与功能包.md
     - 树莓派资源介绍与实例: cpp_ros/树莓派资源介绍与实例.md
     - 树莓派ROS智能小车调试使用记录: cpp_ros/树莓派ROS智能小车调试使用记录.md
     - Carla开源仿真环境配置与使用示例: cpp_ros/Carla开源仿真环境配置与使用示例.md
+    - fsd_algorithm架构与源码学习: cpp_ros/fsd_algorithm架构与源码学习.md
+    - FastDDS环境配置与使用示例: cpp_ros/FastDDS环境配置与使用示例.md
+    - OpenDDS环境配置与使用示例: cpp_ros/OpenDDS环境配置与使用示例.md
+
+    - PID控制算法原理与仿真实现示例: cpp_ros/PID控制算法原理与仿真实现示例.md
+    - AStar规划算法原理与实现: cpp_ros/AStar规划算法原理与实现.md
+    - navigation导航模块学习与算法示例: cpp_ros/navigation导航模块学习与算法示例.md
+    - SLAM学习与算法示例: cpp_ros/SLAM学习与算法示例.md
+    - cv_bridge包使用与图像转换示例: cpp_ros/cv_bridge包使用与图像转换示例.md
+    - pcl_ros包使用与点云转换示例: cpp_ros/pcl_ros包使用与点云转换示例.md
+    - message_filters时间同步介绍与示例: cpp_ros/message_filters时间同步介绍与示例.md
+    - 多传感器目标融合学习: cpp_ros/多传感器目标融合学习.md
+    - PurePursuit纯跟踪控制节点: cpp_ros/PurePursuit纯跟踪控制节点.md
+    - mpc_follower模型预测控制节点: cpp_ros/mpc_follower模型预测控制节点.md
+    - 决策规划模块解析: cpp_ros/决策规划模块解析.md
+    - Astar规划节点: cpp_ros/Astar规划节点.md
+    - OpenPlanner规划节点: cpp_ros/OpenPlanner规划节点.md
+
+    - 2小时安装Autoware1.13: cpp_ros/2小时安装Autoware1.13.md
+    - Autoware循迹指导教程: cpp_ros/Autoware循迹指导教程.md
+    - autoware采集实验数据bag包并仿真运行: cpp_ros/autoware采集实验数据bag包并仿真运行.md
+    - Apollo-ros版本架构学习与源码分析: cpp_ros/Apollo-ros版本架构学习与源码分析.md
 
   - C++CV计算机视觉:
     - OpenCV环境安装与基础示例: cpp_cv/OpenCV环境安装与基础示例.md
@@ -79,9 +159,16 @@ nav:
   - C++GL图形学与游戏:
     - OpenGL环境安装与基础示例: cpp_gl/OpenGL环境安装与基础示例.md
     - 创建线段和多边形示例: cpp_gl/创建线段和多边形示例.md
+    - OpenGL着色器基础与GLFW创建三角形示例: cpp_gl/OpenGL着色器基础与GLFW创建三角形示例.md
+    - OpenGL鼠标交互示例: cpp_gl/OpenGL鼠标交互示例.md
+    - OpenGL键盘交互示例: cpp_gl/OpenGL键盘交互示例.md
+    - DDA数值微分线段算法介绍与画线示例: cpp_gl/DDA数值微分线段算法介绍与画线示例.md
+    - OpenGLfreeglut环境配置与基础示例: cpp_gl/OpenGLfreeglut环境配置与基础示例.md
+    - UE4下载安装及测试demo: cpp_gl/UE4下载安装及测试demo.md
 
   - Shell脚本与自动化:
     - Python环境安装与基础示例: shell_python/Python环境安装与基础示例.md
+    - tmux终端容器使用示例: shell_python/tmux终端容器使用示例.md
 
   # - 语言基础:
   #   - STM32: ./Econtrol/1-stm32.md
