@@ -56,8 +56,11 @@ nav:
     - vsomeip消息队列库: cpp_library/vsomeip消息队列库.md
     - LCM通讯中间件配置使用: cpp_library/LCM通讯中间件配置使用.md
     - grpc远程过程调用配置与使用: cpp_library/grpc远程过程调用配置与使用.md
+    - brpc远程过程调用配置与使用: cpp_library/brpc远程过程调用配置与使用.md
     - libev事件循环库配置使用: cpp_library/libev事件循环库配置使用.md
     - 事件驱动库libevent配置使用: cpp_library/事件驱动库libevent配置使用.md
+    - jemalloc内存管理库配置使用: cpp_library/jemalloc内存管理库配置使用.md
+    - Kafka分布式消息队列配置使用: cpp_library/Kafka分布式消息队列配置使用.md
 
     - jsoncpp解析库: cpp_library/jsoncpp解析库.md
     - rapidjson解析库: cpp_library/rapidjson解析库.md
@@ -155,6 +158,25 @@ nav:
     - 车道线检测原理与实现示例: cpp_cv/车道线检测原理与实现示例.md
     - YOLO目标检测介绍及实现示例: cpp_cv/YOLO目标检测介绍及实现示例.md
     - 红绿灯检测及实现示例: cpp_cv/红绿灯检测及实现示例.md
+    - ORB-SLAM3安装部署与运行: cpp_cv/ORB-SLAM3安装部署与运行.md
+
+    - PCL点云库介绍及VS环境配置: cpp_cv/PCL点云库介绍及VS环境配置.md
+    - 点云输入输出示例: cpp_cv/点云输入输出示例.md
+    - VoxelGrid滤波器下采样: cpp_cv/VoxelGrid滤波器下采样.md
+    - 欧式聚类提取: cpp_cv/欧式聚类提取.md
+    - NDT点云配准: cpp_cv/NDT点云配准.md
+    - CloudViewer可视化: cpp_cv/CloudViewer可视化.md
+    - PCL点云在Qt中可视化: cpp_cv/PCL点云在Qt中可视化.md
+    - 激光雷达常用传统感知算法学习: cpp_cv/激光雷达常用传统感知算法学习.md
+    - 激光SLAM简介与常用框架: cpp_cv/激光SLAM简介与常用框架.md
+
+    - AI模型部署概述: cpp_cv/AI模型部署概述.md
+    - Windows端深度学习环境配置: cpp_cv/Windows端深度学习环境配置.md
+    - Ubuntu18.04深度学习环境安装: cpp_cv/Ubuntu18.04深度学习环境安装.md
+    - NanoDet-PyTorch环境配置及运行测试: cpp_cv/NanoDet-PyTorch环境配置及运行测试.md
+    - ncnn深度学习框架配置与使用: cpp_cv/ncnn深度学习框架配置与使用.md
+    - LibTorch深度学习框架配置与使用: cpp_cv/LibTorch深度学习框架配置与使用.md
+    - gym强化学习仿真平台配置与使用: cpp_cv/gym强化学习仿真平台配置与使用.md
 
   - C++GL图形学与游戏:
     - OpenGL环境安装与基础示例: cpp_gl/OpenGL环境安装与基础示例.md
@@ -166,9 +188,52 @@ nav:
     - OpenGLfreeglut环境配置与基础示例: cpp_gl/OpenGLfreeglut环境配置与基础示例.md
     - UE4下载安装及测试demo: cpp_gl/UE4下载安装及测试demo.md
 
-  - Shell脚本与自动化:
-    - Python环境安装与基础示例: shell_python/Python环境安装与基础示例.md
-    - tmux终端容器使用示例: shell_python/tmux终端容器使用示例.md
+    - 基于Unity的C#基础: cpp_gl/基于Unity的C#基础.md
+    - Unity新建工程入门: cpp_gl/Unity新建工程入门.md
+    - Unity网络通信: cpp_gl/Unity网络通信.md
+    - Unity控制小球运动: cpp_gl/Unity控制小球运动.md
+    - Unity触发检测: cpp_gl/Unity触发检测.md
+    - Unity碰撞检测并销毁: cpp_gl/Unity碰撞检测并销毁.md
+    - Unity设置UI显示分数和胜利: cpp_gl/Unity设置UI显示分数和胜利.md
+    - UnityLineRenderer画运动轨迹: cpp_gl/UnityLineRenderer画运动轨迹.md
+    - Unity虚拟相机跟随Player移动并输出jpg图片: cpp_gl/Unity虚拟相机跟随Player移动并输出jpg图片.md
+    - UnityAI-Navigation导航模块: cpp_gl/UnityAI-Navigation导航模块.md
+    - Unity游戏打包: cpp_gl/Unity游戏打包.md
+
+  - Shell脚本自动化:
+    - Python环境安装与基础示例: shell/Python环境安装与基础示例.md
+    - Python标准库常用模块: shell/Python标准库常用模块.md
+    - Python编程示例: shell/Python编程示例.md
+    - Python数据分析基础: shell/Python数据分析基础.md
+    - PythonExcel数据上下翻转: shell/PythonExcel数据上下翻转.md
+    - Python用python_tkinter写第一个GUI_demo: shell/Python用python_tkinter写第一个GUI_demo.md
+    - Python基于VB、Python、PythonGUI的BMI计算器小程序: shell/Python基于VB、Python、PythonGUI的BMI计算器小程序.md
+    - Python基于mkdocs搭建个人wiki博客: shell/Python基于mkdocs搭建个人wiki博客.md
+    - PythonOpenCV库基本应用: shell/PythonOpenCV库基本应用.md
+    - PythonPyQt5开发环境搭建: shell/PythonPyQt5开发环境搭建.md
+
+    - JS基础入门与实例: shell/JS基础入门与实例.md
+    - JSBMI身体质量指数计算工具: shell/JSBMI身体质量指数计算工具.md
+    - JSNodejs与Electron环境配置与示例: shell/JSNodejs与Electron环境配置与示例.md
+    - JSvue环境安装与实例创建: shell/JSvue环境安装与实例创建.md
+    - JSExpress.js环境配置与示例: shell/JSExpress.js环境配置与示例.md
+    - JS基于hexo搭建个人博客并添加域名: shell/JS基于hexo搭建个人博客并添加域名.md
+    - JS基于vue的WebGIS开发与入门案例: shell/JS基于vue的WebGIS开发与入门案例.md
+    - JS基于React的Next.js环境配置与示例: shell/JS基于React的Next.js环境配置与示例.md
+    - JS基于node-media-server搭建流媒体服务器示例: shell/JS基于node-media-server搭建流媒体服务器示例.md
+
+    - tmux终端容器使用示例: shell/tmux终端容器使用示例.md
+    - bat获取当前时间并输出带时间的log日志: shell/bat获取当前时间并输出带时间的log日志.md
+    - bat脚本基础、顺序条件和循环语句: shell/bat脚本基础、顺序条件和循环语句.md
+    - bat用脚本实现git-clone和文件解压: shell/bat用脚本实现git-clone和文件解压.md
+    - shell编辑器配置与常用shell命令: shell/shell编辑器配置与常用shell命令.md
+    - git掌握基本的git指令并学会从代码仓库学习: shell/git掌握基本的git指令并学会从代码仓库学习.md
+    - git图形化git管理工具SourceTree: shell/git图形化git管理工具SourceTree.md
+    - gitCICD持续集成与部署C++示例: shell/gitCICD持续集成与部署C++示例.md
+    - git基于gitbook的文档版本管理: shell/git基于gitbook的文档版本管理.md
+
+  # - 其他:
+  #   - 
 
   # - 语言基础:
   #   - STM32: ./Econtrol/1-stm32.md

@@ -15,7 +15,7 @@ VoxelGrid滤波器是用**体素化网格方法**实现下采样的一种常用�
 
 
 
-```
+```cpp
 class  	pcl::VoxelGrid< PointT >
  	VoxelGrid assembles a local 3D grid over a given PointCloud, and downsamples + filters the data. More...
  
