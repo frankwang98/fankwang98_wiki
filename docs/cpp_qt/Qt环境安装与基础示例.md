@@ -4,8 +4,6 @@
 >  欢迎来到我的博客，一起学习，共同进步。  
 >  喜欢的朋友可以关注一下，下次更新不迷路🥞
 
-<iframe src="//player.bilibili.com/player.html?aid=920485946&bvid=BV1Wu4y1776o&cid=1320557821&p=1" width="600" height="400" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
-
 ### 😏1. Qt介绍
 
 `Qt`是一个跨平台的C++应用程序开发框架，被广泛用于开发图形界面和嵌入式系统应用程序。它最初由奥斯陆的一家挪威公司Trolltech（现在被Digia收购）开发，并于1995年首次发布。

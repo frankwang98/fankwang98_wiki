@@ -24,7 +24,7 @@ nav:
     - 网络编程: cpp_basic/C++网络编程.md
     - 模板编程: cpp_basic/C++模板编程.md
     
-  - C++数据结构与算法:
+  - C++算法:
     - 排序算法: cpp_algorithm/排序算法.md
     - 查找算法: cpp_algorithm/查找算法.md
     - 搜索算法: cpp_algorithm/搜索算法.md
@@ -38,7 +38,7 @@ nav:
     - STL常用: cpp_algorithm/STL常用.md
     - 设计模式: cpp_algorithm/设计模式.md
   
-  - C++开源库和框架:
+  - C++库:
     - Boost库常用组件配置使用: cpp_library/Boost库常用组件配置使用.md
     - Boost网络库Asio配置使用: cpp_library/Boost网络库Asio配置使用.md
     - Boost进程间通信库InterProcess配置使用: cpp_library/Boost进程间通信库InterProcess配置使用.md
@@ -103,7 +103,7 @@ nav:
     - ThreadPoll线程池实现与使用: cpp_library/ThreadPoll线程池实现与使用.md
     - cpp-tbox百宝箱组件库: cpp_library/cpp-tbox百宝箱组件库.md
 
-  - C++Qt嵌入式与桌面应用:
+  - Qt:
     - Qt环境安装与基础示例: cpp_qt/Qt环境安装与基础示例.md
     - vs2017+qt环境配置: cpp_qt/vs2017+qt环境配置.md
     - qml环境配置: cpp_qt/qml环境配置.md
@@ -118,7 +118,7 @@ nav:
     - windeployqt+nsis程序打包和发布: cpp_qt/windeployqt+nsis程序打包和发布.md
     - wxGlade配置与使用: cpp_qt/wxGlade配置与使用.md
 
-  - C++ROS机器人与自动驾驶:
+  - ROS:
     - ROS环境安装与基础示例: cpp_ros/ROS环境安装与基础示例.md
     - ROS2环境配置与基础示例: cpp_ros/ROS2环境配置与基础示例.md
     - 机器人+自动驾驶学习路线: cpp_ros/机器人+自动驾驶学习路线.md
@@ -152,7 +152,7 @@ nav:
     - autoware采集实验数据bag包并仿真运行: cpp_ros/autoware采集实验数据bag包并仿真运行.md
     - Apollo-ros版本架构学习与源码分析: cpp_ros/Apollo-ros版本架构学习与源码分析.md
 
-  - C++CV计算机视觉:
+  - OpenCV:
     - OpenCV环境安装与基础示例: cpp_cv/OpenCV环境安装与基础示例.md
     - 图像视频读取基础操作: cpp_cv/图像视频读取基础操作.md
     - 车道线检测原理与实现示例: cpp_cv/车道线检测原理与实现示例.md
@@ -178,7 +178,7 @@ nav:
     - LibTorch深度学习框架配置与使用: cpp_cv/LibTorch深度学习框架配置与使用.md
     - gym强化学习仿真平台配置与使用: cpp_cv/gym强化学习仿真平台配置与使用.md
 
-  - C++GL图形学与游戏:
+  - OpenGL:
     - OpenGL环境安装与基础示例: cpp_gl/OpenGL环境安装与基础示例.md
     - 创建线段和多边形示例: cpp_gl/创建线段和多边形示例.md
     - OpenGL着色器基础与GLFW创建三角形示例: cpp_gl/OpenGL着色器基础与GLFW创建三角形示例.md
@@ -200,28 +200,7 @@ nav:
     - UnityAI-Navigation导航模块: cpp_gl/UnityAI-Navigation导航模块.md
     - Unity游戏打包: cpp_gl/Unity游戏打包.md
 
-  - Shell脚本自动化:
-    - Python环境安装与基础示例: shell/Python环境安装与基础示例.md
-    - Python标准库常用模块: shell/Python标准库常用模块.md
-    - Python编程示例: shell/Python编程示例.md
-    - Python数据分析基础: shell/Python数据分析基础.md
-    - PythonExcel数据上下翻转: shell/PythonExcel数据上下翻转.md
-    - Python用python_tkinter写第一个GUI_demo: shell/Python用python_tkinter写第一个GUI_demo.md
-    - Python基于VB、Python、PythonGUI的BMI计算器小程序: shell/Python基于VB、Python、PythonGUI的BMI计算器小程序.md
-    - Python基于mkdocs搭建个人wiki博客: shell/Python基于mkdocs搭建个人wiki博客.md
-    - PythonOpenCV库基本应用: shell/PythonOpenCV库基本应用.md
-    - PythonPyQt5开发环境搭建: shell/PythonPyQt5开发环境搭建.md
-
-    - JS基础入门与实例: shell/JS基础入门与实例.md
-    - JSBMI身体质量指数计算工具: shell/JSBMI身体质量指数计算工具.md
-    - JSNodejs与Electron环境配置与示例: shell/JSNodejs与Electron环境配置与示例.md
-    - JSvue环境安装与实例创建: shell/JSvue环境安装与实例创建.md
-    - JSExpress.js环境配置与示例: shell/JSExpress.js环境配置与示例.md
-    - JS基于hexo搭建个人博客并添加域名: shell/JS基于hexo搭建个人博客并添加域名.md
-    - JS基于vue的WebGIS开发与入门案例: shell/JS基于vue的WebGIS开发与入门案例.md
-    - JS基于React的Next.js环境配置与示例: shell/JS基于React的Next.js环境配置与示例.md
-    - JS基于node-media-server搭建流媒体服务器示例: shell/JS基于node-media-server搭建流媒体服务器示例.md
-
+  - Shell:
     - tmux终端容器使用示例: shell/tmux终端容器使用示例.md
     - bat获取当前时间并输出带时间的log日志: shell/bat获取当前时间并输出带时间的log日志.md
     - bat脚本基础、顺序条件和循环语句: shell/bat脚本基础、顺序条件和循环语句.md
@@ -232,25 +211,33 @@ nav:
     - gitCICD持续集成与部署C++示例: shell/gitCICD持续集成与部署C++示例.md
     - git基于gitbook的文档版本管理: shell/git基于gitbook的文档版本管理.md
 
-  # - 其他:
-  #   - 
+  # Nodejs:
+  #   - JS基础入门与实例: nodejs/JS基础入门与实例.md
+  #   - JSBMI身体质量指数计算工具: nodejs/JSBMI身体质量指数计算工具.md
+  #   - JSNodejs与Electron环境配置与示例: nodejs/JSNodejs与Electron环境配置与示例.md
+  #   - JSvue环境安装与实例创建: nodejs/JSvue环境安装与实例创建.md
+  #   - JSExpress.js环境配置与示例: nodejs/JSExpress.js环境配置与示例.md
+  #   - JS基于hexo搭建个人博客并添加域名: nodejs/JS基于hexo搭建个人博客并添加域名.md
+  #   - JS基于vue的WebGIS开发与入门案例: nodejs/JS基于vue的WebGIS开发与入门案例.md
+  #   - JS基于React的Next.js环境配置与示例: nodejs/JS基于React的Next.js环境配置与示例.md
+  #   - JS基于node-media-server搭建流媒体服务器示例: nodejs/JS基于node-media-server搭建流媒体服务器示例.md
 
-  # - 语言基础:
-  #   - STM32: ./Econtrol/1-stm32.md
-  #   - C/CPP: ./Econtrol/2-cpp.md
-  #   - Python: ./Econtrol/3-python.md
-  # - 库和框架: 
-  #   - Qt: ./Application/1-qt.md
-  #   - Shell: ./Application/2-linux.md
-  #   - ROS: ./Application/3-ros.md
-  # - 数据结构与算法: 
-  #   - Vision: ./AI/1-vision.md
-  #   - PointCloud: ./AI/2-pointcloud.md
-  #   - Fusion: ./AI/3-fusion.md
-  # - 工具: 
-  #   - 工具: ./Other/toolbox.md
-  #   - 资源: ./Other/study.md
-  # - 关于: about.md 
+  - Python:
+    - Python环境安装与基础示例: python/Python环境安装与基础示例.md
+    - Python标准库常用模块: python/Python标准库常用模块.md
+    - Python编程示例: python/Python编程示例.md
+    - Python数据分析基础: python/Python数据分析基础.md
+    - PythonExcel数据上下翻转: python/PythonExcel数据上下翻转.md
+    - Python用python_tkinter写第一个GUI_demo: python/Python用python_tkinter写第一个GUI_demo.md
+    - Python基于VB、Python、PythonGUI的BMI计算器小程序: python/Python基于VB、Python、PythonGUI的BMI计算器小程序.md
+    - Python基于mkdocs搭建个人wiki博客: python/Python基于mkdocs搭建个人wiki博客.md
+    - PythonOpenCV库基本应用: python/PythonOpenCV库基本应用.md
+    - PythonPyQt5开发环境搭建: python/PythonPyQt5开发环境搭建.md
+
+  # Go:
+
+  # Java:
+
 
 # 主题
 # theme: material # readthedocs material darkly bootswatch
