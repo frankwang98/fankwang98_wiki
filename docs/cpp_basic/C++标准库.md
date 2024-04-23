@@ -67,6 +67,41 @@ if (str == "hello,world") {
 
 ```
 
+#### array静态连续数组
+
+```cpp
+#include <iostream>
+#include <array>
+
+using namespace std;
+
+int main() {
+    // 静态连续数组
+    array<int, 5> a = {1, 2, 3, 4, 5};
+    cout << a[0] << endl;
+    cout << a.at(1) << endl; // error:at(20)
+
+    // 初始化数组
+    array<int, 10> a1;
+    a1.fill(10);
+    for (auto &n : a1)
+    {
+        cout << n << endl;
+    }
+
+    // 使用迭代器遍历
+    array<int, 10>::iterator it = a1.begin(); // auto it
+    for (; it != a1.end(); it++)
+    {
+        cout << *it << endl;
+    }
+
+    // array也可创建自定义数据类型
+
+    return 0;
+}
+```
+
 #### vector：动态数组，支持快速随机访问。
 
 ```cpp
@@ -97,6 +132,35 @@ int main()
     return 0;
 }
 
+```
+
+```cpp
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    vector<int> vec(3, 100);
+    vec.reserve(6); // 预留5个位置
+    vec.push_back(10);
+    cout << (uintptr_t)vec.data() << endl;
+    vec.push_back(110); // insert
+    cout << (uintptr_t)vec.data() << endl;
+
+    vec.emplace_back(120); // emplace原位构造，复杂数据
+    cout << (uintptr_t)vec.data() << endl;
+
+    cout << vec.size() << endl;
+    cout << vec.capacity() << endl;
+
+    for (auto &n : vec)
+    {
+        cout << n << "\t";
+    }
+
+    return 0;
+}
 ```
 
 #### list：双向链表，支持高效的插入和删除操作。
@@ -148,6 +212,47 @@ int main() {
 
 ```
 
+#### forward_list单向链表
+单向链表迭代器只能做自增，不能与数字相加减，也不能两个迭代器相减。
+
+```cpp
+#include <iostream>
+#include <forward_list>
+
+using namespace std;
+
+// 一个元素返回true时移除对应元素
+bool pre(const int &val)
+{
+    return val > 3; // 移除大于3的元素
+}
+
+int main() {
+    forward_list<int> fls = {5, 6, 2, 3, 1};
+    forward_list<int> fls2 = {0, 4, 17, 12, 15,18};
+
+    // 升序排序/降序排序
+    fls.sort(); // fls.reverse();
+    fls2.sort();
+
+    // 移除元素
+    fls.remove(3);
+    fls.remove_if(pre);
+    // 也可以用lambda表达式
+    fls.remove_if([](const int &val) { return val > 3; });
+
+    // 合并
+    fls2.merge(fls);
+
+    for (auto &v : fls2)
+    {
+        cout << v << "\t\t";
+    }
+
+    return 0;
+}
+```
+
 #### queue：队列
 
 ```cpp
@@ -165,7 +270,39 @@ while (!queue.empty()) {
 
 ```
 
-#### deque：双端队列，支持首尾插入和删除操作。
+```cpp
+#include <iostream>
+#include <queue>
+
+using namespace std;
+
+int main()
+{
+    queue<const char *> q;
+
+    // 入队，如果是复合数据类型，用emplace就地构造代替push入队
+    q.push("he");
+    q.push("ll");
+    q.push("o");
+
+    // 出队
+    while (!q.empty())
+    {
+        const char *name = q.front(); // 先获取队首元素
+        q.pop(); // 将队首元素出队
+        cout << name << "已出队，感觉良好。队里还有" << q.size() << "个元素" << endl;
+    }
+
+
+    return 0;
+}
+```
+
+#### deque：双端队列，支持首尾插入和删除操作
+
+在队列两端都可以进行操作，也可以进行随机下标访问。其操作基本上与std::vector一样，比std::vector多了在头部进行插入和移除的操作。
+
+一般来说，std::vector用在需要频繁进行随机下标访问的场景，如果需要频繁在头部和尾部进行插入和删除操作，则用std::deque。
 
 ```cpp
 #include <iostream>
@@ -531,6 +668,65 @@ int main() {
 }
 ```
 
+```cpp
+#include <iostream>
+#include <stack>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    stack<string> str_stack;
+
+    // 入栈， 如果是复合数据结构，用emplace就地构造代替push入栈
+    str_stack.push("H");
+    str_stack.push("e");
+    str_stack.push("l");
+    str_stack.push("lo");
+
+    // 出栈
+    while(!str_stack.empty())
+    {
+        string str = str_stack.top(); // 先用top获取到栈顶元素
+        str_stack.pop(); // 弹出栈顶元素
+        cout << str << "--已出栈，感觉良好。栈里还有" << str_stack.size() << "个元素" << endl; 
+    }
+
+    return 0;
+}
+```
+
+#### priority_queue优先队列
+可以根据优先级的高低确定出队顺序的数据结构。如果是复合数据类型，需要提供比较函数或者重载<运算符。
+
+```cpp
+#include <iostream>
+#include <queue>
+
+int main() {
+    // 创建一个最大堆优先队列，存储 int 类型的元素
+    std::priority_queue<int> maxHeap;
+
+    // 添加元素到优先队列中
+    maxHeap.push(3);
+    maxHeap.push(5);
+    maxHeap.push(1);
+    maxHeap.push(7);
+    maxHeap.push(2);
+
+    // 打印优先队列中的元素（不会按顺序打印）
+    std::cout << "Elements in priority queue:" << std::endl;
+    while (!maxHeap.empty()) {
+        std::cout << maxHeap.top() << " ";
+        maxHeap.pop(); // 弹出队首元素
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
 #### 分配器（Allocators）
 
 STL允许用户自定义内存分配器，用于控制容器内部的内存管理和分配策略。  
@@ -641,5 +837,111 @@ int main() {
 ```
 
 此外，还包含memory内存管理库、thread多线程库、chrono时间库等。
+
+## 数组
+
+## 栈和队列
+
+### 基本计算器（表达式求值）
+
+```cpp
+class Solution {
+public:
+    int calculate(string s) {
+        // 用栈stack这种类型 只有加减的表达式
+        stack<int> ops;
+        ops.push(1);
+        int sign = 1;
+
+        int ret = 0;
+        int n = s.length();
+        int i = 0;
+        while (i < n) {
+            if (s[i] == ' ') {
+                i++;
+            } else if (s[i] == '+') {
+                sign = ops.top();
+                i++;
+            } else if (s[i] == '-') {
+                sign = -ops.top();
+                i++;
+            } else if (s[i] == '(') {
+                ops.push(sign);
+                i++;
+            } else if (s[i] == ')') {
+                ops.pop();
+                i++;
+            } else {
+                long num = 0;
+                while (i < n && s[i] >= '0' && s[i] <= '9') {
+                    num = num * 10 + s[i] - '0';
+                    i++;
+                }
+                ret += sign * num;
+            }
+        }
+        return ret;
+    }
+};
+```
+
+## 单调栈
+
+## 优先队列
+
+## 双端队列
+
+### 滑动窗口最大值
+```cpp
+#include <iostream>
+#include <vector>
+#include <deque>
+
+using namespace std;
+
+vector<int> slidingWindowMax(const vector<int>& nums, int k) {
+    vector<int> result;
+    deque<int> dq;
+
+    for (int i = 0; i < nums.size(); ++i) {
+        // 在队尾保持递减顺序
+        while (!dq.empty() && nums[i] >= nums[dq.back()]) {
+            dq.pop_back();
+        }
+        dq.push_back(i);
+
+        // 如果队头元素已不在窗口范围内，弹出
+        if (!dq.empty() && dq.front() <= i - k) {
+            dq.pop_front();
+        }
+
+        // 将窗口内的最大值加入结果
+        if (i >= k - 1) {
+            result.push_back(nums[dq.front()]);
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    vector<int> nums = {1, 3, -1, -3, 5, 3, 6, 7};
+    int k = 3;
+    
+    vector<int> result = slidingWindowMax(nums, k);
+
+    cout << "滑动窗口最大值：";
+    for (int num : result) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+```
+
+## 哈希表
+
+## 多重集合和映射
 
 以上。

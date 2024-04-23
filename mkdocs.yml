@@ -25,24 +25,11 @@ nav:
     - 模板编程: cpp_basic/C++模板编程.md
     
   - C++算法:
-    - 排序算法: cpp_algorithm/排序算法.md
-    - 查找算法: cpp_algorithm/查找算法.md
-    - 搜索算法: cpp_algorithm/搜索算法.md
-    - 动态规划算法: cpp_algorithm/动态规划算法.md
-    - 链表: cpp_algorithm/链表.md
-    - 树: cpp_algorithm/树.md
-    - 图: cpp_algorithm/图.md
-    - 字符串: cpp_algorithm/字符串.md
-    - 位运算: cpp_algorithm/位运算.md
-    - 数学: cpp_algorithm/数学.md
-    - STL常用: cpp_algorithm/STL常用.md
+    - 数据结构与算法: cpp_algorithm/数据结构与算法.md
     - 设计模式: cpp_algorithm/设计模式.md
   
   - C++库:
     - Boost库常用组件配置使用: cpp_library/Boost库常用组件配置使用.md
-    - Boost网络库Asio配置使用: cpp_library/Boost网络库Asio配置使用.md
-    - Boost进程间通信库InterProcess配置使用: cpp_library/Boost进程间通信库InterProcess配置使用.md
-    - Boost配置文件解析库PropertyTree配置使用: cpp_library/Boost配置文件解析库PropertyTree配置使用.md
     - Poco可移植组件库配置与使用: cpp_library/Poco可移植组件库配置与使用.md
     - abseil-cpp基础组件库配置使用: cpp_library/abseil-cpp基础组件库配置使用.md
     - websocketpp安装与使用: cpp_library/websocketpp安装与使用.md
