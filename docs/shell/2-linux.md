@@ -985,4 +985,7 @@ gnome-terminal --title="startNtrip" -x bash -c "bash startNtrip.sh";
 echo 'startNtrip success'
 ```
 
-### shell参考手册
+### 查看大文件
+```
+find . -type f -size +100M -exec du -h {} +
+```

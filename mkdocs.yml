@@ -198,17 +198,6 @@ nav:
     - gitCICD持续集成与部署C++示例: shell/gitCICD持续集成与部署C++示例.md
     - git基于gitbook的文档版本管理: shell/git基于gitbook的文档版本管理.md
 
-  # Nodejs:
-  #   - JS基础入门与实例: nodejs/JS基础入门与实例.md
-  #   - JSBMI身体质量指数计算工具: nodejs/JSBMI身体质量指数计算工具.md
-  #   - JSNodejs与Electron环境配置与示例: nodejs/JSNodejs与Electron环境配置与示例.md
-  #   - JSvue环境安装与实例创建: nodejs/JSvue环境安装与实例创建.md
-  #   - JSExpress.js环境配置与示例: nodejs/JSExpress.js环境配置与示例.md
-  #   - JS基于hexo搭建个人博客并添加域名: nodejs/JS基于hexo搭建个人博客并添加域名.md
-  #   - JS基于vue的WebGIS开发与入门案例: nodejs/JS基于vue的WebGIS开发与入门案例.md
-  #   - JS基于React的Next.js环境配置与示例: nodejs/JS基于React的Next.js环境配置与示例.md
-  #   - JS基于node-media-server搭建流媒体服务器示例: nodejs/JS基于node-media-server搭建流媒体服务器示例.md
-
   - Python:
     - Python环境安装与基础示例: python/Python环境安装与基础示例.md
     - Python标准库常用模块: python/Python标准库常用模块.md
@@ -227,9 +216,9 @@ nav:
 
 
 # 主题
-# theme: material # readthedocs material darkly bootswatch
+# theme: readthedocs # readthedocs material darkly bootswatch
 
-# Theme
+# Theme 下面的好看
 theme:
   name: null
   custom_dir: 'mkdocs-material/material/templates'
