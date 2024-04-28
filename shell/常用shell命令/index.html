@@ -1,0 +1,6451 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="DevFrank Wiki是一个知识库整合站点">
+      
+      
+        <meta name="author" content="DevFrank">
+      
+      
+        <link rel="canonical" href="https://frankwang98.github.io/wiki/shell/%E5%B8%B8%E7%94%A8shell%E5%91%BD%E4%BB%A4/">
+      
+      
+        <link rel="prev" href="../tmux%E7%BB%88%E7%AB%AF%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/">
+      
+      
+        <link rel="next" href="../toolbox/">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.11">
+    
+    
+      
+        <title>常用shell命令 - DevFrank Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linuxshell" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="DevFrank Wiki" class="md-header__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DevFrank Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              常用shell命令
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  简介
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../c_stm32/STM32%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+          
+  
+  C嵌入式
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++基础
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_algorithm/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-tabs__link">
+          
+  
+  C++算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_library/Boost%E5%BA%93%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-tabs__link">
+          
+  
+  C++库
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  Qt
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_ros/ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  ROS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  OpenCV
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  OpenGL
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../tmux%E7%BB%88%E7%AB%AF%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  Shell
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../python/Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-tabs__link">
+          
+  
+  Python
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DevFrank Wiki" class="md-nav__button md-logo" aria-label="DevFrank Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    DevFrank Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/frankwang98/wiki" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C嵌入式
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            C嵌入式
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c_stm32/STM32%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    STM32嵌入式系统入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++基础
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            C++基础
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    环境配置与基础语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%80%E6%BA%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开源库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%96%87%E4%BB%B6IO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件IO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    字符串
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数组指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    并发编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_basic/C%2B%2B%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模板编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            C++算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据结构与算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_algorithm/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    C++库
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            C++库
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Boost%E5%BA%93%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boost库常用组件配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Poco%E5%8F%AF%E7%A7%BB%E6%A4%8D%E7%BB%84%E4%BB%B6%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Poco可移植组件库配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/abseil-cpp%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    abseil-cpp基础组件库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/websocketpp%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    websocketpp安装与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/cpp-httplib%E5%8D%8F%E8%AE%AE%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cpp-httplib协议库配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/libcurl%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    libcurl网络传输库配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E5%BA%93cpr%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络请求库cpr配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Muduo%E7%BD%91%E7%BB%9C%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Muduo网络库配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/libmodbus%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    libmodbus通信协议库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/zeromq%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zeromq消息队列库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/MQTT%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MQTT安装与配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/vsomeip%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vsomeip消息队列库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/LCM%E9%80%9A%E8%AE%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LCM通讯中间件配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/iceoryx%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iceoryx环境配置与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/grpc%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    grpc远程过程调用配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/brpc%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    brpc远程过程调用配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/libev%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    libev事件循环库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E5%BA%93libevent%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    事件驱动库libevent配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/jemalloc%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jemalloc内存管理库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Kafka%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kafka分布式消息队列配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/jsoncpp%E8%A7%A3%E6%9E%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    jsoncpp解析库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/rapidjson%E8%A7%A3%E6%9E%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    rapidjson解析库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/cjson%E8%A7%A3%E6%9E%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cjson解析库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/tinyxml2%E8%A7%A3%E6%9E%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tinyxml2解析库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/yaml-cpp%E8%AF%BB%E5%8F%96%E5%92%8C%E5%86%99%E5%85%A5yaml%E4%BF%A1%E6%81%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    yaml-cpp读取和写入yaml信息
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/fast-cpp-csv-parser%E8%A7%A3%E6%9E%90%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fast-cpp-csv-parser解析库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/gflags%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gflags命令行参数解析库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/%E8%B7%A8%E5%B9%B3%E5%8F%B0Excel%E5%A4%84%E7%90%86%E5%BA%93-libxlsxwriter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨平台Excel处理库-libxlsxwriter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/matplotlib-cpp%E9%9D%99%E6%80%81%E5%9B%BE%E8%A1%A8%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    matplotlib-cpp静态图表库配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96%E5%BA%93protobuf%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数据序列化库protobuf配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6gtest%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    单元测试框架gtest配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/easylogging%2B%2B%E6%97%A5%E5%BF%97%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    easylogging++日志库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/spdlog%E6%97%A5%E5%BF%97%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    spdlog日志库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/glog%E6%97%A5%E5%BF%97%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    glog日志库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MySQL数据库安装与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/SQLite%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQLite数据库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Redis%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redis数据库配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Eigen3%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E6%A8%A1%E6%9D%BF%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eigen3线性代数模板库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/ceres%E5%92%8Cg2o%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%BC%98%E5%8C%96%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ceres和g2o非线性优化库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Ipopt%E3%80%81OSQP%E3%80%81osqp-eigen%E5%B8%B8%E7%94%A8%E6%B1%82%E8%A7%A3%E5%99%A8%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ipopt、OSQP、osqp-eigen常用求解器配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/CGAL%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CGAL计算几何库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/ffmpeg%E9%9F%B3%E8%A7%86%E9%A2%91%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ffmpeg音视频库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/vulkan%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vulkan图形学库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/%E5%A4%9A%E5%AA%92%E4%BD%93SFML%E5%BA%93%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多媒体SFML库使用入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Linux%E7%AB%AFV4L2%E8%A7%86%E9%A2%91%E8%AE%BE%E5%A4%87%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux端V4L2视频设备库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Linux%E7%AB%AFALSA%E9%9F%B3%E9%A2%91%E5%A4%84%E7%90%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux端ALSA音频处理库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/mumble%E8%B7%A8%E5%B9%B3%E5%8F%B0%E8%AF%AD%E9%9F%B3%E9%80%9A%E4%BF%A1%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mumble跨平台语音通信配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Windows%E5%9B%BE%E5%BD%A2%E5%BA%93EasyX%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows图形库EasyX配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/ImGui%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ImGui图形用户界面库配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/ncurses%E7%BB%88%E7%AB%AFTUI%E6%96%87%E6%9C%AC%E7%95%8C%E9%9D%A2%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ncurses终端TUI文本界面库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/FTXUI%E7%BB%88%E7%AB%AF%E7%95%8C%E9%9D%A2%E5%BA%93%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FTXUI终端界面库配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/FLTK%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2%E5%BA%93%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FLTK图形界面库配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/oatpp-web%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    oatpp-web框架配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/crowcpp%E5%BE%AE%E5%9E%8Bweb%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    crowcpp微型web框架配置使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_library/Box2D%E5%8A%A8%E5%8A%9B%E5%AD%A6%E5%BA%93%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Box2D动力学库配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Qt
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Qt
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/Qt%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qt环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/vs2017%2Bqt%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8Eqml%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vs2017+qt环境配置与qml示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/QWidget%E4%B8%8E%E6%B3%A8%E5%86%8C%E7%99%BB%E9%99%86%E7%95%8C%E9%9D%A2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QWidget与注册登陆界面
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/Qt%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%AD%A3%E5%BC%A6%E6%9B%B2%E7%BA%BF%E7%BB%98%E5%88%B6%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Qt事件与正弦曲线绘制示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/QCustomPlot%E5%9B%BE%E8%A1%A8%E7%BB%98%E5%88%B6%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QCustomPlot图表绘制库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/SQLite%E6%95%B0%E6%8D%AE%E5%BA%93%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQLite数据库示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E5%92%8C%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    获取系统和网络信息示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95%E5%8A%A9%E6%89%8B%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    串口调试助手示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/CAN%E5%88%86%E6%9E%90%E4%BB%AA%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CAN分析仪二次开发示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/TCP%2BUDP%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TCP+UDP网络通信示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_qt/windeployqt%2Bnsis%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%E5%92%8C%E5%8F%91%E5%B8%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    windeployqt+nsis程序打包和发布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ROS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ROS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/ROS%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/ROS2%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS2环境配置与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/Windows%E5%AE%89%E8%A3%85ROS%E4%B8%8EROSQt%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows安装ROS与ROSQt开发环境
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/ROS%E5%B8%B8%E7%94%A8%E7%A1%AC%E4%BB%B6%E9%A9%B1%E5%8A%A8%E4%B8%8E%E5%8A%9F%E8%83%BD%E5%8C%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ROS常用硬件驱动与功能包
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/Carla%E4%BB%BF%E7%9C%9F%E5%99%A8%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Carla仿真器配置与使用示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/fsd_algorithm%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fsd_algorithm架构与源码学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/DDS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DDS环境配置与使用示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/SLAM%E5%AD%A6%E4%B9%A0%E4%B8%8E%E7%AE%97%E6%B3%95%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SLAM学习与算法示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/cv_bridge%E5%8C%85%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%9B%BE%E5%83%8F%E8%BD%AC%E6%8D%A2%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cv_bridge包使用与图像转换示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/pcl_ros%E5%8C%85%E4%BD%BF%E7%94%A8%E4%B8%8E%E7%82%B9%E4%BA%91%E8%BD%AC%E6%8D%A2%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pcl_ros包使用与点云转换示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/message_filters%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E4%BB%8B%E7%BB%8D%E4%B8%8E%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    message_filters时间同步介绍与示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/PID%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E4%B8%8E%E4%BB%BF%E7%9C%9F%E5%AE%9E%E7%8E%B0%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PID控制算法原理与仿真实现示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/PurePursuit%E7%BA%AF%E8%B7%9F%E8%B8%AA%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PurePursuit纯跟踪控制节点
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/mpc_follower%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mpc_follower模型预测控制节点
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/AStar%E8%A7%84%E5%88%92%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AStar规划算法原理与实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/OpenPlanner%E8%A7%84%E5%88%92%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenPlanner规划节点
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/2%E5%B0%8F%E6%97%B6%E5%AE%89%E8%A3%85Autoware1.13/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2小时安装Autoware1.13
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/Autoware%E5%BE%AA%E8%BF%B9%E6%8C%87%E5%AF%BC%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autoware循迹指导教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/autoware%E9%87%87%E9%9B%86%E5%AE%9E%E9%AA%8C%E6%95%B0%E6%8D%AEbag%E5%8C%85%E5%B9%B6%E4%BB%BF%E7%9C%9F%E8%BF%90%E8%A1%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    autoware采集实验数据bag包并仿真运行
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_ros/Apollo-ros%E7%89%88%E6%9C%AC%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apollo-ros版本架构学习与源码分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OpenCV
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            OpenCV
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/OpenCV%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenCV环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/%E5%9B%BE%E5%83%8F%E8%A7%86%E9%A2%91%E8%AF%BB%E5%8F%96%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    图像视频读取基础操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/%E8%BD%A6%E9%81%93%E7%BA%BF%E6%A3%80%E6%B5%8B%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    车道线检测原理与实现示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/YOLO%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%AE%9E%E7%8E%B0%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    YOLO目标检测介绍及实现示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/%E7%BA%A2%E7%BB%BF%E7%81%AF%E6%A3%80%E6%B5%8B%E5%8F%8A%E5%AE%9E%E7%8E%B0%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    红绿灯检测及实现示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/ORB-SLAM3%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E8%A1%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ORB-SLAM3安装部署与运行
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/PCL%E7%82%B9%E4%BA%91%E5%BA%93%E4%BB%8B%E7%BB%8D%E5%8F%8AVS%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PCL点云库介绍及VS环境配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/%E7%82%B9%E4%BA%91%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云输入输出示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/VoxelGrid%E6%BB%A4%E6%B3%A2%E5%99%A8%E4%B8%8B%E9%87%87%E6%A0%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VoxelGrid滤波器下采样
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/%E6%AC%A7%E5%BC%8F%E8%81%9A%E7%B1%BB%E6%8F%90%E5%8F%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    欧式聚类提取
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/NDT%E7%82%B9%E4%BA%91%E9%85%8D%E5%87%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NDT点云配准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/CloudViewer%E5%8F%AF%E8%A7%86%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CloudViewer可视化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/PCL%E7%82%B9%E4%BA%91%E5%9C%A8Qt%E4%B8%AD%E5%8F%AF%E8%A7%86%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PCL点云在Qt中可视化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/AI%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI模型部署概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/Windows%E7%AB%AF%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows端深度学习环境配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/Ubuntu18.04%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ubuntu18.04深度学习环境安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/NanoDet-PyTorch%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E5%8F%8A%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NanoDet-PyTorch环境配置及运行测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/ncnn%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ncnn深度学习框架配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/LibTorch%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%A1%86%E6%9E%B6%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LibTorch深度学习框架配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_cv/gym%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%BB%BF%E7%9C%9F%E5%B9%B3%E5%8F%B0%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gym强化学习仿真平台配置与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OpenGL
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            OpenGL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/OpenGL%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenGL环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/%E5%88%9B%E5%BB%BA%E7%BA%BF%E6%AE%B5%E5%92%8C%E5%A4%9A%E8%BE%B9%E5%BD%A2%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    创建线段和多边形示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/OpenGL%E7%9D%80%E8%89%B2%E5%99%A8%E5%9F%BA%E7%A1%80%E4%B8%8EGLFW%E5%88%9B%E5%BB%BA%E4%B8%89%E8%A7%92%E5%BD%A2%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenGL着色器基础与GLFW创建三角形示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/OpenGL%E9%BC%A0%E6%A0%87%E4%BA%A4%E4%BA%92%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenGL鼠标交互示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/OpenGL%E9%94%AE%E7%9B%98%E4%BA%A4%E4%BA%92%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenGL键盘交互示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/DDA%E6%95%B0%E5%80%BC%E5%BE%AE%E5%88%86%E7%BA%BF%E6%AE%B5%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D%E4%B8%8E%E7%94%BB%E7%BA%BF%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DDA数值微分线段算法介绍与画线示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/OpenGLfreeglut%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OpenGLfreeglut环境配置与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/UE4%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8F%8A%E6%B5%8B%E8%AF%95demo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UE4下载安装及测试demo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/%E5%9F%BA%E4%BA%8EUnity%E7%9A%84C%23%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基于Unity的C#基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/Unity%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unity新建工程入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/Unity%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unity网络通信
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/Unity%E6%8E%A7%E5%88%B6%E5%B0%8F%E7%90%83%E8%BF%90%E5%8A%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unity控制小球运动
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/Unity%E8%A7%A6%E5%8F%91%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unity触发检测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/Unity%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E5%B9%B6%E9%94%80%E6%AF%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unity碰撞检测并销毁
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/Unity%E8%AE%BE%E7%BD%AEUI%E6%98%BE%E7%A4%BA%E5%88%86%E6%95%B0%E5%92%8C%E8%83%9C%E5%88%A9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unity设置UI显示分数和胜利
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/UnityLineRenderer%E7%94%BB%E8%BF%90%E5%8A%A8%E8%BD%A8%E8%BF%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UnityLineRenderer画运动轨迹
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/Unity%E8%99%9A%E6%8B%9F%E7%9B%B8%E6%9C%BA%E8%B7%9F%E9%9A%8FPlayer%E7%A7%BB%E5%8A%A8%E5%B9%B6%E8%BE%93%E5%87%BAjpg%E5%9B%BE%E7%89%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unity虚拟相机跟随Player移动并输出jpg图片
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/UnityAI-Navigation%E5%AF%BC%E8%88%AA%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UnityAI-Navigation导航模块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_gl/Unity%E6%B8%B8%E6%88%8F%E6%89%93%E5%8C%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unity游戏打包
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Shell
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Shell
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tmux%E7%BB%88%E7%AB%AF%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tmux终端容器使用示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    常用shell命令
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    常用shell命令
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux那些事儿
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux那些事儿">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、什么是Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、Linux-Ubuntu系统安装
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、Linux-Ubuntu系统安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装说明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      国内镜像网站
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、Linux系统启动过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、Linux文件系统结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、Linux常用命令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、Linux常用软件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、Linux常用软件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      编辑器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用配置文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器人及自动驾驶开发环境
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux常见问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      远程登陆
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      nano编辑器快速配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dpkg" class="md-nav__link">
+    <span class="md-ellipsis">
+      无法获得dpkg前端锁的解决方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速关机
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快速关机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过设置默认停止超时时间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top" class="md-nav__link">
+    <span class="md-ellipsis">
+      top查看和关闭进程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      一种类似迅雷的下载器安装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境及显卡配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linuxvim" class="md-nav__link">
+    <span class="md-ellipsis">
+      【Linux】Vim的安装与环境配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux安装微信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux安装钉钉
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell脚本编程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell脚本编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、什么是shell脚本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、第一个shell脚本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、shell常用语法实践
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、shell常用语法实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell字符串
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell数组
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell注释
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell传递参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell基本运算符
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell基本运算符">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell算术运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell关系运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell布尔运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell逻辑运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell字符串运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell文件测试运算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-printf" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell printf输出
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell test测试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell流程控制
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell流程控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if_else" class="md-nav__link">
+    <span class="md-ellipsis">
+      if_else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for" class="md-nav__link">
+    <span class="md-ellipsis">
+      for
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      while
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#until" class="md-nav__link">
+    <span class="md-ellipsis">
+      until
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-easc" class="md-nav__link">
+    <span class="md-ellipsis">
+      case-easc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#break" class="md-nav__link">
+    <span class="md-ellipsis">
+      break
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell输入/输出重定向
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell文件包含/生效环境变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell应用案例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell应用案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    <span class="md-ellipsis">
+      判断是否为root用户
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      读取键盘消息
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      多窗口启动
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看大文件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="查看大文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      文章目录
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nano_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      nano编辑器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vim" class="md-nav__link">
+    <span class="md-ellipsis">
+      vim编辑器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell常用命令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../toolbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    toolbox
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advice/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    advice
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Python%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python环境安装与基础示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Python%E6%A0%87%E5%87%86%E5%BA%93%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python标准库常用模块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Python%E7%BC%96%E7%A8%8B%E7%A4%BA%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python编程示例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python数据分析基础
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/PythonExcel%E6%95%B0%E6%8D%AE%E4%B8%8A%E4%B8%8B%E7%BF%BB%E8%BD%AC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PythonExcel数据上下翻转
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Python%E7%94%A8python_tkinter%E5%86%99%E7%AC%AC%E4%B8%80%E4%B8%AAGUI_demo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python用python_tkinter写第一个GUI_demo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Python%E5%9F%BA%E4%BA%8EVB%E3%80%81Python%E3%80%81PythonGUI%E7%9A%84BMI%E8%AE%A1%E7%AE%97%E5%99%A8%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python基于VB、Python、PythonGUI的BMI计算器小程序
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Python%E5%9F%BA%E4%BA%8Emkdocs%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAwiki%E5%8D%9A%E5%AE%A2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python基于mkdocs搭建个人wiki博客
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/PythonOpenCV%E5%BA%93%E5%9F%BA%E6%9C%AC%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PythonOpenCV库基本应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/PythonPyQt5%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PythonPyQt5开发环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux那些事儿
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux那些事儿">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、什么是Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、Linux-Ubuntu系统安装
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、Linux-Ubuntu系统安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装说明
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      国内镜像网站
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、Linux系统启动过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、Linux文件系统结构
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、Linux常用命令
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、Linux常用软件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、Linux常用软件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      编辑器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用配置文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      常用软件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      机器人及自动驾驶开发环境
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux常见问题
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      远程登陆
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nano" class="md-nav__link">
+    <span class="md-ellipsis">
+      nano编辑器快速配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dpkg" class="md-nav__link">
+    <span class="md-ellipsis">
+      无法获得dpkg前端锁的解决方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速关机
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快速关机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过设置默认停止超时时间
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#top" class="md-nav__link">
+    <span class="md-ellipsis">
+      top查看和关闭进程
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      一种类似迅雷的下载器安装
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境及显卡配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linuxvim" class="md-nav__link">
+    <span class="md-ellipsis">
+      【Linux】Vim的安装与环境配置
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux安装微信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linux安装钉钉
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell脚本编程
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell脚本编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、什么是shell脚本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、第一个shell脚本
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、shell常用语法实践
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、shell常用语法实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell字符串
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell数组
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell注释
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell传递参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell基本运算符
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell基本运算符">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shell_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell算术运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell关系运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell布尔运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell逻辑运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell字符串运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell文件测试运算
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-printf" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell printf输出
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell test测试
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell流程控制
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell流程控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if_else" class="md-nav__link">
+    <span class="md-ellipsis">
+      if_else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for" class="md-nav__link">
+    <span class="md-ellipsis">
+      for
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    <span class="md-ellipsis">
+      while
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#until" class="md-nav__link">
+    <span class="md-ellipsis">
+      until
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-easc" class="md-nav__link">
+    <span class="md-ellipsis">
+      case-easc
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#break" class="md-nav__link">
+    <span class="md-ellipsis">
+      break
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell输入/输出重定向
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell文件包含/生效环境变量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell应用案例
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="shell应用案例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    <span class="md-ellipsis">
+      判断是否为root用户
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      读取键盘消息
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      多窗口启动
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看大文件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="查看大文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      文章目录
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nano_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      nano编辑器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vim" class="md-nav__link">
+    <span class="md-ellipsis">
+      vim编辑器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      shell常用命令
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/frankwang98/wiki/edit/master/docs/shell/常用shell命令.md" title="编辑此页" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="linuxshell">Linux系统及Shell脚本精通</h1>
+<h2 id="linux">Linux那些事儿</h2>
+<p>查看大文件：<code>find . -type f -size +200M -exec du -h {} \;</code></p>
+<p>Q：为什么要学习Linux？<br />
+A：IT互联网企业无论是开发还是运维都要求精通Linux，因为服务器都是跑在Linux/类Linux系统上的。<br />
+   物联网行业（包括自动驾驶）所用的开发系统也渐渐向Linux转移，因为开源、高效，最重要的是兼容性好。  </p>
+<h3 id="linux_1">一、什么是Linux</h3>
+<p>Linux 内核最初只是由芬兰人林纳斯·托瓦兹（Linus Torvalds）在赫尔辛基大学上学时出于个人爱好而编写的。<br />
+Linux 是一套免费使用和自由传播的类 Unix 操作系统，是一个基于 POSIX 和 UNIX 的多用户、多任务、支持多线程和多 CPU 的操作系统。<br />
+Linux 能运行主要的 UNIX 工具软件、应用程序和网络协议。它支持 32 位和 64 位硬件，也能在 嵌入式设备（如树莓派、Jetson nano） 上安装。Linux 继承了 Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。  </p>
+<p>详细介绍参<a href="https://www.runoob.com/linux/linux-intro.html">菜鸟教程-Linux介绍</a></p>
+<h3 id="linux-ubuntu">二、Linux-Ubuntu系统安装</h3>
+<p>Linux 的发行版说简单点就是将 Linux 内核与应用软件做一个打包。  </p>
+<p>声明：后文用的是Ubuntu发行版。   </p>
+<h4 id="_1">安装说明</h4>
+<ul>
+<li>
+<p>关于虚拟机与双系统的选择问题作简要说明：</p>
+<ol>
+<li>需要多系统协同工作环境，请选择虚拟机，如做网络安全与渗透测试需要搭建的eNSP和Kali Linux+靶机</li>
+<li>需要纯净和性能较好的车辆机器人开发环境，请选择双系统，如运行Apollo/Autoware自动驾驶工具或进行GPU神经网络和深度学习等</li>
+</ol>
+</li>
+<li>
+<p>Linux（Ubuntu）安装问题</p>
+<ol>
+<li>系统的安装过程可能会有各种bug出现，提供以下推荐安装标准，其他bug请自行/讨论解决</li>
+<li>对于个人/团队开发者而言，一种最简单的安装方法如下：<ul>
+<li>下载Linux镜像文件（如Ubuntu 18.04.06LTS.iso）,使用软碟通制作镜像盘，然后电脑开机按F8进入U盘启动，进行安装流程</li>
+<li>推荐的分区方法：两个分区u即可【1./efi（系统启动分区，1-10G） 2./（其余空间都给它）】</li>
+</ul>
+</li>
+<li>安装完成后电脑重启会自动进入引导程序，选择ubuntu启动，已经预装了包括浏览器等软件，这时我们先检查一下系统情况<ul>
+<li>首先更新软件源，在软件和更新中选择清华源/中科大源</li>
+<li>安装systemback系统备份恢复工具（/README），将当前系统备份（备份的好处不多说了）</li>
+<li>可选择安装图形化软件管理工具Synaptic Package Manager</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="_2">国内镜像网站</h4>
+<ul>
+<li><a href="https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/">tsinghua</a></li>
+<li><a href="http://mirrors.ustc.edu.cn/ubuntu-releases/">ustc</a></li>
+<li><a href="http://mirrors.zju.edu.cn/ubuntu-releases/">zju</a></li>
+<li><a href="http://mirrors.aliyun.com/ubuntu-releases/">aliyun</a></li>
+</ul>
+<h3 id="linux_2">三、Linux系统启动过程</h3>
+<p>linux启动时我们会看到许多启动信息。</p>
+<p>Linux系统的启动过程并不是大家想象中的那么复杂，其过程可以分为<strong>5个阶段</strong>：</p>
+<p>1.内核的引导
+首先电脑主板中的BIOS开机会自检硬盘中的启动设备。  </p>
+<p>操作系统接管硬件后，首先读取<code>/boot</code>目录下的内核文件。</p>
+<p>2.运行init
+init进程时系统所有进程的起点，读取的是配置文件/etc/inittab。</p>
+<p>许多程序需要开机启动。它们在Windows叫做&rdquo;服务&rdquo;（service），在Linux就叫做&rdquo;守护进程&rdquo;（daemon）。</p>
+<p>Linux允许为不同的场合，分配不同的开机启动程序，这就叫做&rdquo;运行级别&rdquo;（runlevel）。也就是说，启动时根据&rdquo;运行级别&rdquo;，确定要运行哪些程序。</p>
+<p>3.系统初始化
+在init的配置文件中有这么一行： <code>si::sysinit:/etc/rc.d/rc.sysinit</code>　</p>
+<p>它调用执行了<code>/etc/rc.d/rc.sysinit</code>，而<code>rc.sysinit</code>是一个bash shell的脚本，它主要是完成一些系统初始化的工作，rc.sysinit是每一个运行级别都要首先运行的重要脚本。</p>
+<p>它主要完成的工作有：激活交换分区，检查磁盘，加载硬件模块以及其它一些需要优先执行的任务。</p>
+<p>4.建立终端
+rc执行完毕后，返回init。这时基本系统环境已经设置好了，各种守护进程也已经启动了。</p>
+<p>init接下来会打开6个终端，以便用户登录系统。在inittab中的以下6行就是定义了6个终端：</p>
+<div class="codehilite"><pre><span></span><code><span class="mi">1</span><span class="o">:</span><span class="mi">2345</span><span class="o">:</span><span class="n">respawn</span><span class="o">:/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty1</span>
+<span class="mi">2</span><span class="o">:</span><span class="mi">2345</span><span class="o">:</span><span class="n">respawn</span><span class="o">:/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty2</span>
+<span class="mi">3</span><span class="o">:</span><span class="mi">2345</span><span class="o">:</span><span class="n">respawn</span><span class="o">:/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty3</span>
+<span class="mi">4</span><span class="o">:</span><span class="mi">2345</span><span class="o">:</span><span class="n">respawn</span><span class="o">:/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty4</span>
+<span class="mi">5</span><span class="o">:</span><span class="mi">2345</span><span class="o">:</span><span class="n">respawn</span><span class="o">:/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty5</span>
+<span class="mi">6</span><span class="o">:</span><span class="mi">2345</span><span class="o">:</span><span class="n">respawn</span><span class="o">:/</span><span class="n">sbin</span><span class="o">/</span><span class="n">mingetty</span><span class="w"> </span><span class="n">tty6</span>
+</code></pre></div>
+
+<p>从上面可以看出在2、3、4、5的运行级别中都将以respawn方式运行mingetty程序，mingetty程序能打开终端、设置模式。</p>
+<p>同时它会显示一个文本登录界面，这个界面就是我们经常看到的登录界面，在这个登录界面中会提示用户输入用户名，而用户输入的用户将作为参数传给login程序来验证用户的身份。</p>
+<p>5.用户登录系统
+一般来说，用户登陆方式有 3 种：
+* 命令行登录
+* ssh登录
+* 图形界面登录
+一般我们装的Ubuntu系统都是可以图形界面登录，输入安装时设置的账号密码。</p>
+<p>最后，个人PC上的Linux每天要关机，除了图形界面的关机按钮外，命令行关机有以下：
+正确的关机流程为：<code>sync &gt; shutdown / reboot / halt</code></p>
+<div class="codehilite"><pre><span></span><code>sync：将数据由内存同步到硬盘中，防止数据丢失（有教训）。
+
+shutdown 关机指令，你可以man shutdown 来看一下帮助文档。例如你可以运行如下命令关机：
+
+shutdown –h 10 ‘This server will shutdown after 10 mins’ 这个命令告诉大家，计算机将在10分钟后关机，并且会显示在登陆用户的当前屏幕中。
+
+shutdown –h now 立马关机
+
+shutdown –h 20:25 系统会在今天20:25关机
+
+shutdown –h +10 十分钟后关机
+
+shutdown –r now 系统立马重启
+
+shutdown –r +10 系统十分钟后重启
+
+reboot 就是重启，等同于 shutdown –r now
+
+halt 关闭系统，等同于shutdown –h now 和 poweroff
+</code></pre></div>
+
+<h3 id="linux_3">四、Linux文件系统结构</h3>
+<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="n">bin</span><span class="err">：</span>
+<span class="n">bin</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">Binaries</span><span class="w"> </span><span class="p">(</span><span class="err">二进制文件</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写</span><span class="p">,</span><span class="w"> </span><span class="err">这个目录存放着最经常使用的命令。</span>
+
+<span class="o">/</span><span class="n">boot</span><span class="err">：</span>
+<span class="err">这里存放的是启动</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="err">时使用的一些核心文件，包括一些连接文件以及镜像文件。</span>
+
+<span class="o">/</span><span class="n">dev</span><span class="w"> </span><span class="err">：</span>
+<span class="n">dev</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">Device</span><span class="p">(</span><span class="err">设备</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写</span><span class="p">,</span><span class="w"> </span><span class="err">该目录下存放的是</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="err">的外部设备，在</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="err">中访问设备的方式和访问文件的方式是相同的。</span>
+
+<span class="o">/</span><span class="n">etc</span><span class="err">：</span>
+<span class="n">etc</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">Etcetera</span><span class="p">(</span><span class="err">等等</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写</span><span class="p">,</span><span class="err">这个目录用来存放所有的系统管理所需要的配置文件和子目录。</span>
+
+<span class="o">/</span><span class="n">home</span><span class="err">：</span>
+<span class="err">用户的主目录，在</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="err">中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的，如上图中的</span><span class="w"> </span><span class="n">alice</span><span class="err">、</span><span class="n">bob</span><span class="w"> </span><span class="err">和</span><span class="w"> </span><span class="n">eve</span><span class="err">。</span>
+
+<span class="o">/</span><span class="n">lib</span><span class="err">：</span>
+<span class="n">lib</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">Library</span><span class="p">(</span><span class="err">库</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于</span><span class="w"> </span><span class="n">Windows</span><span class="w"> </span><span class="err">里的</span><span class="w"> </span><span class="n">DLL</span><span class="w"> </span><span class="err">文件。几乎所有的应用程序都需要用到这些共享库。</span>
+
+<span class="o">/</span><span class="n">lost</span><span class="o">+</span><span class="n">found</span><span class="err">：</span>
+<span class="err">这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</span>
+
+<span class="o">/</span><span class="n">media</span><span class="err">：</span>
+<span class="n">linux</span><span class="w"> </span><span class="err">系统会自动识别一些设备，例如</span><span class="n">U盘</span><span class="err">、光驱等等，当识别后，</span><span class="n">Linux</span><span class="w"> </span><span class="err">会把识别的设备挂载到这个目录下。</span>
+
+<span class="o">/</span><span class="n">mnt</span><span class="err">：</span>
+<span class="err">系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在</span><span class="w"> </span><span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="w"> </span><span class="err">上，然后进入该目录就可以查看光驱里的内容了。</span>
+
+<span class="o">/</span><span class="n">opt</span><span class="err">：</span>
+<span class="n">opt</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">optional</span><span class="p">(</span><span class="err">可选</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写，这是给主机额外安装软件所摆放的目录。比如你安装一个</span><span class="n">ORACLE数据库则就可以放到这个目录下</span><span class="err">。默认是空的。</span>
+
+<span class="o">/</span><span class="n">proc</span><span class="err">：</span>
+<span class="n">proc</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">Processes</span><span class="p">(</span><span class="err">进程</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写，</span><span class="o">/</span><span class="n">proc</span><span class="w"> </span><span class="err">是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。</span>
+
+<span class="o">/</span><span class="n">root</span><span class="err">：</span>
+<span class="err">该目录为系统管理员，也称作超级权限者的用户主目录。</span>
+
+<span class="o">/</span><span class="n">sbin</span><span class="err">：</span>
+<span class="n">s</span><span class="w"> </span><span class="err">就是</span><span class="w"> </span><span class="n">Super</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="err">的意思，是</span><span class="w"> </span><span class="n">Superuser</span><span class="w"> </span><span class="n">Binaries</span><span class="w"> </span><span class="p">(</span><span class="err">超级用户的二进制文件</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写，这里存放的是系统管理员使用的系统管理程序。</span>
+
+<span class="o">/</span><span class="n">selinux</span><span class="err">：</span>
+<span class="w"> </span><span class="err">这个目录是</span><span class="w"> </span><span class="n">Redhat</span><span class="o">/</span><span class="n">CentOS</span><span class="w"> </span><span class="err">所特有的目录，</span><span class="n">Selinux</span><span class="w"> </span><span class="err">是一个安全机制，类似于</span><span class="w"> </span><span class="n">windows</span><span class="w"> </span><span class="err">的防火墙，但是这套机制比较复杂，这个目录就是存放</span><span class="n">selinux相关的文件的</span><span class="err">。</span>
+
+<span class="o">/</span><span class="n">srv</span><span class="err">：</span>
+<span class="w"> </span><span class="err">该目录存放一些服务启动之后需要提取的数据。</span>
+
+<span class="o">/</span><span class="n">sys</span><span class="err">：</span>
+
+<span class="err">这是</span><span class="w"> </span><span class="n">Linux2</span><span class="o">.</span><span class="mi">6</span><span class="w"> </span><span class="err">内核的一个很大的变化。该目录下安装了</span><span class="w"> </span><span class="mf">2.6</span><span class="w"> </span><span class="err">内核中新出现的一个文件系统</span><span class="w"> </span><span class="n">sysfs</span><span class="w"> </span><span class="err">。</span>
+
+<span class="n">sysfs</span><span class="w"> </span><span class="err">文件系统集成了下面</span><span class="mi">3</span><span class="err">种文件系统的信息：针对进程信息的</span><span class="w"> </span><span class="n">proc</span><span class="w"> </span><span class="err">文件系统、针对设备的</span><span class="w"> </span><span class="n">devfs</span><span class="w"> </span><span class="err">文件系统以及针对伪终端的</span><span class="w"> </span><span class="n">devpts</span><span class="w"> </span><span class="err">文件系统。</span>
+
+<span class="err">该文件系统是内核设备树的一个直观反映。</span>
+
+<span class="err">当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。</span>
+
+<span class="o">/</span><span class="n">tmp</span><span class="err">：</span>
+<span class="n">tmp</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">temporary</span><span class="p">(</span><span class="err">临时</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写这个目录是用来存放一些临时文件的。</span>
+
+<span class="o">/</span><span class="n">usr</span><span class="err">：</span>
+<span class="w"> </span><span class="n">usr</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">unix</span><span class="w"> </span><span class="n">shared</span><span class="w"> </span><span class="n">resources</span><span class="p">(</span><span class="err">共享资源</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写，这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于</span><span class="w"> </span><span class="n">windows</span><span class="w"> </span><span class="err">下的</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="err">目录。</span>
+
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="err">：</span>
+<span class="err">系统用户使用的应用程序。</span>
+
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="err">：</span>
+<span class="err">超级用户使用的比较高级的管理程序和系统守护程序。</span>
+
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="err">：</span>
+<span class="err">内核源代码默认的放置目录。</span>
+
+<span class="o">/</span><span class="k">var</span><span class="err">：</span>
+<span class="k">var</span><span class="w"> </span><span class="err">是</span><span class="w"> </span><span class="n">variable</span><span class="p">(</span><span class="err">变量</span><span class="p">)</span><span class="w"> </span><span class="err">的缩写，这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</span>
+
+<span class="o">/</span><span class="n">run</span><span class="err">：</span>
+<span class="err">是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">run</span><span class="w"> </span><span class="err">目录，应该让它指向</span><span class="w"> </span><span class="n">run</span><span class="err">。</span>
+</code></pre></div>
+
+<h3 id="linux_4">五、Linux常用命令</h3>
+<div class="codehilite"><pre><span></span><code><span class="nx">sudo</span><span class="w"> </span><span class="nx">apt</span><span class="o">-</span><span class="nx">get</span><span class="w"> </span><span class="nx">update</span><span class="w"> </span><span class="c1">// 软件更新</span>
+<span class="nx">sudo</span><span class="w"> </span><span class="nx">apt</span><span class="o">-</span><span class="nx">get</span><span class="w"> </span><span class="nx">upgrade</span><span class="w">    </span><span class="c1">// 软件升级</span>
+<span class="nx">sudo</span><span class="w"> </span><span class="nx">apt</span><span class="o">-</span><span class="nx">get</span><span class="w"> </span><span class="nx">autoremove</span><span class="w"> </span><span class="c1">// 自动移除不必要的包</span>
+<span class="nx">sudo</span><span class="w"> </span><span class="nx">dpkg</span><span class="w"> </span><span class="o">-</span><span class="nx">i</span><span class="w"> </span><span class="nx">package_file</span><span class="p">.</span><span class="nx">deb</span><span class="w">   </span><span class="c1">// 安装deb套件包</span>
+<span class="nx">sudo</span><span class="w"> </span><span class="nx">dpkg</span><span class="w"> </span><span class="o">-</span><span class="nx">r</span><span class="w"> </span><span class="nx">package_name</span><span class="w">   </span><span class="c1">// 反安装deb套件包</span>
+<span class="nx">cd</span><span class="err">、</span><span class="nx">pwd</span><span class="err">、</span><span class="nx">ls</span><span class="err">、</span><span class="nx">mkdir</span><span class="err">、</span><span class="nx">sudo</span><span class="err">、</span><span class="nx">chmod</span><span class="err">、</span><span class="nx">rm</span><span class="err">、</span><span class="nx">mv</span><span class="err">、</span><span class="nx">cp</span><span class="w">     </span><span class="c1">// 文件目录操作</span>
+<span class="nx">ifconfig</span><span class="err">、</span><span class="nx">ping</span><span class="w">       </span><span class="c1">// 网络配置 </span>
+</code></pre></div>
+
+<p>对于一些生僻的命令，查看这里：<a href="https://www.runoob.com/linux/linux-command-manual.html">Linux命令大全</a></p>
+<h3 id="linux_5">六、Linux常用软件</h3>
+<h4 id="_3">编辑器</h4>
+<ul>
+<li>nano/vim  // 命令行编辑器，可配置nanorc文件</li>
+<li>gedit     // 图形编辑器</li>
+<li>VSCode(code)  // 轻量化代码编辑器，可安装丰富的插件</li>
+<li>Qt        // 跨平台C++ GUI开发，也可用作C++、ROS编辑器</li>
+</ul>
+<h4 id="_4">常用配置文件</h4>
+<ul>
+<li>/etc/apt/source.list  // apt安装源设置</li>
+<li>.bashrc       // 用户环境变量</li>
+<li>启动应用程序     // 设置开机自启动</li>
+</ul>
+<h4 id="_5">常用软件</h4>
+<ul>
+<li>shutter   //截图</li>
+<li>cutecom   //串口调试工具sudo apt-get install cutecom -y</li>
+<li>iptux //即时通讯工具</li>
+<li>OBS studio    //录屏</li>
+<li>Remmina      //远程连接工具（支持RDP、SSH、VNC）</li>
+</ul>
+<h4 id="_6">机器人及自动驾驶开发环境</h4>
+<ul>
+<li>C/C++、Python编译环境（ROS安装中会自动安装）</li>
+<li>ROS Melodic（自带Opencv和PCL 1.8）</li>
+<li>Autoware（感规控和标定工具箱）</li>
+</ul>
+<h3 id="linux_6">Linux常见问题</h3>
+<h4 id="_7">远程登陆</h4>
+<ol>
+<li>ssh
+mobaxterm、xshell、putty</li>
+<li>vnc
+vino、remmina、win10</li>
+</ol>
+<h4 id="nano">nano编辑器快速配置</h4>
+<p>nano是ubuntu系统自带的编辑器，也是最容易学习上手的编辑器，但初始配置在使用起来有点不尽如人意，好在官方已经给我们留好了一些配置选项，下面就记录一下我常用的编辑器环境配置：</p>
+<p>首先，新建文件nano ~/.nanorc，输入以下配置指令:     </p>
+<div class="codehilite"><pre><span></span><code><span class="n">set</span><span class="w"> </span><span class="n">linenumbers</span>
+<span class="n">set</span><span class="w"> </span><span class="n">autoindent</span>
+<span class="n">set</span><span class="w"> </span><span class="n">mouse</span>
+<span class="n">set</span><span class="w"> </span><span class="n">smooth</span>
+<span class="n">set</span><span class="w"> </span><span class="n">tabsize</span><span class="w"> </span><span class="mi">4</span>
+</code></pre></div>
+
+<p>然后，进入系统变量配置文件，sudo nano /etc/nanorc，将该文件中以上几条指令前的#去掉即可；</p>
+<p>再次进入nano，行号、缩进、鼠标等就生效了。</p>
+<p>以上。</p>
+<h4 id="dpkg">无法获得dpkg前端锁的解决方法</h4>
+<p>问题：E：无法获得锁……是否有其他进程正占用它？</p>
+<p>原因：进程占用</p>
+<p>解决：在终端依次输入下面命令： </p>
+<div class="codehilite"><pre><span></span><code><span class="n">sudo</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">dpkg</span><span class="o">/</span><span class="n">lock</span>
+
+<span class="n">sudo</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">dpkg</span><span class="o">/</span><span class="n">lock</span><span class="o">-</span><span class="n">frontend</span>
+
+<span class="n">sudo</span><span class="w"> </span><span class="n">rm</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">cache</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">archives</span><span class="o">/</span><span class="n">lock</span>
+</code></pre></div>
+
+<p>然后，继续运行apt命令就正常了。</p>
+<p><a href="https://blog.csdn.net/qq_40344790/article/details/118143502">参考链接</a></p>
+<h4 id="_8">快速关机</h4>
+<h5 id="_9">通过设置默认停止超时时间</h5>
+<p>关机的默认等待时间默认为 90 秒。在这个时间之后，你的系统会尝试强制停止服务。但一般情况下，我们会想让ubuntu的关机和开机一样快，这时我们就可以修改这个时间。</p>
+<p>在位于 /etc/systemd/system.conf 的配置文件中找到所有的系统设置。该文件中包含很多以 # 开头的行，代表了文件中各条目的默认值。</p>
+<p>在开始之前，最好先复制一份原始文件。</p>
+<p><code>sudo cp /etc/systemd/system.conf /etc/systemd/system.conf.orig</code></p>
+<p>在这里找到 DefaultTimeoutStopSec，它被设置为 90 秒。</p>
+<p><code>DefaultTimeoutStopSec=90s</code>
+可以改为5s或10s。</p>
+<h5 id="top">top查看和关闭进程</h5>
+<ul>
+<li>top kill</li>
+</ul>
+<h4 id="_10">一种类似迅雷的下载器安装</h4>
+<p><a href="https://blog.csdn.net/qq_40344790/article/details/121786376?spm=1001.2014.3001.5501">原文链接</a></p>
+<h4 id="_11">环境及显卡配置</h4>
+<p><a href="https://blog.csdn.net/qq_40344790/article/details/121765107?spm=1001.2014.3001.5501">原文链接</a></p>
+<h4 id="linuxvim">【Linux】Vim的安装与环境配置</h4>
+<p><a href="https://blog.csdn.net/qq_40344790/article/details/119513112">原文链接</a></p>
+<h4 id="linux_7">Linux安装微信</h4>
+<p>最近找到一种在Ubuntu20.04用snap工具安装微信的方法，当然不是官方的产品。</p>
+<p>步骤如下：</p>
+<div class="codehilite"><pre><span></span><code>sudo apt install snapd snapd-xdg-open
+sudo snap install electronic-wechat
+</code></pre></div>
+
+<p>启动：<code>electronic-chat</code>      <br />
+虽然安装是成功了，但提示“安全原因，不能登陆”，但网上有些帐号是可以的，这就“懂的都懂”了。</p>
+<p>如果你的帐号不能使用，卸载命令如下：<code>sudo snap remove electronic-wechat</code></p>
+<h4 id="linux_8">Linux安装钉钉</h4>
+<p>相对于微信，钉钉还算国产化的好一点，支持国产CPU架构的电脑以及debian Linux。</p>
+<p>考虑到大家一般用Ubuntu比较多，这里搬运官方基于Ubuntu18.04及以上版本的安装。具体如下：</p>
+<ol>
+<li>下载链接：(当前最新版本1.3.0.20214)   <br />
+<code>https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_1.3.0.20214_amd64.deb</code></li>
+<li>下载到本地，使用dpkg命令安装   <br />
+<code>sudo dpkg -i com.alibabainc.dingtalk_1.2.0.132_amd64.deb</code></li>
+<li>钉钉卸载方法 <br />
+<code>sudo dpkg -r com.alibabainc.dingtalk</code><br />
+<code>sudo dpkg -P com.alibabainc.dingtalk</code></li>
+</ol>
+<h2 id="shell">shell脚本编程</h2>
+<p>学习Linux除了学Linux安装和基础操作外，另一个必不可少的就是shell脚本编程。</p>
+<p>大家都知道Linux系统的优点之一就是“<strong>终端命令行操作的高效和快捷！</strong>”，而Linux shell的用途就是编写自动化测试脚本，如一键安装XX软件、一键启动XX环境……</p>
+<h3 id="shell_1">一、什么是shell脚本</h3>
+<p>大家都知道linux有很多内置的终端命令，是存放在/bin目录下的，这些可以说是内置shell命令。
+Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计（脚本）语言。
+Ken Thompson 的 sh 是第一种 Unix Shell，Windows Explorer 是一个典型的图形界面 Shell。</p>
+<p>声明：以下都用bash shell，也就是 Bourne Again Shell，由于易用和免费，Bash 在日常工作中被广泛使用。同时，Bash 也是大多数Linux 系统默认的 Shell。</p>
+<h3 id="shell_2">二、第一个shell脚本</h3>
+<p>和许多编程语言一样，通过执行 Hello World 程序给大家建立学习的信心，也用来确认编译环境正常！</p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World !&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;请输入你的名字：&quot;</span>
+<span class="nb">read</span><span class="w"> </span>name
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;你好，</span><span class="nv">$name</span><span class="s2">！在这一天：\n&quot;</span><span class="sb">`</span>date<span class="sb">`</span><span class="w"> </span><span class="s2">&quot;\n你开始学习shell了！\n我与你同在！&quot;</span>
+</code></pre></div>
+
+<p>(#! 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种 Shell。)</p>
+<p>echo 命令用于向窗口输出文本。 <br />
+运行shell脚本：<br />
+<code>chmod +x ./test.sh</code>    #使脚本具有执行权限<br />
+<code>./test.sh</code>  #执行脚本</p>
+<h3 id="shell_3">三、shell常用语法实践</h3>
+<h4 id="shell_4">shell变量</h4>
+<ul>
+<li>变量</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nv">my_name</span><span class="o">=</span><span class="s2">&quot;gege&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$my_name</span>
+</code></pre></div>
+
+<h4 id="shell_5">shell字符串</h4>
+<ul>
+<li>str</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nv">your_name</span><span class="o">=</span><span class="s2">&quot;awei&quot;</span>
+<span class="nv">str</span><span class="o">=</span><span class="s2">&quot;Hello, I know you are \&quot;</span><span class="nv">$your_name</span><span class="s2">\&quot;! \n&quot;</span><span class="w">  </span><span class="c1"># \&quot;是特殊转义，表示双引号</span>
+<span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">$str</span><span class="w">    </span><span class="c1"># -e 开启转义</span>
+</code></pre></div>
+
+<ul>
+<li>str拼接</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nv">your_name</span><span class="o">=</span><span class="s2">&quot;awei阿伟&quot;</span>
+<span class="nv">my_name</span><span class="o">=</span><span class="s2">&quot;dalao大佬&quot;</span>
+<span class="c1"># 使用双引号拼接</span>
+<span class="nv">greeting</span><span class="o">=</span><span class="s2">&quot;hello, &quot;</span><span class="nv">$your_name</span><span class="s2">&quot; !&quot;</span>
+<span class="nv">greeting_1</span><span class="o">=</span><span class="s2">&quot;hello, </span><span class="si">${</span><span class="nv">my_name</span><span class="si">}</span><span class="s2"> !&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$greeting</span><span class="w">  </span><span class="nv">$greeting_1</span>
+</code></pre></div>
+
+<ul>
+<li>str提取长度</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nv">string</span><span class="o">=</span><span class="s2">&quot;abcd&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="si">${#</span><span class="nv">string</span><span class="si">}</span><span class="w">   </span><span class="c1"># 输出 4</span>
+<span class="c1">#echo ${#string[0]}   # 输出 4</span>
+</code></pre></div>
+
+<ul>
+<li>str提取子字符串</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nv">string</span><span class="o">=</span><span class="s2">&quot;runoob is a great site&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">string</span><span class="p">:</span><span class="nv">1</span><span class="p">:</span><span class="nv">4</span><span class="si">}</span><span class="w"> </span><span class="c1"># 输出 unoo</span>
+</code></pre></div>
+
+<h4 id="shell_6">shell数组</h4>
+<p>bash当前只支持一维数组，不限制数组大小。</p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nv">array_name</span><span class="o">=(</span>value0<span class="w"> </span>value1<span class="w"> </span>value2<span class="w"> </span>value3<span class="o">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">array_name</span><span class="p">[@]</span><span class="si">}</span><span class="w">   </span><span class="c1"># 打印所有数组变量</span>
+<span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">array_name</span><span class="p">[1]</span><span class="si">}</span><span class="w">   </span><span class="c1"># 打印特定变量</span>
+<span class="c1"># 取得数组元素的个数</span>
+<span class="nv">length</span><span class="o">=</span><span class="si">${#</span><span class="nv">array_name</span><span class="p">[@]</span><span class="si">}</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$length</span>
+<span class="c1"># 取得数组单个元素的长度</span>
+<span class="nv">lengthn</span><span class="o">=</span><span class="si">${#</span><span class="nv">array_name</span><span class="p">[n]</span><span class="si">}</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$lengthn</span>
+</code></pre></div>
+
+<h4 id="shell_7">shell注释</h4>
+<div class="codehilite"><pre><span></span><code>#  单行注释
+:&lt;&lt;!
+多行注释
+!
+</code></pre></div>
+
+<h4 id="shell_8">shell传递参数</h4>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Shell 传递参数实例！&quot;</span><span class="p">;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;执行的文件名：</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;第一个参数为：</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;第二个参数为：</span><span class="nv">$2</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;第三个参数为：</span><span class="nv">$3</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="c1">#-----------------------</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Shell 传递参数实例！&quot;</span><span class="p">;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;第一个参数为：</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;参数个数为：</span><span class="nv">$#</span><span class="s2">&quot;</span><span class="p">;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;传递的参数作为一个字符串显示：</span><span class="nv">$*</span><span class="s2">&quot;</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="shell_9">shell基本运算符</h4>
+<p>原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr 最常用。<br />
+expr 是一款表达式计算工具，使用它能完成表达式的求值操作。 
+需要注意： <br />
+表达式和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 + 2，这与我们熟悉的大多数编程语言不一样。 
+完整的表达式要被 <code></code> 包含，注意这个字符不是常用的单引号，在 Esc 键下边。       </p>
+<h5 id="shell_10">shell算术运算</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell算术运算符</span>
+<span class="nv">a</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">b</span><span class="o">=</span><span class="m">20</span>
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span>expr<span class="w"> </span><span class="nv">$a</span><span class="w"> </span>+<span class="w"> </span><span class="nv">$b</span><span class="sb">`</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a + b : </span><span class="nv">$val</span><span class="s2">&quot;</span>
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span>expr<span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-<span class="w"> </span><span class="nv">$b</span><span class="sb">`</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a - b : </span><span class="nv">$val</span><span class="s2">&quot;</span>
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span>expr<span class="w"> </span><span class="nv">$a</span><span class="w"> </span><span class="se">\*</span><span class="w"> </span><span class="nv">$b</span><span class="sb">`</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a * b : </span><span class="nv">$val</span><span class="s2">&quot;</span>
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span>expr<span class="w"> </span><span class="nv">$b</span><span class="w"> </span>/<span class="w"> </span><span class="nv">$a</span><span class="sb">`</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;b / a : </span><span class="nv">$val</span><span class="s2">&quot;</span>
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span>expr<span class="w"> </span><span class="nv">$b</span><span class="w"> </span>%<span class="w"> </span><span class="nv">$a</span><span class="sb">`</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;b % a : </span><span class="nv">$val</span><span class="s2">&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a 等于 b&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a 不等于 b&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h5 id="shell_11">shell关系运算</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell关系运算符</span>
+<span class="nv">a</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">b</span><span class="o">=</span><span class="m">20</span>
+<span class="c1"># 等于</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-eq<span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -eq </span><span class="nv">$b</span><span class="s2"> : a 等于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -eq </span><span class="nv">$b</span><span class="s2">: a 不等于 b&quot;</span>
+<span class="k">fi</span>
+<span class="c1"># 不等于</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-ne<span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -ne </span><span class="nv">$b</span><span class="s2">: a 不等于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -ne </span><span class="nv">$b</span><span class="s2"> : a 等于 b&quot;</span>
+<span class="k">fi</span>
+<span class="c1"># 左大于右</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-gt<span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -gt </span><span class="nv">$b</span><span class="s2">: a 大于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -gt </span><span class="nv">$b</span><span class="s2">: a 不大于 b&quot;</span>
+<span class="k">fi</span>
+<span class="c1"># 左小于右</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -lt </span><span class="nv">$b</span><span class="s2">: a 小于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -lt </span><span class="nv">$b</span><span class="s2">: a 不小于 b&quot;</span>
+<span class="k">fi</span>
+<span class="c1"># 左大于等于右</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-ge<span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -ge </span><span class="nv">$b</span><span class="s2">: a 大于或等于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -ge </span><span class="nv">$b</span><span class="s2">: a 小于 b&quot;</span>
+<span class="k">fi</span>
+<span class="c1"># 左小于等于右</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-le<span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -le </span><span class="nv">$b</span><span class="s2">: a 小于或等于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> -le </span><span class="nv">$b</span><span class="s2">: a 大于 b&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h5 id="shell_12">shell布尔运算</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell布尔运算符</span>
+<span class="nv">a</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">b</span><span class="o">=</span><span class="m">20</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> != </span><span class="nv">$b</span><span class="s2"> : a 不等于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> == </span><span class="nv">$b</span><span class="s2">: a 等于 b&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">100</span><span class="w"> </span>-a<span class="w"> </span><span class="nv">$b</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> 小于 100 且 </span><span class="nv">$b</span><span class="s2"> 大于 15 : 返回 true&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> 小于 100 且 </span><span class="nv">$b</span><span class="s2"> 大于 15 : 返回 false&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">100</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$b</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> 小于 100 或 </span><span class="nv">$b</span><span class="s2"> 大于 100 : 返回 true&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> 小于 100 或 </span><span class="nv">$b</span><span class="s2"> 大于 100 : 返回 false&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">5</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">$b</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> 小于 5 或 </span><span class="nv">$b</span><span class="s2"> 大于 100 : 返回 true&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> 小于 5 或 </span><span class="nv">$b</span><span class="s2"> 大于 100 : 返回 false&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h5 id="shell_13">shell逻辑运算</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell逻辑运算符</span>
+<span class="nv">a</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">b</span><span class="o">=</span><span class="m">20</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">$b</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;返回 true&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;返回 false&quot;</span>
+<span class="k">fi</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">$b</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">]]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;返回 true&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;返回 false&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h5 id="shell_14">shell字符串运算</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell字符串运算符</span>
+<span class="nv">a</span><span class="o">=</span><span class="s2">&quot;abc&quot;</span>
+<span class="nv">b</span><span class="o">=</span><span class="s2">&quot;efg&quot;</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> = </span><span class="nv">$b</span><span class="s2"> : a 等于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> = </span><span class="nv">$b</span><span class="s2">: a 不等于 b&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> != </span><span class="nv">$b</span><span class="s2"> : a 不等于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> != </span><span class="nv">$b</span><span class="s2">: a 等于 b&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-z<span class="w"> </span><span class="nv">$a</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-z </span><span class="nv">$a</span><span class="s2"> : 字符串长度为 0&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-z </span><span class="nv">$a</span><span class="s2"> : 字符串长度不为 0&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-n </span><span class="nv">$a</span><span class="s2"> : 字符串长度不为 0&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-n </span><span class="nv">$a</span><span class="s2"> : 字符串长度为 0&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> : 字符串不为空&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$a</span><span class="s2"> : 字符串为空&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h5 id="shell_15">shell文件测试运算</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell文件测试运算符</span>
+<span class="nv">file</span><span class="o">=</span><span class="s2">&quot;/home/wangzf/dev/fishros/1&quot;</span><span class="w">   </span><span class="c1"># 写要测试的文件</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-r<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件可读&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件不可读&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-w<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件可写&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件不可写&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-x<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件可执行&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件不可执行&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件为普通文件&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件为特殊文件&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件是个目录&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件不是个目录&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件不为空&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件为空&quot;</span>
+<span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件存在&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;文件不存在&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h4 id="shell-printf">shell printf输出</h4>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell printf输出</span>
+<span class="c1"># format-string为双引号</span>
+<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;%d %s\n&quot;</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s2">&quot;abc&quot;</span>
+
+<span class="c1"># 单引号与双引号效果一样</span>
+<span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;%d %s\n&#39;</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s2">&quot;abc&quot;</span>
+
+<span class="c1"># 没有引号也可以输出</span>
+<span class="nb">printf</span><span class="w"> </span>%s<span class="w"> </span>abcdef
+
+<span class="c1"># 格式只指定了一个参数，但多出的参数仍然会按照该格式输出，format-string 被重用</span>
+<span class="nb">printf</span><span class="w"> </span>%s<span class="w"> </span>abc<span class="w"> </span>def
+
+<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;%s\n&quot;</span><span class="w"> </span>abc<span class="w"> </span>def
+
+<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;%s %s %s\n&quot;</span><span class="w"> </span>a<span class="w"> </span>b<span class="w"> </span>c<span class="w"> </span>d<span class="w"> </span>e<span class="w"> </span>f<span class="w"> </span>g<span class="w"> </span>h<span class="w"> </span>i<span class="w"> </span>j
+
+<span class="c1"># 如果没有 arguments，那么 %s 用NULL代替，%d 用 0 代替</span>
+<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;%s and %d \n&quot;</span>
+</code></pre></div>
+
+<h4 id="shell-test">shell test测试</h4>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell test命令（测试更规范）</span>
+<span class="c1">#shell中的 test 命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试。</span>
+<span class="c1"># 数值</span>
+<span class="nv">num1</span><span class="o">=</span><span class="m">100</span>
+<span class="nv">num2</span><span class="o">=</span><span class="m">100</span>
+<span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>$<span class="o">[</span>num1<span class="o">]</span><span class="w"> </span>-eq<span class="w"> </span>$<span class="o">[</span>num2<span class="o">]</span><span class="w"> </span><span class="c1"># 代码中的 [] 执行基本的算数运算</span>
+<span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;两个数相等！&#39;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;两个数不相等！&#39;</span>
+<span class="k">fi</span>
+<span class="c1"># 字符</span>
+<span class="nv">str1</span><span class="o">=</span><span class="s2">&quot;ru1noob&quot;</span>
+<span class="nv">str2</span><span class="o">=</span><span class="s2">&quot;runoob&quot;</span>
+<span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="nv">$str1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$str2</span>
+<span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;两个字符串相等!&#39;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;两个字符串不相等!&#39;</span>
+<span class="k">fi</span>
+<span class="c1"># 文件</span>
+<span class="nb">cd</span><span class="w"> </span>~
+<span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>-e<span class="w"> </span>./bash
+<span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;文件已存在!&#39;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;文件不存在!&#39;</span>
+<span class="k">fi</span>
+<span class="c1"># 另外，Shell 还提供了与( -a )、或( -o )、非( ! )三个逻辑操作符用于将测试条件连接起来，其优先级为： ! 最高， -a 次之， -o 最低。例如：</span>
+<span class="nb">cd</span><span class="w"> </span>~
+<span class="k">if</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>-e<span class="w"> </span>./notFile<span class="w"> </span>-o<span class="w"> </span>-e<span class="w"> </span>./bash
+<span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;至少有一个文件存在!&#39;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;两个文件都不存在&#39;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h4 id="shell_16">shell流程控制</h4>
+<h5 id="if_else">if_else</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell if-else命令</span>
+<span class="nv">a</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">b</span><span class="o">=</span><span class="m">20</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a 等于 b&quot;</span>
+<span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-gt<span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a 大于 b&quot;</span>
+<span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-lt<span class="w"> </span><span class="nv">$b</span><span class="w"> </span><span class="o">]</span>
+<span class="k">then</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;a 小于 b&quot;</span>
+<span class="k">else</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;没有符合的条件&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h5 id="for">for</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell for循环</span>
+<span class="k">for</span><span class="w"> </span>loop<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="m">5</span>
+<span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;The value is: </span><span class="nv">$loop</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</code></pre></div>
+
+<h5 id="while">while</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell while循环</span>
+<span class="nv">int</span><span class="o">=</span><span class="m">1</span>
+<span class="k">while</span><span class="o">((</span><span class="w"> </span><span class="nv">$int</span>&lt;<span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="o">))</span>
+<span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$int</span>
+<span class="w">    </span><span class="nb">let</span><span class="w"> </span><span class="s2">&quot;int++&quot;</span>
+<span class="k">done</span>
+<span class="c1"># 以上实例使用了 Bash let 命令，它用于执行一个或多个表达式，变量计算中不需要加上 $ 来表示变量</span>
+</code></pre></div>
+
+<h5 id="until">until</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell until循环</span>
+<span class="nv">a</span><span class="o">=</span><span class="m">0</span>
+
+<span class="k">until</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>!<span class="w"> </span><span class="nv">$a</span><span class="w"> </span>-lt<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">]</span>
+<span class="k">do</span>
+<span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span>
+<span class="w">   </span><span class="nv">a</span><span class="o">=</span><span class="sb">`</span>expr<span class="w"> </span><span class="nv">$a</span><span class="w"> </span>+<span class="w"> </span><span class="m">1</span><span class="sb">`</span>
+<span class="k">done</span>
+</code></pre></div>
+
+<h5 id="case-easc">case-easc</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell case ... esac多选择语句,;;表示break</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;输入 1 到 4 之间的数字:&#39;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;你输入的数字为:&#39;</span>
+<span class="nb">read</span><span class="w"> </span>aNum
+<span class="k">case</span><span class="w"> </span><span class="nv">$aNum</span><span class="w"> </span><span class="k">in</span>
+<span class="w">    </span><span class="m">1</span><span class="o">)</span><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;你选择了 1&#39;</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">2</span><span class="o">)</span><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;你选择了 2&#39;</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">3</span><span class="o">)</span><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;你选择了 3&#39;</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">4</span><span class="o">)</span><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;你选择了 4&#39;</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="w">    </span>*<span class="o">)</span><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;你没有输入 1 到 4 之间的数字&#39;</span>
+<span class="w">    </span><span class="p">;;</span>
+<span class="k">esac</span>
+</code></pre></div>
+
+<h5 id="break">break</h5>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell break（外面一个无限循环，里面多选择+break）</span>
+<span class="k">while</span><span class="w"> </span>:
+<span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;输入 1 到 5 之间的数字:&quot;</span>
+<span class="w">    </span><span class="nb">read</span><span class="w"> </span>aNum
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nv">$aNum</span><span class="w"> </span><span class="k">in</span>
+<span class="w">        </span><span class="m">1</span><span class="p">|</span><span class="m">2</span><span class="p">|</span><span class="m">3</span><span class="p">|</span><span class="m">4</span><span class="p">|</span><span class="m">5</span><span class="o">)</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;你输入的数字为 </span><span class="nv">$aNum</span><span class="s2">!&quot;</span>
+<span class="w">        </span><span class="p">;;</span>
+<span class="w">        </span>*<span class="o">)</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;你输入的数字不是 1 到 5 之间的! 游戏结束&quot;</span>
+<span class="w">            </span><span class="k">break</span>
+<span class="w">        </span><span class="p">;;</span>
+<span class="w">    </span><span class="k">esac</span>
+<span class="k">done</span>
+</code></pre></div>
+
+<h4 id="shell_17">shell函数</h4>
+<ul>
+<li>无返回值</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell 函数</span>
+demoFun<span class="o">(){</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;这是我的第一个 shell 函数!&quot;</span>
+<span class="o">}</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-----函数开始执行-----&quot;</span>
+demoFun
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;-----函数执行完毕-----&quot;</span>
+</code></pre></div>
+
+<ul>
+<li>有返回值</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># shell 函数</span>
+funWithReturn<span class="o">(){</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;这个函数会对输入的两个数字进行相加运算...&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;输入第一个数字: &quot;</span>
+<span class="w">    </span><span class="nb">read</span><span class="w"> </span>aNum
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;输入第二个数字: &quot;</span>
+<span class="w">    </span><span class="nb">read</span><span class="w"> </span>anotherNum
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;两个数字分别为 </span><span class="nv">$aNum</span><span class="s2"> 和 </span><span class="nv">$anotherNum</span><span class="s2"> !&quot;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">$((</span><span class="nv">$aNum</span><span class="o">+</span><span class="nv">$anotherNum</span><span class="k">))</span>
+<span class="o">}</span>
+funWithReturn
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;输入的两个数字之和为 </span><span class="nv">$?</span><span class="s2"> !&quot;</span>
+<span class="c1"># 函数返回值在调用该函数后通过 $? 来获得。 </span>
+</code></pre></div>
+
+<h4 id="shell_18">shell输入/输出重定向</h4>
+<div class="codehilite"><pre><span></span><code>command &gt; /dev/null # 如果希望执行某个命令，但又不希望在屏幕上显示输出结果，那么可以将输出重定向到 /dev/null，/dev/null 文件非常有用，将命令的输出重定向到它，会起到&quot;禁止输出&quot;的效果。
+command &gt; file  # 将输出重定向到 file
+command &lt; file  #将输入重定向到 file。
+command &gt;&gt; file     #将输出以追加的方式重定向到 file。
+n &gt; file    #将文件描述符为 n 的文件重定向到 file。
+n &gt;&gt; file   #将文件描述符为 n 的文件以追加的方式重定向到 file。
+n &gt;&amp; m  #将输出文件 m 和 n 合并。
+n &lt;&amp; m  #将输入文件 m 和 n 合并。
+&lt;&lt; tag  #将开始标记 tag 和结束标记 tag 之间的内容作为输入。
+# 文件描述符 0 通常是标准输入（STDIN），1 是标准输出（STDOUT），2 是标准错误输出（STDERR）。
+</code></pre></div>
+
+<h4 id="shell_19">shell文件包含/生效环境变量</h4>
+<div class="codehilite"><pre><span></span><code>source filename 或. filename   # 注意点号(.)和文件名中间有一空格
+# 生效/包含上一个文件后，第二个文件可以引用第一个文件的内容/变量
+</code></pre></div>
+
+<h3 id="shell_20">shell应用案例</h3>
+<h4 id="root">判断是否为root用户</h4>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$UID</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;the user is root&quot;</span>
+<span class="k">else</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;the user is not root&quot;</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<h4 id="_12">读取键盘消息</h4>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;按下 &lt;CTRL-D&gt; 退出&#39;</span>
+<span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;输入你最喜欢的网站名: &#39;</span>
+<span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>FILM
+<span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;是的！</span><span class="nv">$FILM</span><span class="s2"> 是一个好网站&quot;</span>
+<span class="k">done</span>
+</code></pre></div>
+
+<h4 id="_13">多窗口启动</h4>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="o">{</span>
+gnome-terminal<span class="w"> </span>--title<span class="o">=</span><span class="s2">&quot;roscore&quot;</span><span class="w"> </span>-x<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;roscore&quot;</span><span class="p">;</span><span class="w"> </span>
+<span class="o">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;roscore success&#39;</span>
+sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span>
+
+<span class="o">{</span>
+gnome-terminal<span class="w"> </span>--title<span class="o">=</span><span class="s2">&quot;startAutoDriver&quot;</span><span class="w"> </span>-x<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;bash startAutoDriver.sh&quot;</span><span class="p">;</span><span class="w"> </span>
+<span class="o">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;startAutoDriver success&#39;</span>
+sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span>
+
+<span class="o">{</span>
+gnome-terminal<span class="w"> </span>--title<span class="o">=</span><span class="s2">&quot;startLidarFusion&quot;</span><span class="w"> </span>-x<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;bash startLidarFusion.sh&quot;</span><span class="p">;</span><span class="w"> </span>
+<span class="o">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;startLidarFusion success&#39;</span>
+sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span>
+
+<span class="o">{</span>
+gnome-terminal<span class="w"> </span>--title<span class="o">=</span><span class="s2">&quot;startLidars&quot;</span><span class="w"> </span>-x<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;bash startLidars.sh&quot;</span><span class="p">;</span><span class="w"> </span>
+<span class="o">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;startLidars success&#39;</span>
+sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span>
+
+<span class="o">{</span>
+gnome-terminal<span class="w"> </span>--title<span class="o">=</span><span class="s2">&quot;startNtrip&quot;</span><span class="w"> </span>-x<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;bash startNtrip.sh&quot;</span><span class="p">;</span><span class="w"> </span>
+<span class="o">}</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;startNtrip success&#39;</span>
+</code></pre></div>
+
+<h3 id="_14">查看大文件</h3>
+<div class="codehilite"><pre><span></span><code><span class="nx">find</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="o">-</span><span class="k">type</span><span class="w"> </span><span class="nx">f</span><span class="w"> </span><span class="o">-</span><span class="nx">size</span><span class="w"> </span><span class="o">+</span><span class="mi">100</span><span class="nx">M</span><span class="w"> </span><span class="o">-</span><span class="nx">exec</span><span class="w"> </span><span class="nx">du</span><span class="w"> </span><span class="o">-</span><span class="nx">h</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="o">+</span>
+</code></pre></div>
+
+<h4 id="_15">文章目录</h4>
+<ul>
+<li>
+<ul>
+<li><a href="#nano_2">nano编辑器</a></li>
+<li><a href="#vim_12">vim编辑器</a></li>
+<li><a href="#shell_50">shell常用命令</a></li>
+</ul>
+</li>
+</ul>
+<p>Linux的文本编辑器有nano、gedit、vi、vim等。 </p>
+<h3 id="nano_1">nano编辑器</h3>
+<p>nano是ubuntu系统自带的编辑器，也是最容易学习上手的编辑器，但初始配置在使用起来有点不尽如人意，好在官方已经给我们留好了一些配置选项，下面就记录一下我常用的编辑器环境配置：</p>
+<p>首先，新建文件<code>nano ~/.nanorc</code>，输入以下配置指令；</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/df943d374f6b41ea9b2bfde0b4cac182.png" /><br />
+ 然后，进入系统变量配置文件，<code>sudo nano /etc/nanorc</code>，将该文件中以上几条指令前的<code>#</code>去掉即可；</p>
+<p>再次进入nano，行号、缩进、鼠标等就生效了。</p>
+<h3 id="vim">vim编辑器</h3>
+<p>编辑文件：<code>sudo vim /etc/vim/vimrc</code></p>
+<p>在配置文件中可以看到有下面这个if判断,意思是语法高亮,如果是被注释掉状态（#/&rdquo;）,可以将其放开（删掉#/&rdquo;号）：</p>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nv">has</span><span class="ss">(</span><span class="s2">&quot;syntax&quot;</span><span class="ss">)</span>
+<span class="w">    </span><span class="nv">syntax</span><span class="w"> </span><span class="nv">on</span>
+<span class="w">  </span><span class="k">endif</span>
+</code></pre></div>
+
+<p>然后在配置文件的最后一行，输入以下内容，可以让vim变得更漂亮、舒服，使用也更方便。</p>
+<div class="codehilite"><pre><span></span><code>  set nu   &quot; 设置左侧行号
+ set tabstop=4 &quot; 设置tab键长度为4(注意=和数字4之间不要有空格，否则打开vim会报错)
+  set cursorline  &quot; 突出显示当前行
+ set ruler &quot; 在右下角显示光标位置的状态行
+  set autoindent  &quot; 自动缩进
+ set nobackup &quot; 覆盖文件时不备份
+</code></pre></div>
+
+<p>编辑完成后使用命令 :wq 进行保存退出。</p>
+<p>vim编辑器快捷指令：</p>
+<div class="codehilite"><pre><span></span><code>a/i 进入编辑模式
+ESC 返回命令模式
+：wq 保存并退出
+dd 删除整行
+yy 复制整行
+p 粘贴
+u 撤销
+/字符串 从上到下搜索
+？字符串 从下到上搜索
+</code></pre></div>
+
+<h3 id="shell_21">shell常用命令</h3>
+<div class="codehilite"><pre><span></span><code>echo $HOSTNAME
+echo $HOME
+date
+ifconfig
+uname -a
+ubuntu-release
+uptime
+who
+tar -xvzf  tar -cvzf
+grep 
+| 管道符是命令的进阶
+<span class="k">&gt; </span><span class="ge">输出重定向（&gt;&gt; 追加）</span>
+<span class="k">*</span> 命令通配符
+systemctl restart network 重启网卡
+if、then、fi 、case条件语句
+for、while-do 循环语句
+</code></pre></div>
+
+<p>以上。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 - 2024 DevFrank
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.action.edit", "navigation.tabs", "navigation.instant", "content.code.copy", "content.code.annotate", "navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      
+    
+  </body>
+</html>
