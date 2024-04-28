@@ -1,37 +1,7 @@
 
 
 
-
-
-
-
-
-> 
-> 😏*★,°*:.☆(￣▽￣)/$:*.°★* 😏  
->  这篇文章主要介绍cv\_bridge包使用与图像转换示例。  
->  **学其所用，用其所学。——梁启超**  
->  欢迎来到我的博客，一起学习，共同进步。  
->  喜欢的朋友可以关注一下，下次更新不迷路🥞
-> 
-> 
-> 
-
-
-
-
-#### 文章目录
-
-
-* + [:smirk:1. cv\_bridge介绍](#smirk1_cv_bridge_7)
-	+ [:blush:2. 环境安装与配置](#blush2__21)
-	+ [:satisfied:3. 图像转换应用示例](#satisfied3__25)
-	+ - [image\_pub节点](#image_pub_28)
-		- [image\_sub节点](#image_sub_174)
-
-
-
-
-### 😏1. cv\_bridge介绍
+### 😏1. cv_bridge介绍
 
 
 `cv_bridge`是一个用于在`ROS`（Robot Operating System）和`OpenCV`之间进行图像转换的库。它提供了方便的接口和功能，用于在ROS中将ROS图像消息（`sensor_msgs/Image`）与OpenCV图像格式之间进行相互转换。
@@ -40,20 +10,12 @@
 在ROS中，`cv_bridge`通常与`sensor_msgs`包一起使用，用于处理图像消息，并使用OpenCV进行图像处理、计算机视觉算法和图像分析等操作。
 
 
-以下是一些cv\_bridge库的主要功能：
+以下是一些cv_bridge库的主要功能：
 
 
 
 > 
-> 1.将ROS图像消息转换为OpenCV图像格式：cv\_bridge提供了方便的方法，可以将ROS图像消息转换为OpenCV的cv::Mat格式，方便在OpenCV中进行图像处理。
-> 
-> 
-> 
-
-
-
-> 
-> 2.将OpenCV图像转换为ROS图像消息：cv\_bridge还提供了将OpenCV的cv::Mat图像转换为ROS图像消息的方法，以便将处理后的图像传递给其他ROS节点或话题。
+> 1.将ROS图像消息转换为OpenCV图像格式：cv_bridge提供了方便的方法，可以将ROS图像消息转换为OpenCV的cv::Mat格式，方便在OpenCV中进行图像处理。
 > 
 > 
 > 
@@ -61,7 +23,7 @@
 
 
 > 
-> 3.支持不同的图像编码格式：cv\_bridge支持各种常见的图像编码格式，包括JPEG、PNG、BMP等。它可以在ROS和OpenCV之间进行透明的编码和解码操作。
+> 2.将OpenCV图像转换为ROS图像消息：cv_bridge还提供了将OpenCV的cv::Mat图像转换为ROS图像消息的方法，以便将处理后的图像传递给其他ROS节点或话题。
 > 
 > 
 > 
@@ -69,7 +31,15 @@
 
 
 > 
-> 4.进行图像数据的共享：cv\_bridge允许在ROS和OpenCV之间共享图像数据，而无需进行复制。这在处理大型图像时可以提高性能和效率。
+> 3.支持不同的图像编码格式：cv_bridge支持各种常见的图像编码格式，包括JPEG、PNG、BMP等。它可以在ROS和OpenCV之间进行透明的编码和解码操作。
+> 
+> 
+> 
+
+
+
+> 
+> 4.进行图像数据的共享：cv_bridge允许在ROS和OpenCV之间共享图像数据，而无需进行复制。这在处理大型图像时可以提高性能和效率。
 > 
 > 
 > 
@@ -87,23 +57,23 @@
 ### 😆3. 图像转换应用示例
 
 
-下面基于cv\_bridge包实现opencv读取视频并通过ros消息发布，然后订阅节点获取到图像后通过opencv进行显示。
+下面基于cv_bridge包实现opencv读取视频并通过ros消息发布，然后订阅节点获取到图像后通过opencv进行显示。
 
 
-#### image\_pub节点
+#### image_pub节点
 
 
 
 ```
-// image\_pub.cpp
+// image_pub.cpp
 #include <ros/ros.h>
 #include <opencv2/opencv.hpp>
-#include <image\_transport/image\_transport.h>
-#include <cv\_bridge/cv\_bridge.h>
+#include <image_transport/image_transport.h>
+#include <cv_bridge/cv_bridge.h>
 
-int main(int argc, char \*\*argv)
+int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "image\_pub");
+    ros::init(argc, argv, "image_pub");
     ros::NodeHandle nh;
     image_transport::ImageTransport it(nh);
     image_transport::Publisher image_pub = it.advertise("camera/image", 1);
@@ -112,14 +82,14 @@ int main(int argc, char \*\*argv)
     cv::VideoCapture cap("../test.mp4");
     if (!cap.isOpened())
     {
-        ROS\_ERROR("Failed to open video file");
+        ROS_ERROR("Failed to open video file");
         return -1;
     }
 
     // 定义图像消息
     sensor_msgs::ImagePtr msg;
 
-    ros::Rate loop\_rate(30); // 发布频率为30Hz
+    ros::Rate loop_rate(30); // 发布频率为30Hz
     while (ros::ok())
     {
         cv::Mat frame;
@@ -127,7 +97,7 @@ int main(int argc, char \*\*argv)
 
         if (frame.empty())
         {
-            ROS\_INFO("Video ended");
+            ROS_INFO("Video ended");
             break;
         }
 
@@ -159,7 +129,7 @@ project(image_pub)
 add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
-## if COMPONENTS list like find\_package(catkin REQUIRED COMPONENTS xyz)
+## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS 
   roscpp 
@@ -188,14 +158,14 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
   include
-  ${catkin\_INCLUDE\_DIRS}
+  ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(${PROJECT\_NAME} src/image_pub.cpp)
+add_executable(${PROJECT_NAME} src/image_pub.cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT\_NAME}
-  ${catkin\_LIBRARIES}
+target_link_libraries(${PROJECT_NAME}
+  ${catkin_LIBRARIES}
 )
 
 ```
@@ -248,16 +218,16 @@ package.xml
 
 ```
 
-#### image\_sub节点
+#### image_sub节点
 
 
 
 ```
-// image\_sub.cpp
+// image_sub.cpp
 #include <ros/ros.h>
 #include <opencv2/opencv.hpp>
-#include <image\_transport/image\_transport.h>
-#include <cv\_bridge/cv\_bridge.h>
+#include <image_transport/image_transport.h>
+#include <cv_bridge/cv_bridge.h>
 
 void imageCallback(const sensor_msgs::ImageConstPtr &msg)
 {
@@ -272,13 +242,13 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg)
     }
     catch (cv_bridge::Exception &e)
     {
-        ROS\_ERROR("Failed to convert ROS image to OpenCV image: %s", e.what());
+        ROS_ERROR("Failed to convert ROS image to OpenCV image: %s", e.what());
     }
 }
 
-int main(int argc, char \*\*argv)
+int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "image\_sub");
+    ros::init(argc, argv, "image_sub");
     ros::NodeHandle nh;
 
     // 创建图像传输对象和订阅者

@@ -21,7 +21,7 @@
 		- [4. 安装ORB-SLAM3](#4_ORBSLAM3_45)
 	+ [:satisfied:3. 案例运行](#satisfied3__67)
 	+ - [1. 运行数据集](#1__68)
-		- [2. 用真实相机usb\_cam运行](#2_usb_cam_84)
+		- [2. 用真实相机usb_cam运行](#2_usb_cam_84)
 
 
 
@@ -50,10 +50,10 @@ ORB-SLAM3是由英国伯明翰大学开发的，是ORB-SLAM2的改进版本，�
 
 ```
 sudo apt-get update
-sudo apt-get install git cmake build-essential libglew-dev libgtk2.0-dev \
-libavcodec-dev libavformat-dev libswscale-dev libjpeg-dev libpng-dev libtiff5-dev \
-libopenexr-dev libeigen3-dev libboost-all-dev libprotobuf-dev protobuf-compiler \
-libgoogle-glog-dev libgflags-dev libatlas-base-dev liblapack-dev libsuitesparse-dev \
+sudo apt-get install git cmake build-essential libglew-dev libgtk2.0-dev 
+libavcodec-dev libavformat-dev libswscale-dev libjpeg-dev libpng-dev libtiff5-dev 
+libopenexr-dev libeigen3-dev libboost-all-dev libprotobuf-dev protobuf-compiler 
+libgoogle-glog-dev libgflags-dev libatlas-base-dev liblapack-dev libsuitesparse-dev 
 libvtk6-dev python3-pip python3-dev python3-numpy python3-yaml
 
 
@@ -123,7 +123,7 @@ chmod +x build.sh
 
 ```
 gedit ~/.bashrc
-export ROS\_PACKAGE\_PATH=${ROS\_PACKAGE\_PATH}:~/ORB_SLAM3/Examples_old/ROS
+export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:~/ORB_SLAM3/Examples_old/ROS
 
 chmod +x build_ros.sh
 ./build_ros.sh
@@ -139,7 +139,7 @@ chmod +x build_ros.sh
 #### 1. 运行数据集
 
 
-编译完成后会在ORB\_SLAM3/Examples文件夹下生成各种可执行文件。这里以单目相机为例运行：
+编译完成后会在ORB_SLAM3/Examples文件夹下生成各种可执行文件。这里以单目相机为例运行：
 
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/727b1a179dfe4da1b13dd03c5cf774c7.png)
@@ -161,10 +161,10 @@ chmod +x build_ros.sh
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/ba56d0e3f714436ba1cf795c714fd889.png)
 
 
-#### 2. 用真实相机usb\_cam运行
+#### 2. 用真实相机usb_cam运行
 
 
-ORB\_SLAM3自带了ros的版本，在Examples\_old/ROS中，编译完成后，先运行usb相机：
+ORB_SLAM3自带了ros的版本，在Examples_old/ROS中，编译完成后，先运行usb相机：
 
 
 

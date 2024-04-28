@@ -1,30 +1,3 @@
-
-
-
-
-
-
-
-
-> 
-> PurePursuit轨迹跟踪控制。
-> 
-> 
-> 
-
-
-
-
-#### 文章目录
-
-
-* + [1. 技术原理](#1__3)
-	+ [2. 代码实现](#2__19)
-	+ [3. 算法改进](#3__124)
-
-
-
-
 ### 1. 技术原理
 
 
@@ -52,7 +25,7 @@
 ### 2. 代码实现
 
 
-pure\_pursuit\_node.cpp（主函数，实例化对象并运行）
+pure_pursuit_node.cpp（主函数，实例化对象并运行）
 
 
 
@@ -60,11 +33,11 @@ pure\_pursuit\_node.cpp（主函数，实例化对象并运行）
 // ROS Includes
 #include <ros/ros.h>
 // User defined includes
-#include <pure\_pursuit/pure\_pursuit\_core.h>
+#include <pure_pursuit/pure_pursuit_core.h>
 
-int main(int argc, char\*\* argv)
+int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "pure\_pursuit");
+  ros::init(argc, argv, "pure_pursuit");
   waypoint_follower::PurePursuitNode ppn;
   ppn.run();
 
@@ -73,7 +46,7 @@ int main(int argc, char\*\* argv)
 
 ```
 
-pure\_pursuit\_core.h（PurePursuitNode类定义）
+pure_pursuit_core.h（PurePursuitNode类定义）
 
 
 
@@ -81,14 +54,14 @@ pure\_pursuit\_core.h（PurePursuitNode类定义）
 // 纯跟踪节点运行
 void PurePursuitNode::run()
 {
-  ROS\_INFO\_STREAM("pure pursuit start");
-  ros::Rate loop\_rate(LOOP_RATE_);
+  ROS_INFO_STREAM("pure pursuit start");
+  ros::Rate loop_rate(LOOP_RATE_);
   while (ros::ok())
   {
     ros::spinOnce();
     if (!is_pose_set_ || !is_waypoint_set_ || !is_velocity_set_)
     {
-      ROS\_WARN("Necessary topics are not subscribed yet ... ");
+      ROS_WARN("Necessary topics are not subscribed yet ... ");
       loop_rate.sleep();
       continue;
     }
@@ -101,9 +74,9 @@ void PurePursuitNode::run()
 
     publishTwistStamped(can_get_curvature, kappa);
     publishControlCommandStamped(can_get_curvature, kappa);
-    health_checker_ptr_->NODE\_ACTIVATE();
-    health_checker_ptr_->CHECK\_RATE("topic\_rate\_vehicle\_cmd\_slow", 8, 5, 1,
-      "topic vehicle\_cmd publish rate slow.");
+    health_checker_ptr_->NODE_ACTIVATE();
+    health_checker_ptr_->CHECK_RATE("topic_rate_vehicle_cmd_slow", 8, 5, 1,
+      "topic vehicle_cmd publish rate slow.");
     // for visualization with Rviz
     pub11_.publish(displayNextWaypoint(pp_.getPoseOfNextWaypoint()));
     pub13_.publish(displaySearchRadius(
@@ -147,7 +120,7 @@ void PurePursuitNode::run()
 
 ```
 
-pure\_pursuit.h（PurePursuit类定义）
+pure_pursuit.h（PurePursuit类定义）
 
 
 
@@ -158,7 +131,7 @@ pure\_pursuit.h（PurePursuit类定义）
 
 ```
 
-pure\_pursuit\_viz.h（marker显示定义）
+pure_pursuit_viz.h（marker显示定义）
 
 
 

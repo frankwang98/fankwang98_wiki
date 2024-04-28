@@ -77,20 +77,20 @@ PID控制原理C++实现示例：
 class PIDController {
 public:
     PIDController(double kp, double ki, double kd)
-            : kp\_(kp), ki\_(ki), kd\_(kd), integral\_(0.0), previous\_error\_(0.0) {}
+            : kp_(kp), ki_(ki), kd_(kd), integral_(0.0), previous_error_(0.0) {}
 
-    /\*\*
- \* @brief 计算PID控制器的输出
- \* @param setpoint 设定值
- \* @param feedback 反馈值
- \* @param dt 时间间隔
- \* @return
- \*/
+    /**
+ * @brief 计算PID控制器的输出
+ * @param setpoint 设定值
+ * @param feedback 反馈值
+ * @param dt 时间间隔
+ * @return
+ */
     double compute(double setpoint, double feedback, double dt) {
         double error = setpoint - feedback; // 误差，比例项使得控制系统能够迅速响应并逼近设定值
-        integral_ += error \* dt; // 累积误差，积分项用于补偿系统的稳态误差，即长时间内无法通过比例项和微分项完全纠正的误差
+        integral_ += error * dt; // 累积误差，积分项用于补偿系统的稳态误差，即长时间内无法通过比例项和微分项完全纠正的误差
         double derivative = (error - previous_error_) / dt; // 误差的导数，微分项帮助控制系统更快地响应变化，并减小超调和震荡
-        double output = kp_ \* error + ki_ \* integral_ + kd_ \* derivative; // 控制量计算
+        double output = kp_ * error + ki_ * integral_ + kd_ * derivative; // 控制量计算
         previous_error_ = error;
         return output;
     }
@@ -121,11 +121,11 @@ int main() {
         double output = pid.compute(setpoint, feedback, dt);
 
         // 模拟反馈过程
-        feedback += output \* dt;
+        feedback += output * dt;
 
         // 记录时间和控制量
-        //time.push\_back(i \* dt);
-        //control.push\_back(output);
+        //time.push_back(i * dt);
+        //control.push_back(output);
 
         // 输出控制量和反馈值
         std::cout << "Control: " << output << " Feedback: " << feedback << std::endl;
@@ -182,15 +182,15 @@ double PIDImpl::calculate( double setpoint, double pv )
     double error = setpoint - pv;
 
     // Proportional portion
-    double Pout = _Kp \* error;
+    double Pout = _Kp * error;
 
     // Integral portion
-    _integral += error \* _dt;
-    double Iout = _Ki \* _integral;
+    _integral += error * _dt;
+    double Iout = _Ki * _integral;
 
     // Derivative portion
     double derivative = (error - _pre_error) / _dt;
-    double Dout = _Kd \* derivative;
+    double Dout = _Kd * derivative;
 
     // Total output
     double output = Pout + Iout + Dout;

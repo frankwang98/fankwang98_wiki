@@ -34,8 +34,6 @@ https://zoupers.gitbook.io/cpp-17-stl-cookbook/
 
 容器主要有序列容器（array、vector、dequeue、forward_list、list）和关联容器（map、set、multimap、multiset），分别用于不同的数据存储和访问方式。
 
-[stl-容器](./【C++】基础：STL容器库.md)
-
 #### string：字符串，抽象char*
 
 ```cpp

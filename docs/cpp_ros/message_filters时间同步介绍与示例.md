@@ -1,35 +1,6 @@
 
 
-
-
-
-
-
-
-> 
-> 😏*★,°*:.☆(￣▽￣)/$:*.°★* 😏  
->  这篇文章主要介绍message\_filters时间同步。  
->  **学其所用，用其所学。——梁启超**  
->  欢迎来到我的博客，一起学习，共同进步。  
->  喜欢的朋友可以关注一下，下次更新不迷路🥞
-> 
-> 
-> 
-
-
-
-
-#### 文章目录
-
-
-* + [:smirk:1. message\_filters时间同步介绍](#smirk1_message_filters_7)
-	+ [:blush:2. 应用示例](#blush2__31)
-	+ [:satisfied:3. 其他示例](#satisfied3__120)
-
-
-
-
-### 😏1. message\_filters时间同步介绍
+### 😏1. message_filters时间同步介绍
 
 
 `message_filters` 是 ROS（机器人操作系统）中的一个功能包，用于实现多个传感器数据或消息的时间同步。它提供了一个简单而灵活的接口，可以方便地对不同话题发布的消息进行时间戳的同步，以确保数据在处理时具有一致的时间对齐。
@@ -42,12 +13,12 @@
 2. `ExactTime`：该策略要求不同话题发布的消息具有完全相同的时间戳才能进行同步。只有当所有待同步的消息在相同的时间戳下同时到达时，才会触发同步操作。这种策略对于精确的时间对齐要求比较严格，适用于相对较少的数据或对时间同步要求较高的场景。
 
 
-使用 message\_filters 进行时间同步的一般步骤如下：
+使用 message_filters 进行时间同步的一般步骤如下：
 
 
 
 > 
-> 1.创建一个 message\_filters::Subscriber 对象来监听需要同步的话题，并指定消息类型。
+> 1.创建一个 message_filters::Subscriber 对象来监听需要同步的话题，并指定消息类型。
 > 
 > 
 > 
@@ -55,7 +26,7 @@
 
 
 > 
-> 2.创建一个 message\_filters::Cache 对象来管理接收到的消息，并指定缓存的大小和策略（例如 ApproximateTime 或 ExactTime）。
+> 2.创建一个 message_filters::Cache 对象来管理接收到的消息，并指定缓存的大小和策略（例如 ApproximateTime 或 ExactTime）。
 > 
 > 
 > 
@@ -71,7 +42,7 @@
 
 
 > 
-> 4.使用 message\_filters::Synchronizer 类将订阅者、缓存和回调函数组合在一起，并设置同步的时间窗口大小等参数。
+> 4.使用 message_filters::Synchronizer 类将订阅者、缓存和回调函数组合在一起，并设置同步的时间窗口大小等参数。
 > 
 > 
 > 
@@ -102,7 +73,7 @@
 项目Github地址：`https://github.com/JackJu-HIT/learning_messages_filters`
 
 
-该项目演示了使用message\_filters时间同步的示例，学习一下：
+该项目演示了使用message_filters时间同步的示例，学习一下：
 
 
 gps和imu的消息一般需要同步才能获得精确的定位消息，订阅两个消息并同步的示例：
@@ -110,15 +81,15 @@ gps和imu的消息一般需要同步才能获得精确的定位消息，订阅�
 
 
 ```
-#include <message\_filters/subscriber.h>
-#include <message\_filters/synchronizer.h>
-#include <message\_filters/sync\_policies/exact\_time.h>
-#include <sensor\_msgs/Image.h>
-#include <sensor\_msgs/CameraInfo.h>
+#include <message_filters/subscriber.h>
+#include <message_filters/synchronizer.h>
+#include <message_filters/sync_policies/exact_time.h>
+#include <sensor_msgs/Image.h>
+#include <sensor_msgs/CameraInfo.h>
 #include <math.h>
-#include "sensor\_msgs/LaserScan.h"
-#include "sensor\_msgs/NavSatFix.h"
-#include "sensor\_msgs/Imu.h"
+#include "sensor_msgs/LaserScan.h"
+#include "sensor_msgs/NavSatFix.h"
+#include "sensor_msgs/Imu.h"
 using namespace std;
 
 using namespace sensor_msgs;
@@ -132,15 +103,15 @@ void callback(const sensor_msgs::Imu::ConstPtr& imu, const sensor_msgs::NavSatFi
 }
  
 
-int main(int argc, char\*\* argv)
+int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "vision\_node");
+  ros::init(argc, argv, "vision_node");
  
   ros::NodeHandle nh;
-  // message\_filters::Subscriber<Image> image\_sub(nh, "image", 1);
-  message_filters::Subscriber<sensor_msgs::Imu> imu\_sub(nh, "/imu", 1);
-  //message\_filters::Subscriber<CameraInfo> info\_sub(nh, "camera\_info", 1);
-  message_filters::Subscriber<sensor_msgs::NavSatFix> gps\_sub(nh, "/fix", 1);
+  // message_filters::Subscriber<Image> image_sub(nh, "image", 1);
+  message_filters::Subscriber<sensor_msgs::Imu> imu_sub(nh, "/imu", 1);
+  //message_filters::Subscriber<CameraInfo> info_sub(nh, "camera_info", 1);
+  message_filters::Subscriber<sensor_msgs::NavSatFix> gps_sub(nh, "/fix", 1);
   typedef sync_policies::ExactTime<Imu, NavSatFix> MySyncPolicy;
   // ExactTime takes a queue size as its constructor argument, hence MySyncPolicy(10)
   Synchronizer<MySyncPolicy> sync(MySyncPolicy(10), imu_sub, gps_sub);
@@ -157,30 +128,30 @@ int main(int argc, char\*\* argv)
 
 
 ```
-#include "sensor\_msgs/NavSatFix.h"
-#include "sensor\_msgs/Imu.h"
+#include "sensor_msgs/NavSatFix.h"
+#include "sensor_msgs/Imu.h"
 #include <ros/ros.h>
 
 using namespace std;
 
-int main(int argc, char \*\*argv)
+int main(int argc, char **argv)
 {
     // ROS节点初始化
-    ros::init(argc, argv, "IMU\_GPS\_publisher");
+    ros::init(argc, argv, "IMU_GPS_publisher");
 
     // 创建节点句柄
     ros::NodeHandle n;
-    // 创建一个Publisher，发布名为/odom\_info的topic，消息类型为learning\_topic::Person，队列长度10
+    // 创建一个Publisher，发布名为/odom_info的topic，消息类型为learning_topic::Person，队列长度10
     ros::Publisher IMU_info_pub = n.advertise<sensor_msgs::Imu>("/imu", 10);
     ros::Publisher GPS_info_pub=n.advertise<sensor_msgs::NavSatFix>("/fix", 10);
 
     // 设置循环的频率
-    ros::Rate loop\_rate(1);
-    ROS\_INFO("The data of IMU already published!");
+    ros::Rate loop_rate(1);
+    ROS_INFO("The data of IMU already published!");
     int count = 0;
     while (ros::ok())
     {
-        // 初始化learning\_topic::Person类型的消息
+        // 初始化learning_topic::Person类型的消息
     	sensor_msgs::Imu msg;
         sensor_msgs::NavSatFix msg2;
         msg.linear_acceleration.x=10;
@@ -188,7 +159,7 @@ int main(int argc, char \*\*argv)
          // 发布消息
         IMU_info_pub.publish(msg);
         GPS_info_pub.publish(msg2);
-        // ROS\_INFO("The data of IMU: x:%d y:%d z:%d w:%d", 
+        // ROS_INFO("The data of IMU: x:%d y:%d z:%d w:%d", 
 		// msg.x, msg.y, msg.z,msg.w);
 		loop_rate.sleep();
 	}

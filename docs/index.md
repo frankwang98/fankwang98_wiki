@@ -28,8 +28,6 @@ Welcome to my wiki ! ———— 修车转修电脑❤！
 
 ![](images/intro/3.jpg)
 
-[interview](./Other/interview.md)
-
 ### 3. 学习网站
 
 - [tsinghua](https://mirrors.tuna.tsinghua.edu.cn/)

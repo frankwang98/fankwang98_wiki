@@ -12,6 +12,9 @@ copyright: Copyright &copy; 2022 - 2024 DevFrank
 # Contents 导航栏
 nav:
   - 简介: index.md
+  - C嵌入式:
+    - STM32嵌入式系统入门: c_stm32/STM32嵌入式系统入门.md
+
   - C++基础: 
     - 环境配置与基础语法: cpp_basic/C++环境配置与基础语法.md
     - 标准库: cpp_basic/C++标准库.md
@@ -42,6 +45,7 @@ nav:
     - MQTT安装与配置使用: cpp_library/MQTT安装与配置使用.md
     - vsomeip消息队列库: cpp_library/vsomeip消息队列库.md
     - LCM通讯中间件配置使用: cpp_library/LCM通讯中间件配置使用.md
+    - iceoryx环境配置与基础示例: cpp_library/iceoryx环境配置与基础示例.md
     - grpc远程过程调用配置与使用: cpp_library/grpc远程过程调用配置与使用.md
     - brpc远程过程调用配置与使用: cpp_library/brpc远程过程调用配置与使用.md
     - libev事件循环库配置使用: cpp_library/libev事件循环库配置使用.md
@@ -86,14 +90,9 @@ nav:
     - crowcpp微型web框架配置使用: cpp_library/crowcpp微型web框架配置使用.md
     - Box2D动力学库配置: cpp_library/Box2D动力学库配置.md
 
-    - Web文件服务器: cpp_library/Web文件服务器.md
-    - ThreadPoll线程池实现与使用: cpp_library/ThreadPoll线程池实现与使用.md
-    - cpp-tbox百宝箱组件库: cpp_library/cpp-tbox百宝箱组件库.md
-
   - Qt:
     - Qt环境安装与基础示例: cpp_qt/Qt环境安装与基础示例.md
-    - vs2017+qt环境配置: cpp_qt/vs2017+qt环境配置.md
-    - qml环境配置: cpp_qt/qml环境配置.md
+    - vs2017+qt环境配置与qml示例: cpp_qt/vs2017+qt环境配置与qml示例.md
     - QWidget与注册登陆界面: cpp_qt/QWidget与注册登陆界面.md
     - Qt事件与正弦曲线绘制示例: cpp_qt/Qt事件与正弦曲线绘制示例.md
     - QCustomPlot图表绘制库: cpp_qt/QCustomPlot图表绘制库.md
@@ -103,35 +102,24 @@ nav:
     - CAN分析仪二次开发示例: cpp_qt/CAN分析仪二次开发示例.md
     - TCP+UDP网络通信示例: cpp_qt/TCP+UDP网络通信示例.md
     - windeployqt+nsis程序打包和发布: cpp_qt/windeployqt+nsis程序打包和发布.md
-    - wxGlade配置与使用: cpp_qt/wxGlade配置与使用.md
 
   - ROS:
     - ROS环境安装与基础示例: cpp_ros/ROS环境安装与基础示例.md
     - ROS2环境配置与基础示例: cpp_ros/ROS2环境配置与基础示例.md
-    - 机器人+自动驾驶学习路线: cpp_ros/机器人+自动驾驶学习路线.md
-    - ROS学习入门: cpp_ros/ROS学习入门.md
-    - Windows系统安装ROS体验: cpp_ros/Windows系统安装ROS体验.md
-    - ROS+Qt界面开发环境搭建: cpp_ros/ROS+Qt界面开发环境搭建.md
+    - Windows安装ROS与ROSQt开发环境: cpp_ros/Windows安装ROS与ROSQt开发环境.md
     - ROS常用硬件驱动与功能包: cpp_ros/ROS常用硬件驱动与功能包.md
-    - 树莓派资源介绍与实例: cpp_ros/树莓派资源介绍与实例.md
-    - 树莓派ROS智能小车调试使用记录: cpp_ros/树莓派ROS智能小车调试使用记录.md
-    - Carla开源仿真环境配置与使用示例: cpp_ros/Carla开源仿真环境配置与使用示例.md
+    - Carla仿真器配置与使用示例: cpp_ros/Carla仿真器配置与使用示例.md
     - fsd_algorithm架构与源码学习: cpp_ros/fsd_algorithm架构与源码学习.md
-    - FastDDS环境配置与使用示例: cpp_ros/FastDDS环境配置与使用示例.md
-    - OpenDDS环境配置与使用示例: cpp_ros/OpenDDS环境配置与使用示例.md
-
-    - PID控制算法原理与仿真实现示例: cpp_ros/PID控制算法原理与仿真实现示例.md
-    - AStar规划算法原理与实现: cpp_ros/AStar规划算法原理与实现.md
-    - navigation导航模块学习与算法示例: cpp_ros/navigation导航模块学习与算法示例.md
+    - DDS环境配置与使用示例: cpp_ros/DDS环境配置与使用示例.md
+    
     - SLAM学习与算法示例: cpp_ros/SLAM学习与算法示例.md
     - cv_bridge包使用与图像转换示例: cpp_ros/cv_bridge包使用与图像转换示例.md
     - pcl_ros包使用与点云转换示例: cpp_ros/pcl_ros包使用与点云转换示例.md
     - message_filters时间同步介绍与示例: cpp_ros/message_filters时间同步介绍与示例.md
-    - 多传感器目标融合学习: cpp_ros/多传感器目标融合学习.md
+    - PID控制算法原理与仿真实现示例: cpp_ros/PID控制算法原理与仿真实现示例.md
     - PurePursuit纯跟踪控制节点: cpp_ros/PurePursuit纯跟踪控制节点.md
     - mpc_follower模型预测控制节点: cpp_ros/mpc_follower模型预测控制节点.md
-    - 决策规划模块解析: cpp_ros/决策规划模块解析.md
-    - Astar规划节点: cpp_ros/Astar规划节点.md
+    - AStar规划算法原理与实现: cpp_ros/AStar规划算法原理与实现.md
     - OpenPlanner规划节点: cpp_ros/OpenPlanner规划节点.md
 
     - 2小时安装Autoware1.13: cpp_ros/2小时安装Autoware1.13.md
@@ -154,8 +142,6 @@ nav:
     - NDT点云配准: cpp_cv/NDT点云配准.md
     - CloudViewer可视化: cpp_cv/CloudViewer可视化.md
     - PCL点云在Qt中可视化: cpp_cv/PCL点云在Qt中可视化.md
-    - 激光雷达常用传统感知算法学习: cpp_cv/激光雷达常用传统感知算法学习.md
-    - 激光SLAM简介与常用框架: cpp_cv/激光SLAM简介与常用框架.md
 
     - AI模型部署概述: cpp_cv/AI模型部署概述.md
     - Windows端深度学习环境配置: cpp_cv/Windows端深度学习环境配置.md
@@ -189,14 +175,9 @@ nav:
 
   - Shell:
     - tmux终端容器使用示例: shell/tmux终端容器使用示例.md
-    - bat获取当前时间并输出带时间的log日志: shell/bat获取当前时间并输出带时间的log日志.md
-    - bat脚本基础、顺序条件和循环语句: shell/bat脚本基础、顺序条件和循环语句.md
-    - bat用脚本实现git-clone和文件解压: shell/bat用脚本实现git-clone和文件解压.md
-    - shell编辑器配置与常用shell命令: shell/shell编辑器配置与常用shell命令.md
-    - git掌握基本的git指令并学会从代码仓库学习: shell/git掌握基本的git指令并学会从代码仓库学习.md
-    - git图形化git管理工具SourceTree: shell/git图形化git管理工具SourceTree.md
-    - gitCICD持续集成与部署C++示例: shell/gitCICD持续集成与部署C++示例.md
-    - git基于gitbook的文档版本管理: shell/git基于gitbook的文档版本管理.md
+    - 常用shell命令: shell/常用shell命令.md
+    - toolbox: shell/toolbox.md
+    - advice: shell/advice.md
 
   - Python:
     - Python环境安装与基础示例: python/Python环境安装与基础示例.md
@@ -209,10 +190,6 @@ nav:
     - Python基于mkdocs搭建个人wiki博客: python/Python基于mkdocs搭建个人wiki博客.md
     - PythonOpenCV库基本应用: python/PythonOpenCV库基本应用.md
     - PythonPyQt5开发环境搭建: python/PythonPyQt5开发环境搭建.md
-
-  # Go:
-
-  # Java:
 
 
 # 主题

@@ -1,21 +1,5 @@
 
 
-
-
-
-
-
-
-
-#### 文章目录
-
-
-* + [1. 技术原理](#1__1)
-	+ [2. 代码实现](#2__18)
-
-
-
-
 ### 1. 技术原理
 
 
@@ -44,7 +28,7 @@ MPC算法可以用于实现车辆的路径跟踪和速度控制。具体地，�
 ### 2. 代码实现
 
 
-在Autoware中，MPC算法主要实现在mpc\_follower节点中。该节点接收`/vehicle_status、/vehicle_cmd和/trajectory`等消息，其中`/vehicle_status`消息包括车辆状态信息（例如位置、速度、方向等），`/vehicle_cmd`消息包括车辆控制指令（例如方向盘转角、油门踏板位置、刹车踏板位置等），`/trajectory`消息包括规划的车辆轨迹。通过对这些消息的处理，mpc\_follower节点可以计算出最优的车辆控制指令，并将其发送给`/vehicle_cmd`话题，从而实现对车辆的控制。
+在Autoware中，MPC算法主要实现在mpc_follower节点中。该节点接收`/vehicle_status、/vehicle_cmd和/trajectory`等消息，其中`/vehicle_status`消息包括车辆状态信息（例如位置、速度、方向等），`/vehicle_cmd`消息包括车辆控制指令（例如方向盘转角、油门踏板位置、刹车踏板位置等），`/trajectory`消息包括规划的车辆轨迹。通过对这些消息的处理，mpc_follower节点可以计算出最优的车辆控制指令，并将其发送给`/vehicle_cmd`话题，从而实现对车辆的控制。
 
 
 在实现MPC控制的过程中，需要定义车辆的动态模型、代价函数以及约束条件等。可以通过编辑`mpc_param.yaml`文件来配置MPC控制的参数。
@@ -53,7 +37,7 @@ MPC算法可以用于实现车辆的路径跟踪和速度控制。具体地，�
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/948f9d190d674a80834528f56b2c11df.png)
 
 
-mpc\_follower\_core.h
+mpc_follower_core.h
 
 
 
@@ -66,47 +50,47 @@ mpc\_follower\_core.h
 #include <deque>
 
 #include <ros/ros.h>
-#include <std\_msgs/Float64.h>
-#include <std\_msgs/Float32.h>
-#include <std\_msgs/Float64MultiArray.h>
-#include <geometry\_msgs/PoseStamped.h>
-#include <geometry\_msgs/TwistStamped.h>
-#include <visualization\_msgs/MarkerArray.h>
-#include <visualization\_msgs/Marker.h>
+#include <std_msgs/Float64.h>
+#include <std_msgs/Float32.h>
+#include <std_msgs/Float64MultiArray.h>
+#include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/TwistStamped.h>
+#include <visualization_msgs/MarkerArray.h>
+#include <visualization_msgs/Marker.h>
 #include <tf2/utils.h>
 
 #include <eigen3/Eigen/Core>
 #include <eigen3/Eigen/LU>
 
-#include <autoware\_msgs/ControlCommandStamped.h>
-#include <autoware\_msgs/Lane.h>
-#include <autoware\_msgs/VehicleStatus.h>
+#include <autoware_msgs/ControlCommandStamped.h>
+#include <autoware_msgs/Lane.h>
+#include <autoware_msgs/VehicleStatus.h>
 
-#include "mpc\_follower/mpc\_utils.h"
-#include "mpc\_follower/mpc\_trajectory.h"
-#include "mpc\_follower/lowpass\_filter.h"
-#include "mpc\_follower/vehicle\_model/vehicle\_model\_bicycle\_kinematics.h"
-#include "mpc\_follower/vehicle\_model/vehicle\_model\_bicycle\_dynamics.h"
-#include "mpc\_follower/vehicle\_model/vehicle\_model\_bicycle\_kinematics\_no\_delay.h"
-#include "mpc\_follower/qp\_solver/qp\_solver\_unconstr.h"
-#include "mpc\_follower/qp\_solver/qp\_solver\_unconstr\_fast.h"
-#include "mpc\_follower/qp\_solver/qp\_solver\_qpoases.h"
+#include "mpc_follower/mpc_utils.h"
+#include "mpc_follower/mpc_trajectory.h"
+#include "mpc_follower/lowpass_filter.h"
+#include "mpc_follower/vehicle_model/vehicle_model_bicycle_kinematics.h"
+#include "mpc_follower/vehicle_model/vehicle_model_bicycle_dynamics.h"
+#include "mpc_follower/vehicle_model/vehicle_model_bicycle_kinematics_no_delay.h"
+#include "mpc_follower/qp_solver/qp_solver_unconstr.h"
+#include "mpc_follower/qp_solver/qp_solver_unconstr_fast.h"
+#include "mpc_follower/qp_solver/qp_solver_qpoases.h"
 
-/\*\* 
- \* @class MPC-based waypoints follower class
- \* @brief calculate control command to follow reference waypoints
- \*/
+/** 
+ * @class MPC-based waypoints follower class
+ * @brief calculate control command to follow reference waypoints
+ */
 class MPCFollower
 {
 public:
-  /\*\*
- \* @brief constructor
- \*/
+  /**
+ * @brief constructor
+ */
   MPCFollower();
 
-  /\*\*
- \* @brief destructor
- \*/
+  /**
+ * @brief destructor
+ */
   ~MPCFollower();
 
 private:
@@ -128,9 +112,9 @@ private:
   std::string vehicle_model_type_;                           //!< @brief vehicle model type for MPC
   std::shared_ptr<QPSolverInterface> qpsolver_ptr_;          //!< @brief qp solver for MPC
   std::string output_interface_;                             //!< @brief output command type
-  std::deque<double> input_buffer_;                          //!< @brief control input (mpc\_output) buffer for delay time conpemsation
+  std::deque<double> input_buffer_;                          //!< @brief control input (mpc_output) buffer for delay time conpemsation
 
-  /\* parameters for control\*/
+  /* parameters for control*/
   double ctrl_period_;              //!< @brief control frequency [s]
   double steering_lpf_cutoff_hz_;   //!< @brief cutoff frequency of lowpass filter for steering command [Hz]
   double admisible_position_error_; //!< @brief stop MPC calculation when lateral error is large than this value [m]
@@ -138,7 +122,7 @@ private:
   double steer_lim_deg_;            //!< @brief steering command limit [rad]
   double wheelbase_;                //!< @brief vehicle wheelbase length [m] to convert steering angle to angular velocity
 
-  /\* parameters for path smoothing \*/
+  /* parameters for path smoothing */
   bool enable_path_smoothing_;     //< @brief flag for path smoothing
   bool enable_yaw_recalculation_;  //< @brief flag for recalculation of yaw angle after resampling
   int path_filter_moving_ave_num_; //< @brief param of moving average filter for path smoothing
@@ -152,9 +136,9 @@ private:
     double prediction_sampling_time;                //< @brief prediction horizon period
     double weight_lat_error;                        //< @brief lateral error weight in matrix Q
     double weight_heading_error;                    //< @brief heading error weight in matrix Q
-    double weight_heading_error_squared_vel_coeff;  //< @brief heading error \* velocity weight in matrix Q
+    double weight_heading_error_squared_vel_coeff;  //< @brief heading error * velocity weight in matrix Q
     double weight_steering_input;                   //< @brief steering error weight in matrix R
-    double weight_steering_input_squared_vel_coeff; //< @brief steering error \* velocity weight in matrix R
+    double weight_steering_input_squared_vel_coeff; //< @brief steering error * velocity weight in matrix R
     double weight_lat_jerk;                         //< @brief lateral jerk weight in matrix R
     double weight_terminal_lat_error;               //< @brief terminal lateral error weight in matrix Q
     double weight_terminal_heading_error;           //< @brief terminal heading error weight in matrix Q
@@ -176,66 +160,66 @@ private:
   double lateral_error_prev_; //< @brief previous lateral error for derivative
   double yaw_error_prev_;     //< @brief previous lateral error for derivative
 
-  /\* flags \*/
+  /* flags */
   bool my_position_ok_; //< @brief flag for validity of current pose
   bool my_velocity_ok_; //< @brief flag for validity of current velocity
   bool my_steering_ok_; //< @brief flag for validity of steering angle
 
-  /\*\*
- \* @brief compute and publish control command for path follow with a constant control period
- \*/
+  /**
+ * @brief compute and publish control command for path follow with a constant control period
+ */
   void timerCallback(const ros::TimerEvent &);
 
-  /\*\*
- \* @brief set current\_waypoints\_ with receved message
- \*/
+  /**
+ * @brief set current_waypoints_ with receved message
+ */
   void callbackRefPath(const autoware_msgs::Lane::ConstPtr &);
 
-  /\*\*
- \* @brief set vehicle\_status\_.pose with receved message 
- \*/
+  /**
+ * @brief set vehicle_status_.pose with receved message 
+ */
   void callbackPose(const geometry_msgs::PoseStamped::ConstPtr &);
 
-  /\*\*
- \* @brief set vehicle\_status\_.twist and vehicle\_status\_.tire\_angle\_rad with receved message
- \*/
+  /**
+ * @brief set vehicle_status_.twist and vehicle_status_.tire_angle_rad with receved message
+ */
   void callbackVehicleStatus(const autoware_msgs::VehicleStatus &msg);
 
-  /\*\*
- \* @brief publish control command calculated by MPC
- \* @param [in] vel\_cmd velocity command [m/s] for vehicle control
- \* @param [in] acc\_cmd acceleration command [m/s2] for vehicle control
- \* @param [in] steer\_cmd steering angle command [rad] for vehicle control
- \* @param [in] steer\_vel\_cmd steering angle speed [rad/s] for vehicle control
- \*/
+  /**
+ * @brief publish control command calculated by MPC
+ * @param [in] vel_cmd velocity command [m/s] for vehicle control
+ * @param [in] acc_cmd acceleration command [m/s2] for vehicle control
+ * @param [in] steer_cmd steering angle command [rad] for vehicle control
+ * @param [in] steer_vel_cmd steering angle speed [rad/s] for vehicle control
+ */
   void publishControlCommands(const double &vel_cmd, const double &acc_cmd,
                               const double &steer_cmd, const double &steer_vel_cmd);
 
-  /\*\*
- \* @brief publish control command as geometry\_msgs/TwistStamped type
- \* @param [in] vel\_cmd velocity command [m/s] for vehicle control
- \* @param [in] omega\_cmd angular velocity command [rad/s] for vehicle control
- \*/
+  /**
+ * @brief publish control command as geometry_msgs/TwistStamped type
+ * @param [in] vel_cmd velocity command [m/s] for vehicle control
+ * @param [in] omega_cmd angular velocity command [rad/s] for vehicle control
+ */
   void publishTwist(const double &vel_cmd, const double &omega_cmd);
 
-  /\*\*
- \* @brief publish control command as autoware\_msgs/ControlCommand type
- \* @param [in] vel\_cmd velocity command [m/s] for vehicle control
- \* @param [in] acc\_cmd acceleration command [m/s2] for vehicle control
- \* @param [in] steer\_cmd steering angle command [rad] for vehicle control
- \*/
+  /**
+ * @brief publish control command as autoware_msgs/ControlCommand type
+ * @param [in] vel_cmd velocity command [m/s] for vehicle control
+ * @param [in] acc_cmd acceleration command [m/s2] for vehicle control
+ * @param [in] steer_cmd steering angle command [rad] for vehicle control
+ */
   void publishCtrlCmd(const double &vel_cmd, const double &acc_cmd, const double &steer_cmd);
 
-  /\*\*
- \* @brief calculate control command by MPC algorithm
- \* @param [out] vel\_cmd velocity command
- \* @param [out] acc\_cmd acceleration command
- \* @param [out] steer\_cmd steering command
- \* @param [out] steer\_vel\_cmd steering rotation speed command
- \*/
+  /**
+ * @brief calculate control command by MPC algorithm
+ * @param [out] vel_cmd velocity command
+ * @param [out] acc_cmd acceleration command
+ * @param [out] steer_cmd steering command
+ * @param [out] steer_vel_cmd steering rotation speed command
+ */
   bool calculateMPC(double &vel_cmd, double &acc_cmd, double &steer_cmd, double &steer_vel_cmd);
 
-  /\* debug \*/
+  /* debug */
   bool show_debug_info_;      //!< @brief flag to display debug info
 
   ros::Publisher pub_debug_filtered_traj_;        //!< @brief publisher for debug info
@@ -243,18 +227,18 @@ private:
   ros::Publisher pub_debug_values_;               //!< @brief publisher for debug info
   ros::Publisher pub_debug_mpc_calc_time_;        //!< @brief publisher for debug info
 
-  ros::Subscriber sub_estimate_twist_;         //!< @brief subscriber for /estimate\_twist for debug
-  geometry_msgs::TwistStamped estimate_twist_; //!< @brief received /estimate\_twist for debug
+  ros::Subscriber sub_estimate_twist_;         //!< @brief subscriber for /estimate_twist for debug
+  geometry_msgs::TwistStamped estimate_twist_; //!< @brief received /estimate_twist for debug
 
-  /\*\*
- \* @brief convert MPCTraj to visualizaton marker for visualization
- \*/
+  /**
+ * @brief convert MPCTraj to visualizaton marker for visualization
+ */
   void convertTrajToMarker(const MPCTrajectory &traj, visualization_msgs::Marker &markers,
                            std::string ns, double r, double g, double b, double z);
 
-  /\*\*
- \* @brief callback for estimate twist for debug
- \*/
+  /**
+ * @brief callback for estimate twist for debug
+ */
   void callbackEstimateTwist(const geometry_msgs::TwistStamped &msg) { estimate_twist_ = msg; }
 };
 

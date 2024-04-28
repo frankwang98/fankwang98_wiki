@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 #### 文章目录
 
 
@@ -115,16 +106,16 @@ mingw32-make install # 生成install目录，这是我们需要的include和lib
 
 
 ```
-set(OpenCV_DIR "D:/develop/opencv341\_mingw/x64/mingw/lib")
+set(OpenCV_DIR "D:/develop/opencv341_mingw/x64/mingw/lib")
 
 find_package(OpenCV 3 REQUIRED)
-include_directories(${OpenCV\_INCLUDE\_DIRS})
-link_directories(${OpenCV\_LIBRARIES})
+include_directories(${OpenCV_INCLUDE_DIRS})
+link_directories(${OpenCV_LIBRARIES})
 
 add_executable(test main.cpp )
 
-target_link_libraries(${PROJECT\_NAME}
-        ${OpenCV\_LIBS}
+target_link_libraries(${PROJECT_NAME}
+        ${OpenCV_LIBS}
         )
 
 ```
@@ -182,15 +173,15 @@ pkg-config --modversion opencv
 
 
 ```
-# ippicv\_2020\_lnx\_intel64\_20191018\_general.tgz解决办法
+# ippicv_2020_lnx_intel64_20191018_general.tgz解决办法
 cd opencv-xxx/3rdparty/ippicv
 vim ippicv.cmake
-找到https://raw.githubusercontent.com/opencv/opencv_3rdparty/${IPPICV\_COMMIT}/ippicv/
+找到https://raw.githubusercontent.com/opencv/opencv_3rdparty/${IPPICV_COMMIT}/ippicv/
 在链接前加上github的代理地址：https://ghproxy.com/（后续一样）
-# face\_landmark\_model.dat解决办法
+# face_landmark_model.dat解决办法
 cd opencv-xxx/opencv_contrib-4.5.1/modules/face
 vim CMakeLists.txt
-找到"https://raw.githubusercontent.com/opencv/opencv\_3rdparty/${\_\_commit\_hash}/"
+找到"https://raw.githubusercontent.com/opencv/opencv_3rdparty/${__commit_hash}/"
 添加代理地址
 # .i文件解决办法
 cd /opencv-xxx/opencv_contrib-xxx/modules/xfeatures2d/cmake
@@ -264,9 +255,9 @@ https://developer.nvidia.com/cuda-11-5-0-download-archive
 wget https://developer.download.nvidia.com/compute/cuda/11.5.0/local_installers/cuda_11.5.0_495.29.05_linux.run
 sudo sh cuda_11.5.0_495.29.05_linux.run
 sudo gedit ~/.bashrc
-export LD\_LIBRARY\_PATH=$LD\_LIBRARY\_PATH:/usr/local/cuda-11.5/lib64
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-11.5/lib64
 export PATH=$PATH:/usr/local/cuda-11.5/bin
-export CUDA\_HOME=$CUDA\_HOME:/usr/local/cuda-11.5
+export CUDA_HOME=$CUDA_HOME:/usr/local/cuda-11.5
 source ~/.bashrc
 nvcc -V  # 验证版本
 # 卸载的话
@@ -279,25 +270,25 @@ To uninstall the CUDA Toolkit, run cuda-uninstaller in /usr/local/cuda-11.5/bin
 
 
 ```
-cmake \
--D CMAKE\_BUILD\_TYPE=RELEASE \
--D CMAKE\_INSTALL\_PREFIX=/usr/local \
--D INSTALL\_PYTHON\_EXAMPLES=OFF \
--D INSTALL\_C\_EXAMPLES=OFF \
--D OPENCV\_ENABLE\_NONFREE=ON \
--D BUILD\_TIFF=OFF \
--D OPENCV\_EXTRA\_MODULES\_PATH=~/opencv_contrib-4.2.0/modules \
--D BUILD\_EXAMPLES=OFF \
--D CUDA\_ARCH\_BIN='8.0' \
--D WITH\_CUDA=ON \
--D WITH\_CUDNN=ON \
--D WITH\_FFMPEG=ON \
--D WITH\_V4L=ON \
--D WITH\_QT=ON \
--D OPENCV\_DNN\_CUDA=ON \
--D WITH\_CUBLAS=ON \
--D OPENCV\_GENERATE\_PKGCONFIG=YES \
--D CUDA\_nppicom\_LIBRARY=stdc++ \
+cmake 
+-D CMAKE_BUILD_TYPE=RELEASE 
+-D CMAKE_INSTALL_PREFIX=/usr/local 
+-D INSTALL_PYTHON_EXAMPLES=OFF 
+-D INSTALL_C_EXAMPLES=OFF 
+-D OPENCV_ENABLE_NONFREE=ON 
+-D BUILD_TIFF=OFF 
+-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-4.2.0/modules 
+-D BUILD_EXAMPLES=OFF 
+-D CUDA_ARCH_BIN='8.0' 
+-D WITH_CUDA=ON 
+-D WITH_CUDNN=ON 
+-D WITH_FFMPEG=ON 
+-D WITH_V4L=ON 
+-D WITH_QT=ON 
+-D OPENCV_DNN_CUDA=ON 
+-D WITH_CUBLAS=ON 
+-D OPENCV_GENERATE_PKGCONFIG=YES 
+-D CUDA_nppicom_LIBRARY=stdc++ 
 ..
 
 ```

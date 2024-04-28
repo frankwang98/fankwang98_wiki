@@ -96,7 +96,7 @@ FastDDS有`bin、source、docker image`三种安装方式。
  安装包里，`install.sh`会自动安装各种依赖，然后进入src目录下，分别构建以下库：
 
 
-* foonathan\_memory\_vendor，一个 STL 兼容的 C++ 内存分配器 库。
+* foonathan_memory_vendor，一个 STL 兼容的 C++ 内存分配器 库。
 * fastcdr，一个根据 CDR 标准进行数据序列化的 C++ 库。
 * fastrtps，eProsima Fast DDS库的核心库。
 * fastddsgen，一个使用 IDL 文件中定义的数据类型生成源代码的 Java 应用程序。
@@ -130,7 +130,7 @@ cmake --version
 
 ```
 sudo ./install.sh
-# 安装了：git、build-essential、cmake、libssl-dev、libasio-dev、libtinyxml2-dev、openjdk-8-jre-headless、foonathan\_memory\_vendor、fastcdr、fastrtps(Fast DDS)、fastddsgen。
+# 安装了：git、build-essential、cmake、libssl-dev、libasio-dev、libtinyxml2-dev、openjdk-8-jre-headless、foonathan_memory_vendor、fastcdr、fastrtps(Fast DDS)、fastddsgen。
 # 如果要测试FastDDS中的examples，需要在install.sh脚本脚本中打开该选项，默认为OFF。
 
 ```
@@ -215,10 +215,10 @@ HelloWorldPublisher.cpp
 
 
 ```
-/\*\*
- \* @file HelloWorldPublisher.cpp
- \*
- \*/
+/**
+ * @file HelloWorldPublisher.cpp
+ *
+ */
 
 #include "./build/HelloWorld.h"
 #include "./build/HelloWorldPubSubTypes.h"
@@ -237,13 +237,13 @@ class HelloWorldPublisher
 private:
     HelloWorld hello_;
 
-    DomainParticipant \*participant_;
+    DomainParticipant *participant_;
 
-    Publisher \*publisher_;
+    Publisher *publisher_;
 
-    Topic \*topic_;
+    Topic *topic_;
 
-    DataWriter \*writer_;
+    DataWriter *writer_;
 
     TypeSupport type_;
 
@@ -251,7 +251,7 @@ private:
     {
     public:
         PubListener()
-            : matched\_(0)
+            : matched_(0)
         {
         }
 
@@ -259,8 +259,8 @@ private:
         {
         }
 
-        void on\_publication\_matched(
-            DataWriter \*,
+        void on_publication_matched(
+            DataWriter *,
             const PublicationMatchedStatus &info) override
         {
             if (info.current_count_change == 1)
@@ -285,7 +285,7 @@ private:
 
 public:
     HelloWorldPublisher()
-        : participant\_(nullptr), publisher\_(nullptr), topic\_(nullptr), writer\_(nullptr), type\_(new HelloWorldPubSubType())
+        : participant_(nullptr), publisher_(nullptr), topic_(nullptr), writer_(nullptr), type_(new HelloWorldPubSubType())
     {
     }
 
@@ -293,17 +293,17 @@ public:
     {
         if (writer_ != nullptr)
         {
-            publisher_->delete\_datawriter(writer_);
+            publisher_->delete_datawriter(writer_);
         }
         if (publisher_ != nullptr)
         {
-            participant_->delete\_publisher(publisher_);
+            participant_->delete_publisher(publisher_);
         }
         if (topic_ != nullptr)
         {
-            participant_->delete\_topic(topic_);
+            participant_->delete_topic(topic_);
         }
-        DomainParticipantFactory::get\_instance()->delete\_participant(participant_);
+        DomainParticipantFactory::get_instance()->delete_participant(participant_);
     }
 
     // Initialize the publisher
@@ -313,8 +313,8 @@ public:
         hello_.message("HelloWorld, this is FastDDS."); // define message
 
         DomainParticipantQos participantQos;
-        participantQos.name("Participant\_publisher");
-        participant_ = DomainParticipantFactory::get\_instance()->create\_participant(0, participantQos);
+        participantQos.name("Participant_publisher");
+        participant_ = DomainParticipantFactory::get_instance()->create_participant(0, participantQos);
 
         if (participant_ == nullptr)
         {
@@ -322,10 +322,10 @@ public:
         }
 
         // Register the Type
-        type_.register\_type(participant_);
+        type_.register_type(participant_);
 
         // Create the publications Topic
-        topic_ = participant_->create\_topic("HelloWorldTopic", "HelloWorld", TOPIC_QOS_DEFAULT);
+        topic_ = participant_->create_topic("HelloWorldTopic", "HelloWorld", TOPIC_QOS_DEFAULT);
 
         if (topic_ == nullptr)
         {
@@ -333,7 +333,7 @@ public:
         }
 
         // Create the Publisher
-        publisher_ = participant_->create\_publisher(PUBLISHER_QOS_DEFAULT, nullptr);
+        publisher_ = participant_->create_publisher(PUBLISHER_QOS_DEFAULT, nullptr);
 
         if (publisher_ == nullptr)
         {
@@ -341,7 +341,7 @@ public:
         }
 
         // Create the DataWriter
-        writer_ = publisher_->create\_datawriter(topic_, DATAWRITER_QOS_DEFAULT, &listener_);
+        writer_ = publisher_->create_datawriter(topic_, DATAWRITER_QOS_DEFAULT, &listener_);
 
         if (writer_ == nullptr)
         {
@@ -363,9 +363,9 @@ public:
     }
 
     // Run the Publisher
-    void run(uint32\_t samples)
+    void run(uint32_t samples)
     {
-        uint32\_t samples_sent = 0;
+        uint32_t samples_sent = 0;
         while (samples_sent < samples)
         {
             if (publish())
@@ -373,20 +373,20 @@ public:
                 samples_sent++;
                 std::cout << "Message: " << hello_.message() << " with index: " << hello_.index() << " SENT" << std::endl;
             }
-            std::this_thread::sleep\_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
     }
 };
 
-int main(int argc, char \*\*argv)
+int main(int argc, char **argv)
 {
     std::cout << "Starting publisher." << std::endl;
     int samples = 10; // pub count
 
-    HelloWorldPublisher \*mypub = new HelloWorldPublisher();
+    HelloWorldPublisher *mypub = new HelloWorldPublisher();
     if (mypub->init())
     {
-        mypub->run(static\_cast<uint32\_t>(samples));
+        mypub->run(static_cast<uint32_t>(samples));
     }
 
     delete mypub;
@@ -400,10 +400,10 @@ HelloWorldSubscriber.cpp
 
 
 ```
-/\*\*
- \* @file HelloWorldSubscriber.cpp
- \*
- \*/
+/**
+ * @file HelloWorldSubscriber.cpp
+ *
+ */
 #include "./build/HelloWorld.h"
 #include "./build/HelloWorldPubSubTypes.h"
 
@@ -421,13 +421,13 @@ using namespace eprosima::fastdds::dds;
 class HelloWorldSubscriber
 {
 private:
-    DomainParticipant \*participant_;
+    DomainParticipant *participant_;
 
-    Subscriber \*subscriber_;
+    Subscriber *subscriber_;
 
-    DataReader \*reader_;
+    DataReader *reader_;
 
-    Topic \*topic_;
+    Topic *topic_;
 
     TypeSupport type_;
 
@@ -435,7 +435,7 @@ private:
     {
     public:
         SubListener()
-            : samples\_(0)
+            : samples_(0)
         {
         }
 
@@ -443,8 +443,8 @@ private:
         {
         }
 
-        void on\_subscription\_matched(
-            DataReader \*,
+        void on_subscription_matched(
+            DataReader *,
             const SubscriptionMatchedStatus &info) override
         {
             if (info.current_count_change == 1)
@@ -462,11 +462,11 @@ private:
             }
         }
 
-        void on\_data\_available(
-            DataReader \*reader) override
+        void on_data_available(
+            DataReader *reader) override
         {
             SampleInfo info;
-            if (reader->take\_next\_sample(&hello_, &info) == ReturnCode_t::RETCODE_OK)
+            if (reader->take_next_sample(&hello_, &info) == ReturnCode_t::RETCODE_OK)
             {
                 if (info.valid_data)
                 {
@@ -485,7 +485,7 @@ private:
 
 public:
     HelloWorldSubscriber()
-        : participant\_(nullptr), subscriber\_(nullptr), topic\_(nullptr), reader\_(nullptr), type\_(new HelloWorldPubSubType())
+        : participant_(nullptr), subscriber_(nullptr), topic_(nullptr), reader_(nullptr), type_(new HelloWorldPubSubType())
     {
     }
 
@@ -493,25 +493,25 @@ public:
     {
         if (reader_ != nullptr)
         {
-            subscriber_->delete\_datareader(reader_);
+            subscriber_->delete_datareader(reader_);
         }
         if (topic_ != nullptr)
         {
-            participant_->delete\_topic(topic_);
+            participant_->delete_topic(topic_);
         }
         if (subscriber_ != nullptr)
         {
-            participant_->delete\_subscriber(subscriber_);
+            participant_->delete_subscriber(subscriber_);
         }
-        DomainParticipantFactory::get\_instance()->delete\_participant(participant_);
+        DomainParticipantFactory::get_instance()->delete_participant(participant_);
     }
 
     // Initialize the subscriber
     bool init()
     {
         DomainParticipantQos participantQos;
-        participantQos.name("Participant\_subscriber");
-        participant_ = DomainParticipantFactory::get\_instance()->create\_participant(0, participantQos);
+        participantQos.name("Participant_subscriber");
+        participant_ = DomainParticipantFactory::get_instance()->create_participant(0, participantQos);
 
         if (participant_ == nullptr)
         {
@@ -519,10 +519,10 @@ public:
         }
 
         // Register the Type
-        type_.register\_type(participant_);
+        type_.register_type(participant_);
 
         // Create the subscriptions Topic
-        topic_ = participant_->create\_topic("HelloWorldTopic", "HelloWorld", TOPIC_QOS_DEFAULT);
+        topic_ = participant_->create_topic("HelloWorldTopic", "HelloWorld", TOPIC_QOS_DEFAULT);
 
         if (topic_ == nullptr)
         {
@@ -530,7 +530,7 @@ public:
         }
 
         // Create the Subscriber
-        subscriber_ = participant_->create\_subscriber(SUBSCRIBER_QOS_DEFAULT, nullptr);
+        subscriber_ = participant_->create_subscriber(SUBSCRIBER_QOS_DEFAULT, nullptr);
 
         if (subscriber_ == nullptr)
         {
@@ -538,7 +538,7 @@ public:
         }
 
         // Create the DataReader
-        reader_ = subscriber_->create\_datareader(topic_, DATAREADER_QOS_DEFAULT, &listener_);
+        reader_ = subscriber_->create_datareader(topic_, DATAREADER_QOS_DEFAULT, &listener_);
 
         if (reader_ == nullptr)
         {
@@ -549,27 +549,27 @@ public:
     }
 
     // Run the Subscriber
-    void run(uint32\_t samples)
+    void run(uint32_t samples)
     {
         while (listener_.samples_ < samples)
         {
-            std::this_thread::sleep\_for(std::chrono::milliseconds(100));
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     }
 };
 
-int main(int argc, char \*\*argv)
+int main(int argc, char **argv)
 {
     std::cout << "Starting subscriber." << std::endl;
     int samples = 10; // sub count
 
-    HelloWorldSubscriber \*mysub = new HelloWorldSubscriber();
+    HelloWorldSubscriber *mysub = new HelloWorldSubscriber();
     if (mysub->init())
     {
-        /\* instant sub \*/
+        /* instant sub */
         while (1)
         {
-            mysub->run(static\_cast<uint32\_t>(samples));
+            mysub->run(static_cast<uint32_t>(samples));
         }
     }
 
@@ -584,41 +584,41 @@ CMakeLists.txt
 
 
 ```
-cmake\_minimum\_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.5)
 project(HelloWorldExample)
 
 set(CMAKE_CXX_STANDARD 11)
 
-find\_package(fastcdr REQUIRED)
-find\_package(fastrtps REQUIRED)
+find_package(fastcdr REQUIRED)
+find_package(fastrtps REQUIRED)
 
-# generate idl\_gen
-file(GLOB IDL_SOURCES "${CMAKE\_CURRENT\_SOURCE\_DIR}/\*.idl")
+# generate idl_gen
+file(GLOB IDL_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.idl")
 
 foreach(IDL_FILE ${IDL_SOURCES})
-    get\_filename\_component(IDL_BASE_NAME ${IDL_FILE} NAME_WE)
-    set(GENERATED_SOURCES "${CMAKE\_CURRENT\_BINARY\_DIR}/${IDL\_BASE\_NAME}.cxx" "${CMAKE\_CURRENT\_BINARY\_DIR}/${IDL\_BASE\_NAME}.h")
-    add\_custom\_command(
+    get_filename_component(IDL_BASE_NAME ${IDL_FILE} NAME_WE)
+    set(GENERATED_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/${IDL_BASE_NAME}.cxx" "${CMAKE_CURRENT_BINARY_DIR}/${IDL_BASE_NAME}.h")
+    add_custom_command(
         OUTPUT ${GENERATED_SOURCES}
         COMMAND fastddsgen -d ./ ${IDL_FILE}
         DEPENDS ${IDL_FILE}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generating C++ files from ${IDL\_FILE}"
+        COMMENT "Generating C++ files from ${IDL_FILE}"
     )
     list(APPEND GENERATED_CPP_SOURCES ${GENERATED_SOURCES})
 endforeach()
 
-include\_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # generate lib
-file(GLOB DDS_HELLOWORLD_SOURCES_CXX "./build/\*.cxx")
-add\_library(HelloWorld_IDL_lib ${DDS_HELLOWORLD_SOURCES_CXX})
+file(GLOB DDS_HELLOWORLD_SOURCES_CXX "./build/*.cxx")
+add_library(HelloWorld_IDL_lib ${DDS_HELLOWORLD_SOURCES_CXX})
 
-add\_executable(HelloWorldPublisher HelloWorldPublisher.cpp ${GENERATED_CPP_SOURCES})
-target\_link\_libraries(HelloWorldPublisher HelloWorld_IDL_lib fastcdr fastrtps)
+add_executable(HelloWorldPublisher HelloWorldPublisher.cpp ${GENERATED_CPP_SOURCES})
+target_link_libraries(HelloWorldPublisher HelloWorld_IDL_lib fastcdr fastrtps)
 
-add\_executable(HelloWorldSubscriber HelloWorldSubscriber.cpp ${GENERATED_CPP_SOURCES})
-target\_link\_libraries(HelloWorldSubscriber HelloWorld_IDL_lib fastcdr fastrtps)
+add_executable(HelloWorldSubscriber HelloWorldSubscriber.cpp ${GENERATED_CPP_SOURCES})
+target_link_libraries(HelloWorldSubscriber HelloWorld_IDL_lib fastcdr fastrtps)
 
 ```
 
@@ -637,6 +637,113 @@ make
 
 
 以上。
+
+
+
+### 😏1. opendds项目介绍
+
+
+项目Github地址：`https://github.com/OpenDDS/OpenDDS`
+
+
+官网：`https://opendds.org/`
+
+
+`OpenDDS`（`Open Data Distribution Service`）是一个开源的、高性能的实时数据分发和通信框架，符合`OMG`（`Object Management Group`）发布的`Data Distribution Service（DDS）`标准。它提供了分布式系统中实时通信和数据交换的基础设施，支持发布者-订阅者模型，使分布式应用程序能够可靠地交换数据。
+
+
+以下是OpenDDS的一些主要特点和功能：
+
+
+
+> 
+> 1.数据分发：OpenDDS提供了可靠的数据分发机制，可以在分布式系统中高效地传输数据。它支持灵活的QoS（Quality of Service）策略，可以根据应用程序的需求配置数据交换的可靠性、传输速率、延迟、带宽等参数。
+> 
+> 
+> 
+
+
+
+> 
+> 2.发布者-订阅者模型：OpenDDS基于发布者-订阅者模型，发布者将数据发布到特定的主题（Topic），而订阅者通过订阅相应的主题来接收数据。这种模型使得多个应用程序能够以异步、解耦的方式进行实时数据交换。
+> 
+> 
+> 
+
+
+
+> 
+> 3.多种数据类型支持：OpenDDS支持多种数据类型的交换，包括结构体、数组、枚举和序列等。它使用IDL（Interface Definition Language）来定义数据类型，并自动生成相应的代码和类型支持。
+> 
+> 
+> 
+
+
+
+> 
+> 4.可扩展性：OpenDDS具有良好的可扩展性，可以处理大规模分布式系统中的复杂通信需求。它支持动态发现和自适应性，可以自动发现和适应系统中的节点和资源变化。
+> 
+> 
+> 
+
+
+
+> 
+> 5.平台支持：OpenDDS可在多个平台上运行，包括Linux、Windows和macOS等。它提供了对不同操作系统和网络协议的支持，并且可以与其他编程语言（如C++、Java和Python）进行集成。
+> 
+> 
+> 
+
+
+
+> 
+> 6.社区支持：OpenDDS是一个活跃的开源项目，拥有一个积极的社区，提供了广泛的文档、示例代码和讨论论坛，以帮助开发人员学习和使用OpenDDS。
+> 
+> 
+> 
+
+
+`OpenDDS`是一个功能强大的实时数据分发和通信框架，适用于构建要求高性能、可靠性和实时性的分布式应用程序。它提供了丰富的功能和配置选项，可以根据应用程序的需求进行灵活的配置和定制。
+
+
+### 😊2. 环境配置
+
+
+下面进行环境配置：
+
+
+
+```
+sudo apt-get install build-essential libace-dev libssl-dev
+# 下载对应版本
+https://opendds.org/downloads.html
+# configure会下载ACE+TAO网络包，如果访问github慢，可以在configure的878和886行添加镜像源https://mirror.ghproxy.com/
+./configure
+# 编译
+make
+
+```
+
+### 😆3. 使用说明
+
+
+官方示例：
+
+
+
+```
+source setenv.sh
+cd DevGuideExamples/DCPS/Messenger
+./run_test.pl
+
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/6cbcd6c17cec4dba9bb3c0f895f02fa2.png)
+
+
+以上。
+
+
 
 
 
