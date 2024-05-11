@@ -19,3 +19,10 @@ git clone --recursive <URL of the repository> # 递归克隆
 ```
 
 main与gh-pages分支是独立的，分别维护源码和wiki。
+
+## tag_v1.0_20240511
+### add
+1. 基于mkdocs搭建wiki页面
+2. 合并CSDN文章到原来的wiki工程
+### fix
+1. windows和ubuntu编译部署
